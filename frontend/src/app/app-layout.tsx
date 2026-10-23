@@ -58,14 +58,16 @@ export function AppLayout() {
               />
             </span>
             <span className="hidden flex-col leading-tight min-[480px]:flex">
-              <span className="font-heading text-xl font-semibold text-accent">{t('app.name')}</span>
-              <span className="hidden text-[0.65rem] uppercase tracking-widest opacity-70 sm:block">
+              <span className="font-heading text-xl font-semibold whitespace-nowrap text-accent">
+                {t('app.name')}
+              </span>
+              <span className="hidden text-[0.65rem] uppercase tracking-widest whitespace-nowrap opacity-70 2xl:block">
                 {t('app.org')}
               </span>
             </span>
           </Link>
 
-          <ul className="hidden items-center gap-8 md:flex">
+          <ul className="hidden items-center gap-5 xl:flex 2xl:gap-8">
             {visible.map((link) => (
               <li key={link.to}>
                 <NavLink
@@ -73,7 +75,7 @@ export function AppLayout() {
                   end={link.to === '/'}
                   className={({ isActive }) =>
                     cn(
-                      'relative py-1 text-[0.78rem] font-medium uppercase tracking-[0.16em] opacity-80 transition-opacity hover:opacity-100',
+                      'relative whitespace-nowrap py-1 text-[0.72rem] font-medium uppercase tracking-[0.12em] 2xl:text-[0.78rem] 2xl:tracking-[0.16em] opacity-80 transition-opacity hover:opacity-100',
                       'after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:scale-x-100',
                       isActive && 'text-accent opacity-100 after:scale-x-100',
                     )
@@ -148,7 +150,7 @@ export function AppLayout() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden hover:bg-primary-foreground/10"
+              className="xl:hidden hover:bg-primary-foreground/10"
               aria-expanded={open}
               aria-label={t('nav.menu')}
               onClick={() => setOpen(!open)}
@@ -160,7 +162,7 @@ export function AppLayout() {
         <div aria-hidden="true" className="h-[3px] border-y border-accent/40" />
 
         {open && (
-          <ul className="flex flex-col gap-1 px-4 py-4 md:hidden">
+          <ul className="flex flex-col gap-1 px-4 py-4 xl:hidden">
             {visible.map((link) => (
               <li key={link.to}>
                 <NavLink
