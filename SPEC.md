@@ -33,7 +33,8 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 | `/videos` | Video gallery | all videos of published exhibitions play and link back to their exhibition |
 | `/about` | About | mission, how an exhibition is made, platform numbers, contact and sources |
 | `/favorites` | Saved | lists saved exhibitions; empty state explains how to save |
-| `/sign-in` | Sign in | email and password validated; wrong credentials show an error; demo accounts can be filled in with one click |
+| `/sign-in` | Sign in | email and password validated; wrong credentials show an error; demo accounts can be filled in with one click; after success the user lands on the page for their role (visitor: home, curator: Studio, admin: Administration) with a greeting |
+| `/profile` | Profile | signed-in users see name, email, role with a short description, and their saved exhibitions |
 | `/studio` | Curator dashboard | lists own exhibitions with status; submit, edit, delete; empty state |
 | `/studio/new`, `/studio/:id/edit` | Editor | bilingual fields validated with Zod; sections can be added and removed; saved as draft or submitted; only the author or an admin can edit |
 | `/admin` | Admin | review queue (publish or return to draft) and users list |

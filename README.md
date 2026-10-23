@@ -60,7 +60,7 @@ Data lives in memory and resets on reload; favorites, language, theme and the de
 
 | Role | Screens and actions |
 |---|---|
-| **Visitor** | Home, catalog with search and filters, exhibition viewers (timeline, gallery, map, slider, 3D hall), object details, video gallery, collections, About; save favorites; switch language and theme |
+| **Visitor** | Home, catalog with search and filters, exhibition viewers (timeline, gallery, map, slider, 3D hall), object details, video gallery, collections, About; save favorites; switch language and theme; after signing in, a profile page |
 | **Curator** | Everything a visitor can, plus **Studio**: create an exhibition in two languages, add sections and objects, pick a template, save a draft, submit it for publishing, edit or delete own exhibitions |
 | **Admin** | Everything a curator can, plus **Administration**: review queue (publish or return to draft), edit any exhibition, list users |
 
@@ -74,7 +74,7 @@ The full list of screens with their "done when" criteria is in [`SPEC.md`](SPEC.
 | `/exhibitions` | Catalog with search and template filter (URL-synced) |
 | `/exhibitions/:slug` | Exhibition viewer (template decides the layout) + videos |
 | `/collections`, `/videos`, `/about` | Collections of the digital library, video gallery, about |
-| `/favorites`, `/sign-in` | Saved exhibitions, sign in |
+| `/favorites`, `/sign-in`, `/profile` | Saved exhibitions, sign in (lands on the page for your role), profile |
 | `/studio`, `/studio/new`, `/studio/:id/edit` | Curator dashboard and exhibition editor (curator, admin) |
 | `/admin` | Review queue and users (admin) |
 

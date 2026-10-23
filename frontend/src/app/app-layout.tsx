@@ -1,8 +1,9 @@
-import { Heart, LogOut, Menu, Moon, Sun, X } from 'lucide-react'
+import { Heart, LogOut, Menu, Moon, Sun, UserRound, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router'
 
 import { Button } from '@/components/ui/button'
+import { WelcomeBanner } from '@/components/welcome-banner'
 import { useCurrentUser, useSignOut } from '@/features/auth/api/use-auth'
 import { useFavorites } from '@/features/favorites/api/use-favorites'
 import { useI18n, type Lang } from '@/lib/i18n'
@@ -61,13 +62,10 @@ export function AppLayout() {
               <span className="font-heading text-xl font-semibold whitespace-nowrap text-accent">
                 {t('app.name')}
               </span>
-              <span className="hidden text-[0.65rem] uppercase tracking-widest whitespace-nowrap opacity-70 2xl:block">
-                {t('app.org')}
-              </span>
             </span>
           </Link>
 
-          <ul className="hidden items-center gap-5 xl:flex 2xl:gap-8">
+          <ul className="hidden items-center gap-5 xl:flex">
             {visible.map((link) => (
               <li key={link.to}>
                 <NavLink
@@ -75,7 +73,7 @@ export function AppLayout() {
                   end={link.to === '/'}
                   className={({ isActive }) =>
                     cn(
-                      'relative whitespace-nowrap py-1 text-[0.72rem] font-medium uppercase tracking-[0.12em] 2xl:text-[0.78rem] 2xl:tracking-[0.16em] opacity-80 transition-opacity hover:opacity-100',
+                      'relative whitespace-nowrap py-1 text-[0.72rem] font-medium uppercase tracking-[0.12em] opacity-80 transition-opacity hover:opacity-100',
                       'after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:scale-x-100',
                       isActive && 'text-accent opacity-100 after:scale-x-100',
                     )
@@ -128,15 +126,28 @@ export function AppLayout() {
               </Link>
             </Button>
             {user ? (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={signOut}
-                className="hidden hover:bg-primary-foreground/10 sm:inline-flex"
-              >
-                <LogOut />
-                {user.name.split(' ')[0]}
-              </Button>
+              <>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="hidden hover:bg-primary-foreground/10 sm:inline-flex"
+                >
+                  <Link to="/profile" aria-label={`${t('nav.profile')}: ${user.name}`}>
+                    <UserRound />
+                    {user.name.split(' ')[0]}
+                  </Link>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={signOut}
+                  aria-label={t('nav.signOut')}
+                  className="hidden hover:bg-primary-foreground/10 sm:inline-flex"
+                >
+                  <LogOut />
+                </Button>
+              </>
             ) : (
               <Button
                 asChild
@@ -175,10 +186,21 @@ export function AppLayout() {
                 </NavLink>
               </li>
             ))}
+            {user && (
+              <li>
+                <NavLink
+                  to="/profile"
+                  onClick={() => setOpen(false)}
+                  className="block border-b border-primary-foreground/10 py-3 font-heading text-2xl"
+                >
+                  {t('nav.profile')}
+                </NavLink>
+              </li>
+            )}
             <li>
               {user ? (
                 <button type="button" onClick={signOut} className="py-2">
-                  {t('nav.signOut')} ({user.name})
+                  {t('nav.signOut')} ({user.name}, {t(`role.${user.role}`)})
                 </button>
               ) : (
                 <Link to="/sign-in" onClick={() => setOpen(false)} className="block py-2 text-accent">
@@ -189,6 +211,8 @@ export function AppLayout() {
           </ul>
         )}
       </header>
+
+      <WelcomeBanner />
 
       <main id="main" className="mx-auto w-full max-w-7xl flex-1 px-4 py-8">
         <Outlet />

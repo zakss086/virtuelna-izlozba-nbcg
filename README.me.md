@@ -57,7 +57,7 @@ Potpuna lista ekrana sa kriterijumima „gotovo je kad“ nalazi se u [`SPEC.md`
 | `/exhibitions` | Katalog sa pretragom i filterom po predlošku |
 | `/exhibitions/:slug` | Čitač izložbe i video zapisi |
 | `/collections`, `/videos`, `/about` | Zbirke, video galerija, O nama |
-| `/favorites`, `/sign-in` | Sačuvano, prijava |
+| `/favorites`, `/sign-in`, `/profile` | Sačuvano, prijava (vodi na stranicu za tvoju ulogu), profil |
 | `/studio`, `/studio/new`, `/studio/:id/edit` | Pregled i uređivač izložbi (kustos, admin) |
 | `/admin` | Red za objavu i korisnici (admin) |
 

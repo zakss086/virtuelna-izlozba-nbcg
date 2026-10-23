@@ -9,11 +9,12 @@ import { useI18n } from '@/lib/i18n'
 
 import { authApi, DEMO_PASSWORD } from '../api/auth-api'
 import { useSignIn } from '../api/use-auth'
+import type { User } from '../types'
 
 const schema = z.object({ email: z.string().email(), password: z.string().min(1) })
 type FormValues = z.infer<typeof schema>
 
-type SignInFormProps = { onSuccess: () => void }
+type SignInFormProps = { onSuccess: (user: User) => void }
 
 export function SignInForm({ onSuccess }: SignInFormProps) {
   const { t } = useI18n()
@@ -28,7 +29,7 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
   return (
     <div className="flex flex-col gap-8">
       <form
-        onSubmit={handleSubmit((values) => signIn.mutate(values, { onSuccess }))}
+        onSubmit={handleSubmit((values) => signIn.mutate(values, { onSuccess: (user) => onSuccess(user) }))}
         className="flex flex-col gap-4"
         noValidate
       >
