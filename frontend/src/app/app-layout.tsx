@@ -48,8 +48,14 @@ export function AppLayout() {
           aria-label={t('nav.main')}
         >
           <Link to="/" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-ring">
-            <span className="shrink-0 rounded bg-plate p-1">
-              <img src="/nbcg-logo.png" alt="" width={72} height={36} className="h-9 w-auto" />
+            <span className="shrink-0 rounded-md bg-plate p-1.5 shadow-md">
+              <img
+                src="/nbcg-logo.png"
+                alt={t('app.org')}
+                width={128}
+                height={64}
+                className="h-12 w-auto lg:h-16"
+              />
             </span>
             <span className="hidden flex-col leading-tight min-[480px]:flex">
               <span className="font-heading text-xl font-semibold text-accent">{t('app.name')}</span>
@@ -189,8 +195,8 @@ export function AppLayout() {
       <footer className="border-t bg-ink text-primary-foreground">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-8 text-sm sm:flex-row sm:justify-between">
           <p className="flex items-center gap-3">
-            <span className="rounded bg-plate p-1">
-              <img src="/nbcg-logo.png" alt="" width={72} height={36} className="h-9 w-auto" />
+            <span className="rounded-md bg-plate p-2">
+              <img src="/nbcg-logo.png" alt="" width={144} height={72} className="h-16 w-auto" />
             </span>
             {t('app.org')}
           </p>
