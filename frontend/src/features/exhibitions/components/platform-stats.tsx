@@ -11,15 +11,19 @@ export function PlatformStats({ tone = 'plain' }: PlatformStatsProps) {
   const { t } = useI18n()
   const { data } = useExhibitions({ status: 'published' })
 
-  const exhibitions = data?.length ?? 0
-  const objects =
-    data?.reduce((sum, e) => sum + e.sections.reduce((s, section) => s + section.items.length, 0), 0) ?? 0
-  const videos = data?.reduce((sum, e) => sum + e.videos.length, 0) ?? 0
+  // While the data loads, show a dash instead of a misleading 0.
+  const count = (value: number | undefined) => (value === undefined ? '–' : value)
+  const exhibitions = data?.length
+  const objects = data?.reduce(
+    (sum, e) => sum + e.sections.reduce((s, section) => s + section.items.length, 0),
+    0,
+  )
+  const videos = data?.reduce((sum, e) => sum + e.videos.length, 0)
 
   const stats = [
-    { value: exhibitions, label: t('home.stat.exhibitions') },
-    { value: objects, label: t('home.stat.objects') },
-    { value: videos, label: t('home.stat.videos') },
+    { value: count(exhibitions), label: t('home.stat.exhibitions') },
+    { value: count(objects), label: t('home.stat.objects') },
+    { value: count(videos), label: t('home.stat.videos') },
     { value: 5, label: t('home.stats.templates') },
   ]
 
