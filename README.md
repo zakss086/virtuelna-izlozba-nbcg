@@ -54,6 +54,16 @@ pnpm typecheck && pnpm lint && pnpm build
 
 Data lives in memory and resets on reload; favorites, language, theme and the demo session are kept in `localStorage`.
 
+## What each role can do
+
+| Role | Screens and actions |
+|---|---|
+| **Visitor** | Home, catalog with search and filters, exhibition viewers (timeline, gallery, map, slider, 3D hall), object details, video gallery, collections, About; save favorites; switch language and theme |
+| **Curator** | Everything a visitor can, plus **Studio**: create an exhibition in two languages, add sections and objects, pick a template, save a draft, submit it for publishing, edit or delete own exhibitions |
+| **Admin** | Everything a curator can, plus **Administration**: review queue (publish or return to draft), edit any exhibition, list users |
+
+The full list of screens with their "done when" criteria is in [`SPEC.md`](SPEC.md).
+
 ## Screens
 
 | Route | Screen |
@@ -99,7 +109,8 @@ The repo follows the workshop workflow with Claude Code:
 - [`frontend/DESIGN.md`](frontend/DESIGN.md): tone, colors (tokens in `src/index.css`), fonts and the "avoid" list.
 - [`.claude/rules`](.claude/rules): path-scoped rules for components, data, features, styling and i18n.
 - [`.claude/commands`](.claude/commands) (`/check`, `/new-feature`, `/new-page`), the `ui-reviewer` subagent and the `design-system` skill.
-- [`PLAN.md`](PLAN.md): product plan and milestones.
+- [`SPEC.md`](SPEC.md): product spec (roles, screens, done-when, out of scope) and [`PLAN.md`](PLAN.md): plan and milestones.
+- [`PROMPTS.md`](PROMPTS.md): the key prompts that shaped the project and the lessons learned.
 
 Every change was checked with typecheck, lint and build, and pages were reviewed at 375 px and 1440 px.
 

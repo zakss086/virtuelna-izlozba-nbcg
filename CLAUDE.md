@@ -6,7 +6,7 @@ This is a monorepo: one repository for the whole app.
 - `frontend/`: React app (Workshop 3). Details in @frontend/CLAUDE.md
 - `backend/`: API, database and auth (next workshop)
 - `docs/entities.md`: entities and the API contract shared by frontend and backend
-- `PLAN.md`: product plan and milestones
+- `SPEC.md`: product spec (roles, screens, done-when); `PLAN.md`: plan and milestones
 
 ## Language
 Code, identifiers, comments, commit messages and docs are in English. You may talk to me in any language.
