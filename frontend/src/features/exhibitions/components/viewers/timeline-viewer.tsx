@@ -59,7 +59,7 @@ export function TimelineViewer({ exhibition }: TimelineViewerProps) {
         </div>
       </div>
 
-      <ol className="relative border-l border-gold/40 pl-6 md:pl-10">
+      <ol className="relative border-l border-gold/40 pl-6 md:pl-8">
         {exhibition.sections.map((section, index) => (
           <li
             key={section.id}
@@ -75,7 +75,7 @@ export function TimelineViewer({ exhibition }: TimelineViewerProps) {
             <span
               aria-hidden="true"
               className={cn(
-                'absolute -left-[31px] top-1/2 size-3 -translate-y-1/2 rounded-full border-2 border-gold bg-background md:-left-[47px]',
+                'absolute -left-[31px] top-1/2 size-3 -translate-y-1/2 rounded-full border-2 border-gold bg-background md:-left-[39px]',
                 index === active && 'bg-accent',
               )}
             />

@@ -45,7 +45,7 @@ export function ExhibitionDetail({ slug, actions }: ExhibitionDetailProps) {
   const objects = data.sections.reduce((sum, s) => sum + s.items.length, 0)
 
   return (
-    <article className="flex flex-col gap-10">
+    <article className="flex flex-col gap-8">
       <header className="relative -mx-4 overflow-hidden bg-ink text-primary-foreground sm:mx-0 sm:rounded-lg">
         <SmartImage
           src={data.coverUrl}
@@ -53,7 +53,7 @@ export function ExhibitionDetail({ slug, actions }: ExhibitionDetailProps) {
           className="absolute inset-0 size-full object-cover opacity-60"
         />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/20" />
-        <div className="relative flex min-h-72 flex-col justify-end gap-4 p-6 sm:p-10 lg:min-h-96 lg:p-16">
+        <div className="relative flex min-h-72 flex-col justify-end gap-4 p-6 sm:p-8 lg:min-h-96 lg:p-16">
           <div className="flex flex-wrap items-center gap-3">
             <Badge variant="accent">{t(`tpl.${data.template}`)}</Badge>
             <span className="text-sm opacity-80">{data.period}</span>

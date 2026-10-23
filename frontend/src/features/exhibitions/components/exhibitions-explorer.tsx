@@ -55,7 +55,7 @@ export function ExhibitionsExplorer({ renderAction }: ExhibitionsExplorerProps) 
             value={search}
             placeholder={t('catalog.searchPlaceholder')}
             onChange={(event) => update({ q: event.target.value })}
-            className="pl-9"
+            className="pl-8"
           />
         </div>
         <div className="flex flex-wrap items-center gap-2" role="group" aria-label={t('catalog.template')}>

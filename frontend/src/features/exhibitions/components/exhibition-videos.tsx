@@ -10,7 +10,7 @@ export function ExhibitionVideos({ videos }: ExhibitionVideosProps) {
   if (videos.length === 0) return null
 
   return (
-    <section aria-labelledby="exhibition-videos" className="flex flex-col gap-6 border-t pt-10">
+    <section aria-labelledby="exhibition-videos" className="flex flex-col gap-6 border-t pt-8">
       <h2 id="exhibition-videos" className="text-3xl font-semibold">
         {t('videos.section')}
       </h2>

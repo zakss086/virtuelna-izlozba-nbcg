@@ -26,5 +26,5 @@ Dignified, editorial, warm. A modern museum website, not a library catalog.
 
 ## Avoid
 - Gradients without purpose, emoji instead of icons, generic "Welcome to..." hero text.
-- Hex or rgb values in components (the 3D scene colors in `room-viewer.tsx` are the only exception, since three.js cannot read CSS tokens).
+- Hex, rgb or hsl values in components. The only exceptions live in plain `.ts` files: `src/lib/scene-palette.ts` (3D room and map route, because three.js and Leaflet cannot read CSS tokens) and `src/lib/art.ts` (generated placeholder images).
 - Cyrillic script; hardcoded UI strings.

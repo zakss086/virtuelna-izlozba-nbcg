@@ -6,7 +6,7 @@ export function Admin() {
   const { t } = useI18n()
 
   return (
-    <section className="flex flex-col gap-10">
+    <section className="flex flex-col gap-8">
       <h1 className="text-4xl font-semibold">{t('admin.title')}</h1>
       <div className="flex flex-col gap-4">
         <h2 className="text-2xl font-semibold">{t('admin.queue')}</h2>
