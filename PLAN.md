@@ -2,7 +2,7 @@
 
 **Status:** milestones 1 to 5 are done in the frontend on mock data (all five templates, auth with three roles, curator studio, favorites, video gallery, collections and about pages). Milestone 6 (review, README, push) is in progress; the backend follows in Workshop 4. See README.md for what exists now; the sections below are the original plan.
 
-Reference: NSK Zagreb virtual exhibitions (virtualna.nsk.hr), modernized.
+Reference: virtual exhibition portals of national libraries, modernized.
 Course: AI-DEV 2026 Workshop 3 (frontend with mock data), Workshop 4 (backend).
 
 ## Decisions so far
@@ -26,7 +26,7 @@ Needs Node 22+ and pnpm.
 - **Favorite** (visitor saves exhibitions/items).
 Relations: Exhibition 1-N Section, Section N-M Item, Exhibition N-1 User.
 
-## Templates (exhibition viewers) - different from Zagreb's five
+## Templates (exhibition viewers)
 1. **Timeline**: vertical scroll-driven timeline with sticky media (not the classic horizontal strip).
 2. **Gallery**: masonry grid + full-screen lightbox with zoom and metadata panel.
 3. **Map story**: scrollytelling over a map (MapLibre), sections fly to locations.
