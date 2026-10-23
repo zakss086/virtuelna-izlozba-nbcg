@@ -1,0 +1,30 @@
+# Virtual Exhibitions NBCG: Design
+
+## Product
+Virtual exhibitions built from the collections of the National Library of Montenegro (nb-cg.me, dlib.me).
+
+## Users
+Students, researchers, teachers and culture enthusiasts, 15-65, mostly on phones; curators who work at a desk.
+
+## Tone
+Dignified, editorial, warm. A modern museum website, not a library catalog.
+
+## Visuals
+- Colors (tokens in `src/index.css`, taken from nb-cg.me): warm white background, ink `primary`, gold `accent` for highlights and active states, `gold` token for gold text on light backgrounds (contrast safe). Dark mode is available and toggled in the header; default is light.
+- Fonts: Fraunces for headings (`font-heading`, a soft serif with a historic feel), Inter for body and menus. No other fonts. Menus use small uppercase letter-spaced labels with a gold sliding underline; section titles use the `Ornament` divider (hairline, diamond, tail); the header ends in a thin double gold rule.
+- Shape: small radius (`rounded-lg` max), thin borders, light shadows only on hover.
+- Imagery: large, full-bleed covers and objects; dark ink backdrops behind artifacts so images pop. Offline placeholder art is generated in `src/lib/art.ts` until real digitized images arrive.
+- Icons: `lucide-react` only.
+- Motion: subtle (fade, slow zoom on hover). Respect `prefers-reduced-motion` for any new animation.
+
+## Templates
+1. Timeline: sticky media on the left, scroll-driven chapters on the right (stacked on mobile).
+2. Gallery: masonry columns, lightbox with metadata and keyboard navigation.
+3. Map story: Leaflet map with numbered stops and a route line, chapter list beside it.
+4. Slider: horizontal snap slides with a before/after compare handle.
+5. 3D room: react-three-fiber hall with framed objects; orbit controls; click opens the metadata dialog.
+
+## Avoid
+- Gradients without purpose, emoji instead of icons, generic "Welcome to..." hero text.
+- Hex or rgb values in components (the 3D scene colors in `room-viewer.tsx` are the only exception, since three.js cannot read CSS tokens).
+- Cyrillic script; hardcoded UI strings.
