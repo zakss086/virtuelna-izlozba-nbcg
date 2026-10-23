@@ -1,0 +1,136 @@
+import { z } from 'zod'
+
+import { makeArt } from '@/lib/art'
+
+import { ITEM_TYPES, TEMPLATES, type Exhibition, type ExhibitionStatus, type NewExhibition } from '../types'
+
+// Form schema, default values and the mapping between form values and the Exhibition entity.
+
+const sectionSchema = z.object({
+  titleMe: z.string().min(2),
+  titleEn: z.string().min(2),
+  textMe: z.string().min(10),
+  textEn: z.string().min(10),
+  year: z.number().int().min(1000).max(2100),
+  placeName: z.string(),
+  lat: z.number().min(-90).max(90).nullable(),
+  lng: z.number().min(-180).max(180).nullable(),
+  objectTitle: z.string().min(2),
+  objectCreator: z.string().min(2),
+  objectType: z.enum(ITEM_TYPES),
+})
+
+export const exhibitionFormSchema = z.object({
+  titleMe: z.string().min(3),
+  titleEn: z.string().min(3),
+  summaryMe: z.string().min(10),
+  summaryEn: z.string().min(10),
+  template: z.enum(TEMPLATES),
+  period: z.string().min(2),
+  tags: z.string(),
+  sections: z.array(sectionSchema).min(1),
+})
+
+export type FormValues = z.infer<typeof exhibitionFormSchema>
+
+export const emptySection: FormValues['sections'][number] = {
+  titleMe: '',
+  titleEn: '',
+  textMe: '',
+  textEn: '',
+  year: 1900,
+  placeName: '',
+  lat: null,
+  lng: null,
+  objectTitle: '',
+  objectCreator: '',
+  objectType: 'photo',
+}
+
+export function toFormValues(exhibition?: Exhibition): FormValues {
+  if (!exhibition) {
+    return {
+      titleMe: '',
+      titleEn: '',
+      summaryMe: '',
+      summaryEn: '',
+      template: 'timeline',
+      period: '',
+      tags: '',
+      sections: [emptySection],
+    }
+  }
+  return {
+    titleMe: exhibition.title.me,
+    titleEn: exhibition.title.en,
+    summaryMe: exhibition.summary.me,
+    summaryEn: exhibition.summary.en,
+    template: exhibition.template,
+    period: exhibition.period,
+    tags: exhibition.tags.join(', '),
+    sections: exhibition.sections.map((s) => {
+      const obj = s.items[0]
+      return {
+        titleMe: s.title.me,
+        titleEn: s.title.en,
+        textMe: s.text.me,
+        textEn: s.text.en,
+        year: s.year ?? obj?.year ?? 1900,
+        placeName: s.place?.name.me ?? '',
+        lat: s.place?.lat ?? null,
+        lng: s.place?.lng ?? null,
+        objectTitle: obj?.title.me ?? '',
+        objectCreator: obj?.creator ?? '',
+        objectType: obj?.type ?? 'photo',
+      }
+    }),
+  }
+}
+
+export function toExhibition(
+  values: FormValues,
+  authorId: number,
+  authorName: string,
+  status: ExhibitionStatus,
+  videos: Exhibition['videos'],
+): NewExhibition {
+  let id = Date.now()
+  return {
+    title: { me: values.titleMe, en: values.titleEn },
+    summary: { me: values.summaryMe, en: values.summaryEn },
+    coverUrl: makeArt(values.sections[0]?.objectType ?? 'book', values.titleMe, values.period, true),
+    template: values.template,
+    status,
+    period: values.period,
+    tags: values.tags
+      .split(',')
+      .map((tag) => tag.trim())
+      .filter(Boolean),
+    authorId,
+    authorName,
+    videos,
+    sections: values.sections.map((s) => ({
+      id: id++,
+      title: { me: s.titleMe, en: s.titleEn },
+      text: { me: s.textMe, en: s.textEn },
+      year: s.year,
+      place:
+        s.placeName && s.lat !== null && s.lng !== null
+          ? { name: { me: s.placeName, en: s.placeName }, lat: s.lat, lng: s.lng }
+          : undefined,
+      items: [
+        {
+          id: id++,
+          type: s.objectType,
+          title: { me: s.objectTitle, en: s.objectTitle },
+          creator: s.objectCreator,
+          year: s.year,
+          collection: 'Digitalna biblioteka',
+          imageUrl: makeArt(s.objectType, s.objectTitle, String(s.year)),
+          sourceUrl: 'https://dlib.me',
+          rights: 'Sample',
+        },
+      ],
+    })),
+  }
+}
