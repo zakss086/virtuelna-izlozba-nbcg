@@ -48,12 +48,15 @@ export function ItemDialog({ item, onClose, onPrev, onNext }: ItemDialogProps) {
       aria-modal="true"
       aria-label={l(item.title)}
       className="fixed inset-0 z-50 flex items-center justify-center bg-ink/90 p-4"
-      onClick={onClose}
     >
-      <div
-        className="grid max-h-full w-full max-w-5xl overflow-auto rounded-lg bg-card text-card-foreground shadow-xl md:grid-cols-[3fr_2fr]"
-        onClick={(event) => event.stopPropagation()}
-      >
+      <button
+        type="button"
+        tabIndex={-1}
+        aria-label={t('viewer.close')}
+        onClick={onClose}
+        className="absolute inset-0 cursor-default"
+      />
+      <div className="relative grid max-h-full w-full max-w-5xl overflow-auto rounded-lg bg-card text-card-foreground shadow-xl md:grid-cols-[3fr_2fr]">
         <div className="bg-ink">
           <SmartImage
             src={item.imageUrl}

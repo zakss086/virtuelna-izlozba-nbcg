@@ -14,6 +14,8 @@ export const messages = {
     'nav.theme': 'Promijeni temu',
     'nav.language': 'Jezik',
     'nav.menu': 'Meni',
+    'nav.skip': 'Preskoči na sadržaj',
+    'nav.main': 'Glavna navigacija',
     'home.eyebrow': 'Digitalna baština Crne Gore',
     'home.title': 'Priče iz fondova Nacionalne biblioteke',
     'home.lead':
@@ -212,6 +214,8 @@ export const messages = {
     'nav.theme': 'Toggle theme',
     'nav.language': 'Language',
     'nav.menu': 'Menu',
+    'nav.skip': 'Skip to content',
+    'nav.main': 'Main navigation',
     'home.eyebrow': 'Digital heritage of Montenegro',
     'home.title': 'Stories from the National Library collections',
     'home.lead':

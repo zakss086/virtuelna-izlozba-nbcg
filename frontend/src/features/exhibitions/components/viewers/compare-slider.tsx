@@ -1,4 +1,5 @@
 import { SmartImage } from '@/components/smart-image'
+import { MoveHorizontal } from 'lucide-react'
 import { useState } from 'react'
 
 import { useI18n } from '@/lib/i18n'
@@ -31,7 +32,7 @@ export function CompareSlider({ before, after }: CompareSliderProps) {
           style={{ left: `${position}%` }}
         >
           <span className="absolute top-1/2 left-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg">
-            ⇆
+            <MoveHorizontal className="size-5" />
           </span>
         </div>
         <input

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { MapContainer, Marker, Polyline, TileLayer, useMap } from 'react-leaflet'
 
 import { useI18n } from '@/lib/i18n'
+import { MAP_ROUTE_COLOR } from '@/lib/scene-palette'
 import { cn } from '@/lib/utils'
 
 import type { Exhibition } from '../../types'
@@ -84,10 +85,7 @@ export default function MapViewer({ exhibition }: MapViewerProps) {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Polyline
-            positions={path}
-            pathOptions={{ color: 'hsl(41 49% 55%)', weight: 3, dashArray: '6 8' }}
-          />
+          <Polyline positions={path} pathOptions={{ color: MAP_ROUTE_COLOR, weight: 3, dashArray: '6 8' }} />
           {stops.map((section, index) =>
             section.place ? (
               <Marker

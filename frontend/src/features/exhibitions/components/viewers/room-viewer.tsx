@@ -5,20 +5,12 @@ import { Suspense, useState } from 'react'
 import { ErrorBoundary } from '@/components/error-boundary'
 import { makeArt } from '@/lib/art'
 import { useI18n } from '@/lib/i18n'
+import { SCENE } from '@/lib/scene-palette'
 
 import type { Exhibition, ExhibitionItem } from '../../types'
 import { ItemDialog } from '../item-dialog'
 
 type RoomViewerProps = { exhibition: Exhibition }
-
-// Colors for the 3D scene (three.js cannot read CSS tokens), matched to the nb-cg.me palette.
-const SCENE = {
-  wall: 'hsl(40, 25%, 90%)',
-  floor: 'hsl(30, 20%, 22%)',
-  ceiling: 'hsl(40, 20%, 95%)',
-  frame: 'hsl(41, 49%, 55%)',
-  backdrop: 'hsl(0, 0%, 12%)',
-}
 
 const ROOM = { width: 14, depth: 14, height: 5 }
 

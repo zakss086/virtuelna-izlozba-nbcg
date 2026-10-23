@@ -40,12 +40,12 @@ export function AppLayout() {
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground"
       >
-        Skip to content
+        {t('nav.skip')}
       </a>
       <header className="sticky top-0 z-40 bg-ink text-primary-foreground">
         <nav
           className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3"
-          aria-label="Main"
+          aria-label={t('nav.main')}
         >
           <Link to="/" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-ring">
             <span className="shrink-0 rounded bg-plate p-1">
