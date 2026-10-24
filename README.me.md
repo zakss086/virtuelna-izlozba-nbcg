@@ -23,6 +23,14 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 |---|---|---|
 | ![Vremenska traka](docs/screenshots/timeline-desktop.png) | ![Priča na mapi](docs/screenshots/map-desktop.png) | ![3D sala](docs/screenshots/room-3d-desktop.png) |
 
+| Galerija | Slider „prije i poslije“ | Katalog |
+|---|---|---|
+| ![Galerija](docs/screenshots/gallery-desktop.png) | ![Slider](docs/screenshots/slider-desktop.png) | ![Katalog](docs/screenshots/catalog-desktop.png) |
+
+| Studio za kustosa (uređivač) | Administracija | Telefon (375 px) |
+|---|---|---|
+| ![Uređivač](docs/screenshots/editor-desktop.png) | ![Administracija](docs/screenshots/admin-desktop.png) | ![Početna na telefonu](docs/screenshots/home-mobile.png) |
+
 ## Pokretanje
 
 Potrebni su Node 22+ i pnpm.
