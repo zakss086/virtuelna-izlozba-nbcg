@@ -9,11 +9,12 @@ import { PlatformStats } from './platform-stats'
 const commons = (file: string) =>
   `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=1920`
 
+// Books and documents from the collections: the Oktoih (1494), The Mountain Wreath (Vienna, 1847) and a map of the Principality.
 // Slides crossfade in CSS (.hero-slide in index.css); each one starts 7s after the previous.
 const HERO_SLIDES = [
-  commons('View of Kotor bay and old town.jpg'),
-  commons('Montenegro NP Durmitor Black Lake 01.jpg'),
-  commons('From the West, Cetinje, Montenegro WDL2608.png'),
+  commons('Oktoih petoglasnik iz 1494. eksponat iz zbirke Pedagoškog muzeja u Beogradu.jpg'),
+  commons('Bečko izdanje Gorskog vijenca 1847.png'),
+  commons('Special Karte des Fürstenthumes Montenegro (Cèrnagora) - HK 1124.jpg'),
 ]
 
 export function HomeHero() {
