@@ -31,6 +31,14 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 |---|---|---|
 | ![Uređivač](docs/screenshots/editor-desktop.png) | ![Administracija](docs/screenshots/admin-desktop.png) | ![Početna na telefonu](docs/screenshots/home-mobile.png) |
 
+## Kontekst radionice
+
+Napravljeno za **AI-DEV 2026, Radionica 3: Frontend u AI eri (od HTML-a do React aplikacije)**, održanu 17. oktobra 2026. u Coinis Hubu (Jovan Popović, Anja Pješivac, Stevan Čakić). Program je sufinansiran iz Fonda za inovacije Crne Gore.
+
+**Zadatak:** napraviti frontend sopstvene aplikacije na probnim podacima uz Claude Code: 2 do 3 povezana entiteta, početna, lista sa filterom, stranica sa detaljima, forma za pravljenje i izmjenu i prijava, prilagođeno za 375 i 1440 px, uz `docs/entities.md` za backend.
+
+**Urađeno:** sve navedeno, uz pet predložaka izložbi, 3D salu, video galeriju, dvojezični interfejs i tri uloge. Backend je planiran za Radionicu 4 (vidi [`backend/README.md`](backend/README.md)).
+
 ## Pokretanje
 
 Potrebni su Node 22+ i pnpm.
@@ -38,15 +46,16 @@ Potrebni su Node 22+ i pnpm.
 ```bash
 pnpm install
 pnpm dev          # http://localhost:5173
+pnpm typecheck && pnpm lint && pnpm build
 ```
 
 ### Demo nalozi (lozinka `demo1234`)
 
-| Uloga | E-pošta |
-|---|---|
-| Posjetilac | ana@visitor.me |
-| Kustos | marko@nb-cg.me, nikola@nb-cg.me |
-| Administrator | jelena@nb-cg.me |
+| Uloga | E-pošta | Šta može |
+|---|---|---|
+| Posjetilac | ana@visitor.me | pregled, čuvanje omiljenih izložbi |
+| Kustos | marko@nb-cg.me, nikola@nb-cg.me | pravljenje, izmjena i brisanje sopstvenih izložbi, slanje na objavu |
+| Administrator | jelena@nb-cg.me | sve navedeno, plus objava ili vraćanje izložbi i lista korisnika |
 
 Podaci su u memoriji i vraćaju se na početno stanje pri osvježavanju stranice. Jezik, tema, sačuvane izložbe i prijava čuvaju se u pregledaču.
 
@@ -54,7 +63,7 @@ Podaci su u memoriji i vraćaju se na početno stanje pri osvježavanju stranice
 
 | Uloga | Ekrani i radnje |
 |---|---|
-| **Posjetilac** | Početna, katalog sa pretragom i filterima, čitači izložbi, detalji objekata, video galerija, zbirke, O nama; čuvanje izložbi; promjena jezika i teme |
+| **Posjetilac** | Početna, katalog sa pretragom i filterima, čitači izložbi, detalji objekata, video galerija, zbirke, O nama; čuvanje izložbi; promjena jezika i teme; nakon prijave, stranica profila |
 | **Kustos** | Sve što i posjetilac, plus **Studio**: pravljenje izložbe na dva jezika, sekcije i objekti, izbor predloška, čuvanje nacrta, slanje na objavu, izmjena i brisanje sopstvenih izložbi |
 | **Administrator** | Sve što i kustos, plus **Administracija**: red izložbi na čekanju (objavi ili vrati u nacrt), izmjena svake izložbe, lista korisnika |
 
@@ -64,13 +73,34 @@ Potpuna lista ekrana sa kriterijumima „gotovo je kad“ nalazi se u [`SPEC.md`
 
 | Ruta | Ekran |
 |---|---|
-| `/` | Početna |
-| `/exhibitions` | Katalog sa pretragom i filterom po predlošku |
-| `/exhibitions/:slug` | Čitač izložbe i video zapisi |
+| `/` | Početna: hero, istaknuta izložba, najnovije, predlošci, video zapisi, zbirke |
+| `/exhibitions` | Katalog sa pretragom i filterom po predlošku (čuvaju se u adresi) |
+| `/exhibitions/:slug` | Čitač izložbe (predložak određuje raspored) i video zapisi |
 | `/collections`, `/videos`, `/about` | Zbirke, video galerija, O nama |
 | `/favorites`, `/sign-in`, `/profile` | Sačuvano, prijava (vodi na stranicu za tvoju ulogu), profil |
 | `/studio`, `/studio/new`, `/studio/:id/edit` | Pregled i uređivač izložbi (kustos, admin) |
 | `/admin` | Red za objavu i korisnici (admin) |
+
+## Struktura projekta
+
+```
+frontend/src/
+  app/            ruter, provajderi, raspored, tanki fajlovi ruta (samo sklapaju funkcionalnosti)
+  features/
+    exhibitions/  tipovi, api/ (probni podaci + hookovi), components/ (kartice, čitači, uređivač)
+    collections/  zbirke digitalne biblioteke
+    auth/         probna prijava, uloge, korisnici
+    favorites/    sačuvane izložbe
+    about/        sadržaj stranice O nama
+  components/     dijeljeni UI (shadcn/ui, slika, reveal, ornament...)
+  lib/            i18n, tekstovi (me, en), tema, paleta, mock-db
+docs/
+  entities.md     entiteti i API koji frontend očekuje (za backend)
+  screenshots/    slike korišćene u ovom README-u
+.claude/          pravila, komande, subagent i skill za AI agenta
+```
+
+Pravila koja provjerava `pnpm lint`: funkcionalnost nikad ne uvozi drugu funkcionalnost, dijeljeni kod ne uvozi funkcionalnosti, a podaci se čitaju samo kroz hookove koji pozivaju `api/` folder te funkcionalnosti.
 
 ## Gdje u kodu
 
@@ -78,11 +108,20 @@ Rute i uloge: `frontend/src/app/router.tsx`. Podaci (probni, zamjenjuje ih backe
 
 ## Tehnologije
 
-React 19, TypeScript, Vite, Tailwind CSS v4, shadcn/ui, React Router, TanStack Query, React Hook Form + Zod, react-three-fiber (3D sala), Leaflet (mapa).
+React 19, TypeScript, Vite, Tailwind CSS v4, shadcn/ui, React Router, TanStack Query, React Hook Form + Zod, react-three-fiber (3D sala), Leaflet (mapa). Fontovi: Fraunces i Inter.
 
 ## Kako je rađeno
 
-Projekat prati tok rada radionice sa Claude Code agentom: `CLAUDE.md`, `frontend/DESIGN.md`, pravila u `.claude/`, `SPEC.md`, `PLAN.md` i `PROMPTS.md` (ključni zahtjevi i zaključci). Svaka izmjena provjerena je komandama `typecheck`, `lint` i `build`, a ekrani pregledani na 375 i 1440 px. Dokumentacija i kod su na engleskom, a tekst u aplikaciji je dvojezičan.
+Projekat prati tok rada radionice sa Claude Code agentom:
+
+- [`CLAUDE.md`](CLAUDE.md) i [`frontend/CLAUDE.md`](frontend/CLAUDE.md): tehnologije, komande, struktura i lista „gotovo je kad“.
+- [`frontend/DESIGN.md`](frontend/DESIGN.md): ton, boje (tokeni u `src/index.css`), fontovi i lista šta izbjegavati.
+- [`.claude/rules`](.claude/rules): pravila po putanjama za komponente, podatke, funkcionalnosti, stilove i i18n.
+- [`.claude/commands`](.claude/commands) (`/check`, `/new-feature`, `/new-page`), subagent `ui-reviewer` i skill `design-system`.
+- [`SPEC.md`](SPEC.md): specifikacija proizvoda (uloge, ekrani, „gotovo je kad“, van obima) i [`PLAN.md`](PLAN.md): plan i etape.
+- [`PROMPTS.md`](PROMPTS.md): ključni zahtjevi koji su oblikovali projekat i zaključci.
+
+Svaka izmjena provjerena je komandama `typecheck`, `lint` i `build`, a ekrani pregledani na 375 i 1440 px. Dokumentacija i kod su na engleskom, a tekst u aplikaciji je dvojezičan.
 
 ## Sljedeće: backend (Radionica 4)
 
