@@ -219,33 +219,35 @@ export function AppLayout() {
       </main>
 
       <footer className="border-t bg-ink text-primary-foreground">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-8 text-sm sm:flex-row sm:justify-between">
-          <p className="flex items-center gap-3">
-            <span className="rounded-md bg-plate p-2">
-              <img src="/nbcg-logo.png" alt="" width={144} height={72} className="h-16 w-auto" />
-            </span>
-            {t('app.org')}
-          </p>
-          <p className="opacity-70">{t('footer.note')}</p>
-          <p>
-            <a
-              href="https://nb-cg.me"
-              className="text-accent hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              nb-cg.me
-            </a>{' '}
-            ·{' '}
-            <a
-              href="https://dlib.me"
-              className="text-accent hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              dlib.me
-            </a>
-          </p>
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 text-sm">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="flex items-center gap-3">
+              <span className="rounded-md bg-plate p-2">
+                <img src="/nbcg-logo.png" alt="" width={144} height={72} className="h-16 w-auto" />
+              </span>
+              {t('app.org')}
+            </p>
+            <p>
+              <a
+                href="https://nb-cg.me"
+                className="text-accent hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                nb-cg.me
+              </a>{' '}
+              ·{' '}
+              <a
+                href="https://dlib.me"
+                className="text-accent hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                dlib.me
+              </a>
+            </p>
+          </div>
+          <p className="border-t border-primary-foreground/20 pt-4 text-xs opacity-80">{t('footer.note')}</p>
         </div>
       </footer>
     </div>

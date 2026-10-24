@@ -154,7 +154,8 @@ export const me = {
   'admin.role': 'Uloga',
   'notFound.title': 'Stranica nije pronađena',
   'notFound.back': 'Nazad na početnu',
-  'footer.note': 'Demo verzija sa probnim podacima. Sadržaj je ilustrativan.',
+  'footer.note':
+    'Edukativni demo projekat, nije zvanični sajt Nacionalne biblioteke Crne Gore. Probni podaci, sadržaj je ilustrativan.',
   'footer.links': 'Veze',
   'common.loading': 'Učitavanje…',
   'common.error': 'Došlo je do greške.',

@@ -6,6 +6,8 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 
 > Status: **frontend workshop (AI-DEV 2026, Workshop 3)** is done, running on mock data. The backend comes in Workshop 4. The contract between them is in [`docs/entities.md`](docs/entities.md).
 
+> **Notice:** this is an independent, educational demo project made for a workshop. It is **not** the official website of the National Library of Montenegro and is not affiliated with or endorsed by it. The library name and logo are used only for illustration, texts are illustrative, and the sample images and videos come from Wikimedia Commons.
+
 ![Home page](docs/screenshots/home-desktop.png)
 
 ## Highlights
@@ -122,4 +124,4 @@ Replace the mock `api/` folders with real HTTP calls, add a database modelled af
 
 ## Content and licences
 
-Texts are illustrative. Sample images and videos come from [Wikimedia Commons](https://commons.wikimedia.org) under free licences (CC BY, CC BY-SA, public domain); the author and licence are shown with each object. The National Library logo is used from nb-cg.me for this demo.
+Texts are illustrative. Sample images and videos come from [Wikimedia Commons](https://commons.wikimedia.org) under free licences (CC BY, CC BY-SA, public domain); the author and licence are shown with each object. The National Library name and logo are used from nb-cg.me for illustration in this educational demo only; this project is not official and is not affiliated with the library.

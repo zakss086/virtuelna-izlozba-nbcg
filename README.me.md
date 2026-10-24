@@ -6,6 +6,8 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 
 > Stanje: završen je **frontend** (AI-DEV 2026, Radionica 3) na probnim (mock) podacima. Backend slijedi u Radionici 4. Ugovor između njih opisan je u [`docs/entities.md`](docs/entities.md).
 
+> **Napomena:** ovo je samostalan, edukativni demo projekat nastao na radionici. **Nije** zvanični sajt Nacionalne biblioteke Crne Gore, niti je povezan sa njom ili odobren od nje. Naziv i logo biblioteke koriste se samo radi ilustracije, tekstovi su ilustrativni, a probne slike i video zapisi su sa Wikimedia Commons.
+
 ![Početna stranica](docs/screenshots/home-desktop.png)
 
 ## Šta sajt nudi
@@ -75,4 +77,4 @@ Mock `api/` folderi zamjenjuju se pravim HTTP pozivima, uz bazu po `docs/entitie
 
 ## Sadržaj i licence
 
-Tekstovi su ilustrativni. Probne slike i video zapisi su sa [Wikimedia Commons](https://commons.wikimedia.org) pod slobodnim licencama (CC BY, CC BY-SA, javno dobro); autor i licenca prikazani su uz svaki objekat. Logo Nacionalne biblioteke preuzet je sa nb-cg.me za potrebe ovog demoa.
+Tekstovi su ilustrativni. Probne slike i video zapisi su sa [Wikimedia Commons](https://commons.wikimedia.org) pod slobodnim licencama (CC BY, CC BY-SA, javno dobro); autor i licenca prikazani su uz svaki objekat. Naziv i logo Nacionalne biblioteke preuzeti su sa nb-cg.me isključivo radi ilustracije u ovom edukativnom demou; projekat nije zvaničan i nije povezan sa bibliotekom.

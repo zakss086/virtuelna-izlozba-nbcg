@@ -156,7 +156,8 @@ export const en = {
   'admin.role': 'Role',
   'notFound.title': 'Page not found',
   'notFound.back': 'Back to home',
-  'footer.note': 'Demo version with sample data. Content is illustrative.',
+  'footer.note':
+    'Educational demo project, not the official website of the National Library of Montenegro. Sample data, content is illustrative.',
   'footer.links': 'Links',
   'common.loading': 'Loading…',
   'common.error': 'Something went wrong.',
