@@ -17,6 +17,7 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 - **Three roles**: visitor, curator (builds and submits exhibitions), admin (publishes, manages users).
 - **Bilingual UI and content** (Montenegrin Latin + English), light and dark theme, favorites, responsive from 375 px to 1440 px.
 - **Accessible**: semantic HTML, labelled forms, visible focus, contrast above 4.5:1, reduced-motion friendly.
+- **Clear feedback**: loading skeletons, a retry button when data fails to load, a confirmation or error message for every action, a confirmation dialog before deleting, and a notice when the connection drops.
 
 | Timeline | Map story | 3D hall |
 |---|---|---|
@@ -104,6 +105,20 @@ docs/
 ```
 
 Rules enforced by `pnpm lint`: a feature never imports another feature, shared code never imports features, data is only read through hooks that call the feature's `api/` folder.
+
+## Where to look in the code
+
+| File | What it shows |
+|---|---|
+| `frontend/src/app/router.tsx` | all routes and the role guards |
+| `frontend/src/features/exhibitions/api/exhibitions-api.ts` | the only place that "fetches" data (mock); the backend replaces this layer |
+| `frontend/src/features/exhibitions/api/use-exhibitions.ts` | TanStack Query hooks around that API |
+| `frontend/src/features/exhibitions/components/viewers/` | the five templates (timeline, gallery, map, slider, 3D room) |
+| `frontend/src/features/auth/api/auth-api.ts` | demo users and session |
+| `frontend/src/index.css` | design tokens for both themes |
+| `frontend/src/lib/messages-me.ts`, `messages-en.ts` | all UI text in both languages |
+| `frontend/scripts/check-boundaries.mjs` | the check that keeps features separate |
+| `docs/entities.md` | entities and API contract for the backend |
 
 ## How it was built (AI-assisted workflow)
 
