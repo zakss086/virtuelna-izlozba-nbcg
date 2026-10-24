@@ -1,4 +1,3 @@
-import { makeArt } from '@/lib/art'
 import { delay } from '@/lib/mock-db'
 
 import type { Collection } from '../types'
@@ -29,29 +28,31 @@ const collections: Collection[] = [
   {
     name: { me: 'Rukopisi i dokumenta', en: 'Manuscripts and documents' },
     text: {
-      me: 'Rukopisi, arhivalije i dokumenta iz istorije Crne Gore.',
-      en: 'Manuscripts, archival records and documents from Montenegrin history.',
+      me: 'Rukopisi, arhivalije i dokumenta iz istorije Crne Gore. Na slici: folio Oktoiha Đurđa Crnojevića.',
+      en: 'Manuscripts, archival records and documents from Montenegrin history. Pictured: a folio of the Oktoih of Đurađ Crnojević.',
     },
     href: 'https://dlib.me/me/rukopisi-i-dokumenta',
-    image: makeArt('manuscript', 'Rukopisi i dokumenta', 'dlib.me'),
+    image: commons(
+      'Serbian Cyrillic Serbian Language Octoechos folio Serb Dorde Crnojevic Cetinje 1496 Decani Monastery Serbia.png',
+    ),
   },
   {
     name: { me: 'Karte i planovi', en: 'Maps and plans' },
     text: {
-      me: 'Kartografska zbirka: karte, planovi gradova i pomorske karte.',
-      en: 'The cartographic collection: maps, town plans and sea charts.',
+      me: 'Kartografska zbirka: karte, planovi gradova i pomorske karte. Na slici: specijalna karta Kneževine Crne Gore.',
+      en: 'The cartographic collection: maps, town plans and sea charts. Pictured: a special map of the Principality of Montenegro.',
     },
     href: 'https://dlib.me/me/karte-i-planovi',
-    image: makeArt('map', 'Karte i planovi', 'dlib.me'),
+    image: commons('Special Karte des Fürstenthumes Montenegro (Cèrnagora) - HK 1124.jpg'),
   },
   {
     name: { me: 'Plakati i likovna građa', en: 'Posters and art' },
     text: {
-      me: 'Plakati, grafike i likovna građa iz Likovno-grafičke zbirke.',
-      en: 'Posters, prints and art from the Fine Art and Graphic Collection.',
+      me: 'Plakati, grafike i likovna građa iz Likovno-grafičke zbirke. Na slici: linorez „Dan ustanka“ (1943).',
+      en: 'Posters, prints and art from the Fine Art and Graphic Collection. Pictured: the linocut “Uprising Day” (1943).',
     },
     href: 'https://dlib.me/me/plakati-i-likovna-gradja',
-    image: makeArt('poster', 'Plakati i likovna građa', 'dlib.me'),
+    image: commons('Illustration commemorating Uprising Day in Montenegro.png'),
   },
   {
     name: { me: 'Fotografije i razglednice', en: 'Photographs and postcards' },
@@ -65,11 +66,11 @@ const collections: Collection[] = [
   {
     name: { me: 'Muzička i video građa', en: 'Music and video' },
     text: {
-      me: 'Muzikalije, zvučni i audiovizuelni zapisi.',
-      en: 'Sheet music, audio and audiovisual recordings.',
+      me: 'Muzikalije, zvučni i audiovizuelni zapisi. Na slici: guslari, 1927.',
+      en: 'Sheet music, audio and audiovisual recordings. Pictured: gusle players, 1927.',
     },
     href: 'https://dlib.me/me/muzicka-i-video-gradja',
-    image: makeArt('audio', 'Muzička i video građa', 'dlib.me'),
+    image: commons('Guslar players 1927 Tanasije Vucic, Svetozar Jacimovic and Ilija Vukovic.jpg'),
   },
   {
     name: { me: 'Njegoš i tematske zbirke', en: 'Njegoš and thematic collections' },
