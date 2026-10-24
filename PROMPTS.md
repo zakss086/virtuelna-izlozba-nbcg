@@ -24,7 +24,7 @@ How the app was built with Claude Code, in the order things happened. The reques
 
 | Request | Result |
 |---|---|
-| Continue; this is our site and the presentation is tomorrow, so finish tonight. | Starter copied, design tokens, i18n, mock entities and API, five viewers, auth with roles, curator studio, admin queue, favorites. |
+| Continue with the full build in one pass: design tokens, i18n, mock API, viewers, roles, studio and admin. | Starter copied, design tokens, i18n, mock entities and API, five viewers, auth with roles, curator studio, admin queue, favorites. |
 | The menu is a bit dry: add an About card and a video gallery. Improve the visual design and use real images from the internet. | About, Collections and Video pages; real freely licensed images and videos from Wikimedia Commons; a hero, stats and animations. |
 | Add the nb-cg.me logo somewhere suitable, then make it larger and more visible. | Logo in the header and footer on a light plate, with an accessible name. |
 | Make the fonts and menus a shade more modern, but keep a historical touch. | Fraunces and Inter, a gold sliding underline, a double gold rule under the header and ornament dividers. |
