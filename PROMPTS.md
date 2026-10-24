@@ -8,8 +8,8 @@ Related documents: [`CLAUDE.md`](CLAUDE.md) (rules for the agent), [`SPEC.md`](S
 
 | | |
 |---|---|
-| Commits | 17, in two days (23 to 24 October 2026) |
-| Source files | 91 TypeScript files in `frontend/src`, in 5 features (`exhibitions`, `auth`, `favorites`, `collections`, `about`) |
+| Commits | 21, in two days (23 to 24 October 2026) |
+| Source files | 96 TypeScript files in `frontend/src`, in 5 features (`exhibitions`, `auth`, `favorites`, `collections`, `about`) |
 | Screens checked | 16, at 375 px and 1440 px |
 | Screenshots in the README | 11 |
 | Checks run after each change | `typecheck`, `lint` (including the feature boundary check), `build` |
@@ -68,6 +68,10 @@ This is the shape of a request that worked well: it names the screen, the behavi
 | Fix everything, but be careful not to break anything. | Fixed in small commits, each checked with typecheck, lint, build and a browser test. |
 | Which process rules from the workshop can you apply here? | The `/check` routine over all 16 screens at 375 px and 1440 px, plus accessibility and contrast checks. It found that stats showed 0 while loading. |
 | Look at the screenshots and fix what is wrong. | The header wrapped for staff accounts; it now fits and switches to a hamburger below 1280 px. |
+| The dark theme does not work well. Check text visibility and where it can go wrong, then propose what to do. | A contrast scan of 9 pages and the dark-mode screenshots found the real cause (see section 5), and a proposal with three options. |
+| Fix it using option A. | A new `on-ink` token for light text on dark surfaces, applied in 8 files; re-scan found no low-contrast text. |
+| Check the rest, and whether the visual identity is consistent everywhere. | Review of 14 screens in dark mode at 1440 and 375 px: the identity is consistent; faint form borders, a bright map and a drop-cap misalignment were listed. |
+| Fix what is needed. Also: does the user get notices when something fails or loads slowly, and is the site built on modern design principles? | Audit of user feedback, then toasts for every action, an error notice with a retry button, an offline banner, a delete dialog instead of `window.confirm`, and polite bilingual messages. |
 
 ## 5. What the agent got wrong, and how it was fixed
 
@@ -80,6 +84,9 @@ Reviewing the result critically was part of the work. These are the real problem
 | Header broke for staff accounts. | More items (Studio, Administration, name, sign-out) did not fit at 1280 to 1720 px. | Hamburger below 1280 px; header layout measured for 4 roles at 10 widths (40 of 40 combinations correct). |
 | Stats showed 0 while loading. | The numbers were rendered before the data arrived. | A dash is shown until the data is loaded. |
 | Some images did not match the topic. | A first pass picked images by search term. | Every image was checked against its caption and replaced where needed (for example a photo of another region labelled as Montenegro, and a 1918 masthead used for a 1873 event). |
+| Dark theme: text invisible in the header, hero and footer. | The ink surfaces used `text-primary-foreground`, which is dark in dark mode (meant for gold buttons), so text was dark on dark (contrast about 1.1:1). | New `on-ink` token that stays light in both themes, used on every ink surface. |
+| Users got no feedback when an action succeeded or failed. | Mutations had no callbacks, errors were a generic line without a retry button, and delete used the browser's `confirm`. | Toast store and `Toaster`, `ErrorNotice` with retry, `OfflineBanner`, and a styled confirmation dialog. |
+| Faint borders on form fields (about 1.3:1). | The input border token was almost the page color. | `--input` raised to at least 3:1 against the page in both themes. |
 | Component library generated a wrong import. | The shadcn CLI wrote `import { cn } from "cn"`, an unrelated npm package. | Import changed to `@/lib/utils`; the package was removed; `package.json` unchanged. |
 
 ## 6. Delivery
