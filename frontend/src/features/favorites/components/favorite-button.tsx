@@ -26,7 +26,7 @@ export function FavoriteButton({ exhibitionId, withLabel = false }: FavoriteButt
       aria-pressed={saved}
       aria-label={withLabel ? undefined : label}
       onClick={() => toggle(exhibitionId)}
-      className={cn(!withLabel && 'rounded-full bg-ink/70 text-primary-foreground hover:bg-ink')}
+      className={cn(!withLabel && 'rounded-full bg-ink/70 text-on-ink hover:bg-ink')}
     >
       <Heart className={cn(saved && 'fill-accent text-accent')} />
       {withLabel && label}

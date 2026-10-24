@@ -10,7 +10,7 @@ Students, researchers, teachers and culture enthusiasts, 15-65, mostly on phones
 Dignified, editorial, warm. A modern museum website, not a library catalog.
 
 ## Visuals
-- Colors (tokens in `src/index.css`, taken from nb-cg.me): warm white background, ink `primary`, gold `accent` for highlights and active states, `gold` token for gold text on light backgrounds (contrast safe). Dark mode is available and toggled in the header; default is light.
+- Colors (tokens in `src/index.css`, taken from nb-cg.me): warm white background, ink `primary`, gold `accent` for highlights and active states, `gold` token for gold text on light backgrounds (contrast safe). Dark mode is available and toggled in the header; default is light. Text on dark `bg-ink` surfaces (header, hero, footer, covers) uses the `on-ink` token, which stays light in both themes; `primary-foreground` is only for text on `bg-primary` (it turns dark in dark mode).
 - Fonts: Fraunces for headings (`font-heading`, a soft serif with a historic feel), Inter for body and menus. No other fonts. Menus use small uppercase letter-spaced labels with a gold sliding underline; section titles use the `Ornament` divider (hairline, diamond, tail); the header ends in a thin double gold rule.
 - Shape: small radius (`rounded-lg` max), thin borders, light shadows only on hover.
 - Imagery: large, full-bleed covers and objects; dark ink backdrops behind artifacts so images pop. Offline placeholder art is generated in `src/lib/art.ts` until real digitized images arrive.

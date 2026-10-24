@@ -21,7 +21,7 @@ export function HomeHero() {
   const { t } = useI18n()
 
   return (
-    <section className="relative -mx-4 -mt-8 isolate overflow-hidden bg-ink text-primary-foreground sm:mx-0 sm:mt-0 sm:rounded-lg">
+    <section className="relative -mx-4 -mt-8 isolate overflow-hidden bg-ink text-on-ink sm:mx-0 sm:mt-0 sm:rounded-lg">
       {HERO_SLIDES.map((src, index) => (
         <SmartImage
           key={src}
@@ -58,7 +58,7 @@ export function HomeHero() {
             asChild
             size="lg"
             variant="outline"
-            className="border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+            className="border-on-ink/50 bg-transparent text-on-ink hover:bg-on-ink/10 hover:text-on-ink"
           >
             <Link to="/videos">{t('nav.videos')}</Link>
           </Button>

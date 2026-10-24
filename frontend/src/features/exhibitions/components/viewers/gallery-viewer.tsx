@@ -36,7 +36,7 @@ export function GalleryViewer({ exhibition }: GalleryViewerProps) {
                     loading="lazy"
                     className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${i % 3 === 0 ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}
                   />
-                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent p-4 text-left text-sm text-primary-foreground opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent p-4 text-left text-sm text-on-ink opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                     <span className="block font-medium">{l(item.title)}</span>
                     <span className="text-xs opacity-80">
                       {[item.creator, item.year, t(`type.${item.type}`)].filter(Boolean).join(' · ')}

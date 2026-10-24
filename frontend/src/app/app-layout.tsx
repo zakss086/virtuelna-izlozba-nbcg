@@ -43,7 +43,7 @@ export function AppLayout() {
       >
         {t('nav.skip')}
       </a>
-      <header className="sticky top-0 z-40 bg-ink text-primary-foreground">
+      <header className="sticky top-0 z-40 bg-ink text-on-ink">
         <nav
           className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3"
           aria-label={t('nav.main')}
@@ -89,7 +89,7 @@ export function AppLayout() {
             <div
               role="group"
               aria-label={t('nav.language')}
-              className="flex overflow-hidden rounded-full border border-primary-foreground/30 text-[0.7rem] font-medium tracking-wider"
+              className="flex overflow-hidden rounded-full border border-on-ink/30 text-[0.7rem] font-medium tracking-wider"
             >
               {(['me', 'en'] as Lang[]).map((code) => (
                 <button
@@ -111,11 +111,11 @@ export function AppLayout() {
               size="icon"
               onClick={toggle}
               aria-label={t('nav.theme')}
-              className="hover:bg-primary-foreground/10"
+              className="hover:bg-on-ink/10"
             >
               {theme === 'dark' ? <Sun /> : <Moon />}
             </Button>
-            <Button asChild variant="ghost" size="icon" className="relative hover:bg-primary-foreground/10">
+            <Button asChild variant="ghost" size="icon" className="relative hover:bg-on-ink/10">
               <Link to="/favorites" aria-label={t('nav.favorites')}>
                 <Heart />
                 {ids.length > 0 && (
@@ -131,7 +131,7 @@ export function AppLayout() {
                   asChild
                   variant="ghost"
                   size="sm"
-                  className="hidden hover:bg-primary-foreground/10 sm:inline-flex"
+                  className="hidden hover:bg-on-ink/10 sm:inline-flex"
                 >
                   <Link to="/profile" aria-label={`${t('nav.profile')}: ${user.name}`}>
                     <UserRound />
@@ -143,7 +143,7 @@ export function AppLayout() {
                   size="icon"
                   onClick={signOut}
                   aria-label={t('nav.signOut')}
-                  className="hidden hover:bg-primary-foreground/10 sm:inline-flex"
+                  className="hidden hover:bg-on-ink/10 sm:inline-flex"
                 >
                   <LogOut />
                 </Button>
@@ -161,7 +161,7 @@ export function AppLayout() {
             <Button
               variant="ghost"
               size="icon"
-              className="xl:hidden hover:bg-primary-foreground/10"
+              className="xl:hidden hover:bg-on-ink/10"
               aria-expanded={open}
               aria-label={t('nav.menu')}
               onClick={() => setOpen(!open)}
@@ -180,7 +180,7 @@ export function AppLayout() {
                   to={link.to}
                   end={link.to === '/'}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-primary-foreground/10 py-3 font-heading text-2xl"
+                  className="block border-b border-on-ink/10 py-3 font-heading text-2xl"
                 >
                   {t(link.label)}
                 </NavLink>
@@ -191,7 +191,7 @@ export function AppLayout() {
                 <NavLink
                   to="/profile"
                   onClick={() => setOpen(false)}
-                  className="block border-b border-primary-foreground/10 py-3 font-heading text-2xl"
+                  className="block border-b border-on-ink/10 py-3 font-heading text-2xl"
                 >
                   {t('nav.profile')}
                 </NavLink>
@@ -218,7 +218,7 @@ export function AppLayout() {
         <Outlet />
       </main>
 
-      <footer className="border-t bg-ink text-primary-foreground">
+      <footer className="border-t bg-ink text-on-ink">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 text-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="flex items-center gap-3">
@@ -247,7 +247,7 @@ export function AppLayout() {
               </a>
             </p>
           </div>
-          <p className="border-t border-primary-foreground/20 pt-4 text-xs opacity-80">{t('footer.note')}</p>
+          <p className="border-t border-on-ink/20 pt-4 text-xs opacity-80">{t('footer.note')}</p>
         </div>
       </footer>
     </div>

@@ -72,7 +72,7 @@ export function Home() {
       <Reveal>
         <section
           aria-labelledby="home-about"
-          className="grid gap-8 overflow-hidden rounded-lg bg-ink text-primary-foreground md:grid-cols-[3fr_2fr]"
+          className="grid gap-8 overflow-hidden rounded-lg bg-ink text-on-ink md:grid-cols-[3fr_2fr]"
         >
           <div className="flex flex-col justify-center gap-4 p-8 lg:p-12">
             <h2 id="home-about" className="text-3xl font-semibold text-accent">

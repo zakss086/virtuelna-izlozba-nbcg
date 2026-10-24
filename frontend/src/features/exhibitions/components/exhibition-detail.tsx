@@ -46,7 +46,7 @@ export function ExhibitionDetail({ slug, actions }: ExhibitionDetailProps) {
 
   return (
     <article className="flex flex-col gap-8">
-      <header className="relative -mx-4 overflow-hidden bg-ink text-primary-foreground sm:mx-0 sm:rounded-lg">
+      <header className="relative -mx-4 overflow-hidden bg-ink text-on-ink sm:mx-0 sm:rounded-lg">
         <SmartImage
           src={data.coverUrl}
           alt=""

@@ -25,7 +25,7 @@ export function AboutContent({ stats }: AboutContentProps) {
 
   return (
     <div className="flex flex-col gap-16">
-      <section className="relative -mx-4 -mt-8 isolate overflow-hidden bg-ink text-primary-foreground sm:mx-0 sm:mt-0 sm:rounded-lg">
+      <section className="relative -mx-4 -mt-8 isolate overflow-hidden bg-ink text-on-ink sm:mx-0 sm:mt-0 sm:rounded-lg">
         <SmartImage
           src={HERO}
           alt=""
@@ -86,7 +86,7 @@ export function AboutContent({ stats }: AboutContentProps) {
       </section>
 
       <Reveal>
-        <section aria-labelledby="numbers" className="rounded-lg bg-ink p-8 text-primary-foreground">
+        <section aria-labelledby="numbers" className="rounded-lg bg-ink p-8 text-on-ink">
           <h2 id="numbers" className="mb-6 text-2xl font-semibold">
             {t('about.numbers.title')}
           </h2>

@@ -45,12 +45,12 @@ export function CompareSlider({ before, after }: CompareSliderProps) {
           className="absolute inset-0 size-full cursor-ew-resize opacity-0"
         />
         {before.year && (
-          <span className="absolute left-3 top-3 rounded bg-ink/80 px-2 py-1 text-xs text-primary-foreground">
+          <span className="absolute left-3 top-3 rounded bg-ink/80 px-2 py-1 text-xs text-on-ink">
             {before.year}
           </span>
         )}
         {after.year && (
-          <span className="absolute right-3 top-3 rounded bg-ink/80 px-2 py-1 text-xs text-primary-foreground">
+          <span className="absolute right-3 top-3 rounded bg-ink/80 px-2 py-1 text-xs text-on-ink">
             {after.year}
           </span>
         )}
