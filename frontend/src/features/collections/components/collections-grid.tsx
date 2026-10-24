@@ -2,6 +2,7 @@ import { ExternalLink } from 'lucide-react'
 
 import { Reveal } from '@/components/reveal'
 import { SmartImage } from '@/components/smart-image'
+import { ErrorNotice } from '@/components/error-notice'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useI18n } from '@/lib/i18n'
 
@@ -9,7 +10,7 @@ import { useCollections } from '../api/use-collections'
 
 export function CollectionsGrid() {
   const { t, l } = useI18n()
-  const { data, isPending, isError } = useCollections()
+  const { data, isPending, isError, refetch } = useCollections()
 
   if (isPending) {
     return (
@@ -24,7 +25,7 @@ export function CollectionsGrid() {
       </div>
     )
   }
-  if (isError) return <p role="alert">{t('common.error')}</p>
+  if (isError) return <ErrorNotice onRetry={() => refetch()} />
   if (data.length === 0) return <p className="text-muted-foreground">{t('catalog.empty')}</p>
 
   return (

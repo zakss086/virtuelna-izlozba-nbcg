@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { useI18n } from '@/lib/i18n'
+import { showToast } from '@/lib/toast'
 
 import { useCreateExhibition, useExhibition, useUpdateExhibition } from '../api/use-exhibitions'
 import type { NewExhibition } from '../types'
@@ -29,9 +30,15 @@ export function EditorLoader({ id, authorId, authorName, isAdmin }: EditorLoader
   if (initial && !isAdmin && initial.authorId !== authorId) return <p role="alert">{t('auth.forbidden')}</p>
 
   function handleSubmit(value: NewExhibition) {
-    const done = () => navigate('/studio')
-    if (initial) update.mutate({ id: initial.id, changes: value }, { onSuccess: done })
-    else create.mutate(value, { onSuccess: done })
+    const callbacks = {
+      onSuccess: () => {
+        showToast('success', t('toast.saved'))
+        navigate('/studio')
+      },
+      onError: () => showToast('error', t('toast.failed')),
+    }
+    if (initial) update.mutate({ id: initial.id, changes: value }, callbacks)
+    else create.mutate(value, callbacks)
   }
 
   return (

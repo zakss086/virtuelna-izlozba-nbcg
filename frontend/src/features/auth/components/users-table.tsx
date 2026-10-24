@@ -1,3 +1,4 @@
+import { ErrorNotice } from '@/components/error-notice'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useI18n } from '@/lib/i18n'
 
@@ -5,10 +6,10 @@ import { useUsers } from '../api/use-auth'
 
 export function UsersTable() {
   const { t } = useI18n()
-  const { data, isPending, isError } = useUsers()
+  const { data, isPending, isError, refetch } = useUsers()
 
-  if (isPending) return <Skeleton className="h-32 w-full" aria-busy="true" />
-  if (isError) return <p role="alert">{t('common.error')}</p>
+  if (isPending) return <Skeleton className="h-32 w-full" aria-busy="true" aria-label={t('common.loading')} />
+  if (isError) return <ErrorNotice onRetry={() => refetch()} />
 
   return (
     <div className="overflow-x-auto rounded-lg border">

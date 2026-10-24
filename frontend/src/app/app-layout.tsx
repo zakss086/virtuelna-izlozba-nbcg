@@ -2,6 +2,8 @@ import { Heart, LogOut, Menu, Moon, Sun, UserRound, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router'
 
+import { OfflineBanner } from '@/components/offline-banner'
+import { Toaster } from '@/components/toaster'
 import { Button } from '@/components/ui/button'
 import { WelcomeBanner } from '@/components/welcome-banner'
 import { useCurrentUser, useSignOut } from '@/features/auth/api/use-auth'
@@ -212,11 +214,14 @@ export function AppLayout() {
         )}
       </header>
 
+      <OfflineBanner />
       <WelcomeBanner />
 
       <main id="main" className="mx-auto w-full max-w-7xl flex-1 px-4 py-8">
         <Outlet />
       </main>
+
+      <Toaster />
 
       <footer className="border-t bg-ink text-on-ink">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 text-sm">

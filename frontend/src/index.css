@@ -26,7 +26,7 @@
   --gold: oklch(0.52 0.09 80);
   --destructive: oklch(0.55 0.2 27);
   --border: oklch(0.89 0.01 92);
-  --input: oklch(0.89 0.01 92);
+  --input: oklch(0.62 0.01 90); /* form borders: at least 3:1 against the page */
   --ring: oklch(0.62 0.09 85);
   --ink: oklch(0.2 0.006 90);
   --on-ink: oklch(0.977 0.004 95); /* light text on ink surfaces, same in both themes */
@@ -53,9 +53,9 @@
   --gold: oklch(0.8 0.1 88);
   --destructive: oklch(0.65 0.2 27);
   --border: oklch(0.32 0.008 90);
-  --input: oklch(0.32 0.008 90);
+  --input: oklch(0.62 0.01 90);
   --ring: oklch(0.7 0.09 88);
-  --ink: oklch(0.12 0.005 90);
+  --ink: oklch(0.14 0.006 90);
 }
 
 @theme inline {

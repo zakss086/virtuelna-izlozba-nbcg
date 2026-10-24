@@ -28,3 +28,10 @@ Dignified, editorial, warm. A modern museum website, not a library catalog.
 - Gradients without purpose, emoji instead of icons, generic "Welcome to..." hero text.
 - Hex, rgb or hsl values in components. The only exceptions live in plain `.ts` files: `src/lib/scene-palette.ts` (3D room and map route, because three.js and Leaflet cannot read CSS tokens) and `src/lib/art.ts` (generated placeholder images).
 - Cyrillic script; hardcoded UI strings.
+
+## Feedback to the user
+- Loading: skeletons with `aria-busy` and an accessible label; the map and 3D hall show one while their code loads.
+- Errors: `ErrorNotice` (`components/error-notice.tsx`) with a "Try again" button on every list and page that fetches data.
+- Actions (save, submit, publish, return to draft, delete): a toast from `lib/toast.ts` shown by `Toaster`, success or error, announced to screen readers. Deleting asks first in a dialog (`alert-dialog`), never with `window.confirm`.
+- Connection: `OfflineBanner` appears under the header when the browser goes offline.
+- Tone: short, polite sentences that say what happened and what to do next; no codes or technical terms.

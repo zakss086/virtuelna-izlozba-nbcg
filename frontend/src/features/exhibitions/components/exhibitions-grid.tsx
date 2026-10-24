@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { ErrorNotice } from '@/components/error-notice'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useI18n } from '@/lib/i18n'
@@ -39,17 +40,7 @@ export function ExhibitionsGrid({
   }
 
   if (isError) {
-    return (
-      <div
-        role="alert"
-        className="flex flex-col items-start gap-3 rounded-lg border border-destructive/40 p-6"
-      >
-        <p>{t('catalog.error')}</p>
-        <Button variant="outline" onClick={() => refetch()}>
-          {t('catalog.retry')}
-        </Button>
-      </div>
-    )
+    return <ErrorNotice messageKey="catalog.error" onRetry={() => refetch()} />
   }
 
   if (data.length === 0) {
