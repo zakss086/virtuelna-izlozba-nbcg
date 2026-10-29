@@ -39,7 +39,7 @@ export function CollectionsGrid() {
               rel="noreferrer"
               className="group flex h-full flex-col overflow-hidden rounded-lg border bg-card transition-shadow hover:shadow-lg focus-visible:outline-2 focus-visible:outline-ring"
             >
-              <div className="aspect-[4/3] overflow-hidden bg-ink">
+              <div className="passepartout aspect-[4/3] overflow-hidden bg-ink">
                 <SmartImage
                   src={collection.image}
                   alt=""

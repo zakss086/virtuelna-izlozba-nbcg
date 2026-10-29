@@ -112,6 +112,25 @@ export function SectionFields({ index, onRemove }: SectionFieldsProps) {
         />
         <FieldError message={sectionErrors?.objectCreator?.message} />
       </div>
+      <details className="rounded-lg border p-3 md:col-span-2">
+        <summary className="cursor-pointer text-sm font-medium">{t('editor.objectDetails')}</summary>
+        <div className="mt-3 grid gap-4 md:grid-cols-2">
+          {(
+            [
+              ['objectSignature', 'editor.objectSignature'],
+              ['objectInventory', 'editor.objectInventory'],
+              ['objectLanguage', 'editor.objectLanguage'],
+              ['objectMaterial', 'editor.objectMaterial'],
+              ['objectDimensions', 'editor.objectDimensions'],
+            ] as const
+          ).map(([name, label]) => (
+            <div key={name} className="flex flex-col gap-2">
+              <Label htmlFor={`s${index}-${name}`}>{t(label)}</Label>
+              <Input id={`s${index}-${name}`} {...register(`sections.${index}.${name}`)} />
+            </div>
+          ))}
+        </div>
+      </details>
       <div className="flex flex-col gap-2">
         <Label htmlFor={`s${index}-pn`}>{t('editor.placeName')}</Label>
         <Input id={`s${index}-pn`} {...register(`sections.${index}.placeName`)} />

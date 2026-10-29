@@ -12,8 +12,9 @@ Code: `frontend/src/features/exhibitions/`
 | slug | string | yes | unique, URL-safe, generated from the title |
 | title | Localized | yes | 3+ characters per language |
 | summary | Localized | yes | 10+ characters per language |
+| intro | Localized | no | curator's introduction shown above the viewer |
 | coverUrl | string (URL) | yes | |
-| template | `timeline` \| `gallery` \| `map` \| `slider` \| `room` | yes | selects the viewer |
+| template | `timeline` \| `gallery` \| `map` \| `slider` \| `room` \| `book` \| `carousel` | yes | selects the viewer |
 | status | `draft` \| `pending` \| `published` | yes | draft -> pending (curator submits) -> published (admin) |
 | period | string | yes | free text, e.g. "1494 – 1873" |
 | tags | string[] | no | |
@@ -51,6 +52,11 @@ A digitized object (book, manuscript, map, photo...) from the library collection
 | imageUrl | string (URL) | yes | |
 | sourceUrl | string (URL) | yes | link to the object in dlib.me |
 | rights | string | yes | |
+| signature | string | no | shelf mark in the library |
+| inventoryNo | string | no | inventory number |
+| language | string | no | language and script of the object |
+| material | string | no | e.g. "paper, print" |
+| dimensions | string | no | e.g. "21 x 15 cm" |
 
 Relations: belongs to one Section (later: many-to-many, so one object can appear in several exhibitions).
 
@@ -75,14 +81,33 @@ Code: `frontend/src/features/auth/`
 | id | number | yes | |
 | name | string | yes | |
 | email | string | yes | unique |
-| role | `visitor` \| `curator` \| `admin` | yes | |
+| role | `curator` \| `admin` | yes | visitors have no account |
+
+## Library
+A library in Montenegro shown on the interactive map (`frontend/src/features/libraries/`). Read-only for visitors; the backend may later let an admin edit the list.
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| id | number | yes | |
+| name | string | yes | proper noun, not translated |
+| type | `national` | `university` | `public` | `special` | yes | |
+| city | string | yes | |
+| address | string | no | only where an official source states it |
+| website | string (URL) | no | |
+| email | string | no | |
+| phone | string | no | |
+| description | Localized | no | short facts, only where a source states them |
+| image | `{ url, credit, license, sourceUrl }` | no | free photo of the building; the credit must be shown |
+| location | `{ lat: number, lng: number, precision: 'exact' \| 'town' }` | no | `town` = centre of the town (approximate); missing = no pin on the map |
+
+Source of the sample data: names from the COBISS.CG statistics for 2025 (full members), coordinates from OpenStreetMap (ODbL).
 
 ## Favorite
-Saved exhibitions of a visitor. Mock: `localStorage` (`frontend/src/features/favorites/`). Backend: table `(userId, exhibitionId)`.
+Saved exhibitions of a visitor. Visitors have no account, so favorites live only in the visitor's browser (`localStorage`, `frontend/src/features/favorites/`). The backend does not store them.
 
 ## Access rules
 - Anyone reads **published** exhibitions.
-- Visitor: reads published, manages own favorites.
+- Visitor (no account): reads published exhibitions, libraries, collections and videos.
 - Curator: creates exhibitions; edits and deletes only their own; can submit a draft (`pending`).
 - Admin: edits any exhibition, publishes or returns `pending` exhibitions to `draft`, lists users.
 
@@ -94,4 +119,4 @@ Saved exhibitions of a visitor. Mock: `localStorage` (`frontend/src/features/fav
 - `DELETE /exhibitions/:id` (author or admin)
 - `POST /auth/sign-in`, `POST /auth/sign-out`, `GET /auth/me`
 - `GET /users` (admin)
-- `GET /favorites`, `PUT /favorites/:exhibitionId`, `DELETE /favorites/:exhibitionId` (signed in)
+- `GET /libraries?type=&city=`, `GET /libraries/:id` (anonymous)

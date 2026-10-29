@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useI18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 
+import { useMediaQuery } from '../../hooks/use-media-query'
 import type { Exhibition, ExhibitionItem } from '../../types'
 import { ItemDialog } from '../item-dialog'
 
@@ -14,6 +15,7 @@ export function TimelineViewer({ exhibition }: TimelineViewerProps) {
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState<ExhibitionItem | null>(null)
   const refs = useRef<(HTMLElement | null)[]>([])
+  const reduced = useMediaQuery('(prefers-reduced-motion: reduce)')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,6 +53,34 @@ export function TimelineViewer({ exhibition }: TimelineViewerProps) {
             </button>
           )}
           {current?.year && <p className="font-heading text-6xl font-semibold text-gold">{current.year}</p>}
+          <nav aria-label={t('timeline.years')}>
+            <ol className="flex justify-between gap-1 border-t border-gold/40 pt-4">
+              {exhibition.sections.map((section, index) => (
+                <li key={section.id}>
+                  <button
+                    type="button"
+                    aria-current={index === active}
+                    onClick={() =>
+                      refs.current[index]?.scrollIntoView({
+                        behavior: reduced ? 'auto' : 'smooth',
+                        block: 'center',
+                      })
+                    }
+                    className="relative flex flex-col items-center gap-1 text-xs text-muted-foreground focus-visible:outline-2 focus-visible:outline-ring aria-[current=true]:font-semibold aria-[current=true]:text-foreground"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        'absolute -top-[1.3rem] size-2 rotate-45 border border-gold bg-background',
+                        index === active && 'bg-accent',
+                      )}
+                    />
+                    {section.year ?? index + 1}
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </nav>
           {currentItem && (
             <p className="text-sm text-muted-foreground">
               {l(currentItem.title)} · {currentItem.creator}

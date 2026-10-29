@@ -1,11 +1,15 @@
-import { SmartImage } from '@/components/smart-image'
-import { ExternalLink, X } from 'lucide-react'
+import { Download, ExternalLink, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/lib/i18n'
 
 import type { ExhibitionItem } from '../types'
+import { itemRows } from './item-rows'
+import { ZoomableImage } from './zoomable-image'
+
+// Downloads are offered only for material the licence lets people copy.
+const canDownload = (item: ExhibitionItem) => /public domain|cc by|cc0/i.test(item.rights)
 
 type ItemDialogProps = {
   item: ExhibitionItem
@@ -34,13 +38,7 @@ export function ItemDialog({ item, onClose, onPrev, onNext }: ItemDialogProps) {
     }
   }, [onClose, onPrev, onNext])
 
-  const rows: [string, string][] = [
-    [t('item.creator'), item.creator],
-    ...(item.year ? ([[t('item.year'), String(item.year)]] as [string, string][]) : []),
-    [t('item.type'), t(`type.${item.type}`)],
-    [t('item.collection'), item.collection],
-    [t('item.rights'), item.rights],
-  ]
+  const rows = itemRows(item, t)
 
   return (
     <div
@@ -58,11 +56,8 @@ export function ItemDialog({ item, onClose, onPrev, onNext }: ItemDialogProps) {
       />
       <div className="relative grid max-h-full w-full max-w-5xl overflow-auto rounded-lg bg-card text-card-foreground shadow-xl md:grid-cols-[3fr_2fr]">
         <div className="bg-ink">
-          <SmartImage
-            src={item.imageUrl}
-            alt={l(item.title)}
-            className="h-full max-h-[70vh] w-full object-contain md:max-h-[80vh]"
-          />
+          <ZoomableImage src={item.imageUrl} alt={l(item.title)} className="h-[50vh] w-full md:h-[80vh]" />
+          <p className="px-3 py-2 text-xs text-on-ink/80">{t('item.zoomHint')}</p>
         </div>
         <div className="flex flex-col gap-4 p-6">
           <div className="flex items-start justify-between gap-4">
@@ -85,12 +80,22 @@ export function ItemDialog({ item, onClose, onPrev, onNext }: ItemDialogProps) {
               </div>
             ))}
           </dl>
-          <Button asChild variant="outline" className="mt-auto w-fit">
-            <a href={item.sourceUrl} target="_blank" rel="noreferrer">
-              <ExternalLink />
-              {t('item.openSource')}
-            </a>
-          </Button>
+          <div className="mt-auto flex flex-wrap gap-2">
+            <Button asChild variant="outline" className="w-fit">
+              <a href={item.sourceUrl} target="_blank" rel="noreferrer">
+                <ExternalLink />
+                {t('item.openSource')}
+              </a>
+            </Button>
+            {canDownload(item) && (
+              <Button asChild variant="outline" className="w-fit">
+                <a href={item.imageUrl} target="_blank" rel="noreferrer" download>
+                  <Download />
+                  {t('item.download')}
+                </a>
+              </Button>
+            )}
+          </div>
           {(onPrev || onNext) && (
             <div className="flex gap-2">
               <Button variant="secondary" size="sm" onClick={onPrev} disabled={!onPrev}>

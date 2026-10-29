@@ -2,6 +2,9 @@ import { Heart, LogOut, Menu, Moon, Sun, UserRound, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router'
 
+import { AssistantHost } from '@/app/assistant-host'
+import { BraidDivider } from '@/components/braid-divider'
+import { BrandLogo } from '@/components/brand-logo'
 import { OfflineBanner } from '@/components/offline-banner'
 import { Toaster } from '@/components/toaster'
 import { Button } from '@/components/ui/button'
@@ -19,6 +22,7 @@ const links: NavItem[] = [
   { to: '/', label: 'nav.home' },
   { to: '/exhibitions', label: 'nav.exhibitions' },
   { to: '/collections', label: 'nav.collections' },
+  { to: '/map', label: 'nav.map' },
   { to: '/videos', label: 'nav.videos' },
   { to: '/about', label: 'nav.about' },
   { to: '/studio', label: 'nav.studio', roles: ['curator', 'admin'] },
@@ -41,28 +45,23 @@ export function AppLayout() {
     <div className="flex min-h-dvh flex-col">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground"
+        className="sr-only print:hidden focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground"
       >
         {t('nav.skip')}
       </a>
-      <header className="sticky top-0 z-40 bg-ink text-on-ink">
+      <header className="sticky top-0 z-40 bg-ink text-on-ink print:hidden">
         <nav
           className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3"
           aria-label={t('nav.main')}
         >
           <Link to="/" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-ring">
-            <span className="shrink-0 rounded-md bg-plate p-1.5 shadow-md">
-              <img
-                src="/nbcg-logo.png"
-                alt={t('app.org')}
-                width={128}
-                height={64}
-                className="h-12 w-auto lg:h-16"
-              />
-            </span>
+            <BrandLogo />
             <span className="hidden flex-col leading-tight min-[480px]:flex">
               <span className="font-heading text-xl font-semibold whitespace-nowrap text-accent">
                 {t('app.name')}
+              </span>
+              <span className="hidden text-[0.65rem] tracking-[0.2em] whitespace-nowrap uppercase opacity-70 2xl:block">
+                {t('app.orgShort')}
               </span>
             </span>
           </Link>
@@ -222,14 +221,14 @@ export function AppLayout() {
       </main>
 
       <Toaster />
+      <AssistantHost />
 
-      <footer className="border-t bg-ink text-on-ink">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 text-sm">
+      <footer className="bg-ink text-on-ink print:hidden">
+        <BraidDivider className="pt-2" />
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pt-8 pb-16 text-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="flex items-center gap-3">
-              <span className="rounded-md bg-plate p-2">
-                <img src="/nbcg-logo.png" alt="" width={144} height={72} className="h-16 w-auto" />
-              </span>
+              <BrandLogo size="footer" />
               {t('app.org')}
             </p>
             <p>

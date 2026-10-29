@@ -17,6 +17,7 @@ import {
   toFormValues,
   type FormValues,
 } from './exhibition-form-model'
+import { EditorAssistant } from './editor-assistant'
 import { FieldError } from './field-error'
 import { SectionFields } from './section-fields'
 
@@ -94,6 +95,14 @@ export function ExhibitionForm({
             <FieldError message={errors.summaryEn?.message} />
           </div>
           <div className="flex flex-col gap-2">
+            <Label htmlFor="introMe">{t('editor.introMe')}</Label>
+            <Textarea id="introMe" rows={4} {...register('introMe')} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="introEn">{t('editor.introEn')}</Label>
+            <Textarea id="introEn" rows={4} {...register('introEn')} />
+          </div>
+          <div className="flex flex-col gap-2">
             <Label htmlFor="template">{t('catalog.template')}</Label>
             <Controller
               control={control}
@@ -145,6 +154,8 @@ export function ExhibitionForm({
             {t('editor.addSection')}
           </Button>
         </div>
+
+        <EditorAssistant />
 
         <div className="flex flex-wrap gap-3">
           <Button type="submit" disabled={isSaving}>

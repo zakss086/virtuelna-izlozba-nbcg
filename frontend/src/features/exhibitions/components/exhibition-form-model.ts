@@ -18,6 +18,11 @@ const sectionSchema = z.object({
   objectTitle: z.string().min(2),
   objectCreator: z.string().min(2),
   objectType: z.enum(ITEM_TYPES),
+  objectSignature: z.string(),
+  objectInventory: z.string(),
+  objectLanguage: z.string(),
+  objectMaterial: z.string(),
+  objectDimensions: z.string(),
 })
 
 export const exhibitionFormSchema = z.object({
@@ -25,6 +30,8 @@ export const exhibitionFormSchema = z.object({
   titleEn: z.string().min(3),
   summaryMe: z.string().min(10),
   summaryEn: z.string().min(10),
+  introMe: z.string(),
+  introEn: z.string(),
   template: z.enum(TEMPLATES),
   period: z.string().min(2),
   tags: z.string(),
@@ -45,6 +52,11 @@ export const emptySection: FormValues['sections'][number] = {
   objectTitle: '',
   objectCreator: '',
   objectType: 'photo',
+  objectSignature: '',
+  objectInventory: '',
+  objectLanguage: '',
+  objectMaterial: '',
+  objectDimensions: '',
 }
 
 export function toFormValues(exhibition?: Exhibition): FormValues {
@@ -54,6 +66,8 @@ export function toFormValues(exhibition?: Exhibition): FormValues {
       titleEn: '',
       summaryMe: '',
       summaryEn: '',
+      introMe: '',
+      introEn: '',
       template: 'timeline',
       period: '',
       tags: '',
@@ -65,6 +79,8 @@ export function toFormValues(exhibition?: Exhibition): FormValues {
     titleEn: exhibition.title.en,
     summaryMe: exhibition.summary.me,
     summaryEn: exhibition.summary.en,
+    introMe: exhibition.intro?.me ?? '',
+    introEn: exhibition.intro?.en ?? '',
     template: exhibition.template,
     period: exhibition.period,
     tags: exhibition.tags.join(', '),
@@ -82,6 +98,11 @@ export function toFormValues(exhibition?: Exhibition): FormValues {
         objectTitle: obj?.title.me ?? '',
         objectCreator: obj?.creator ?? '',
         objectType: obj?.type ?? 'photo',
+        objectSignature: obj?.signature ?? '',
+        objectInventory: obj?.inventoryNo ?? '',
+        objectLanguage: obj?.language ?? '',
+        objectMaterial: obj?.material ?? '',
+        objectDimensions: obj?.dimensions ?? '',
       }
     }),
   }
@@ -98,6 +119,8 @@ export function toExhibition(
   return {
     title: { me: values.titleMe, en: values.titleEn },
     summary: { me: values.summaryMe, en: values.summaryEn },
+    intro:
+      values.introMe.trim() || values.introEn.trim() ? { me: values.introMe, en: values.introEn } : undefined,
     coverUrl: makeArt(values.sections[0]?.objectType ?? 'book', values.titleMe, values.period, true),
     template: values.template,
     status,
@@ -129,6 +152,11 @@ export function toExhibition(
           imageUrl: makeArt(s.objectType, s.objectTitle, String(s.year)),
           sourceUrl: 'https://dlib.me',
           rights: 'Sample',
+          signature: s.objectSignature.trim() || undefined,
+          inventoryNo: s.objectInventory.trim() || undefined,
+          language: s.objectLanguage.trim() || undefined,
+          material: s.objectMaterial.trim() || undefined,
+          dimensions: s.objectDimensions.trim() || undefined,
         },
       ],
     })),

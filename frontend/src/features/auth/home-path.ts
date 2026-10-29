@@ -7,7 +7,5 @@ export function homePathFor(role: Role): string {
       return '/studio'
     case 'admin':
       return '/admin'
-    case 'visitor':
-      return '/'
   }
 }

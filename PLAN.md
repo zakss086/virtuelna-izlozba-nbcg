@@ -1,6 +1,6 @@
 # Virtual Exhibitions of the National Library of Montenegro - Plan
 
-**Status:** milestones 1 to 5 are done in the frontend on mock data (all five templates, auth with three roles, curator studio, favorites, video gallery, collections and about pages). Milestone 6 (review, README, push) is in progress; the backend follows in Workshop 4. See README.md for what exists now; the sections below are the original plan.
+**Status:** milestones 1 to 5 are done in the frontend on mock data (all eight templates, auth with two staff roles, curator studio, favorites, video gallery, collections and about pages). Milestone 6 (review, README, push) is in progress; the backend follows in Workshop 4. See README.md for what exists now; the sections below are the original plan.
 
 Reference: virtual exhibition portals of national libraries, modernized.
 Course: AI-DEV 2026 Workshop 3 (frontend with mock data), Workshop 4 (backend).
@@ -8,7 +8,7 @@ Course: AI-DEV 2026 Workshop 3 (frontend with mock data), Workshop 4 (backend).
 ## Decisions so far
 - Bilingual UI and content: Montenegrin (Latin script) + English. Code, comments, commits, docs in English.
 - Solo project. Frontend first (mock data), backend next week.
-- Roles: `visitor`, `curator` (creates/edits own exhibitions), `admin` (manages users, publishes, edits all).
+- Roles: `curator` (creates/edits own exhibitions) and `admin` (manages users, publishes, edits all). Visitors have no account.
 - Identity from nb-cg.me: gold `#C9A961` / `#DABC74`, warm off-white `#F9F8F5`, ink `#252525`, grays `#454545` `#5E5E5E` `#CDCBCB`; fonts first Playfair Display + Roboto, later changed to Fraunces (headings) + Inter (body). Tone: formal, institutional, but with a modern editorial feel.
 - Sample content from nb-cg.me / dlib.me collections (Njegos, Montenegrina, old and rare books, manuscripts, maps, periodicals like Glas Crnogorca, posters, photos and postcards).
 

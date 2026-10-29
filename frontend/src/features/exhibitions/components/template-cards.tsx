@@ -1,4 +1,4 @@
-import { Box, Clock, GalleryHorizontal, Images, Map } from 'lucide-react'
+import { Archive, BookOpen, Box, Clock, Disc3, GalleryHorizontal, Images, Map } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { Link } from 'react-router'
 
@@ -13,6 +13,9 @@ const TEMPLATE_ICONS: Record<ExhibitionTemplate, ComponentType<{ className?: str
   map: Map,
   slider: GalleryHorizontal,
   room: Box,
+  book: BookOpen,
+  carousel: Disc3,
+  cards: Archive,
 }
 
 // One card per exhibition template; each links to the catalog filtered by that template.
@@ -20,7 +23,7 @@ export function TemplateCards() {
   const { t } = useI18n()
 
   return (
-    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {TEMPLATES.map((tpl, index) => {
         const Icon = TEMPLATE_ICONS[tpl]
         return (

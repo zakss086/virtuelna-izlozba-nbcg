@@ -52,6 +52,8 @@ type ItemInput = {
   file?: string
   url?: string
   license: string
+  language?: string
+  material?: string
 }
 
 export function item(input: ItemInput): ExhibitionItem {
@@ -69,6 +71,8 @@ export function item(input: ItemInput): ExhibitionItem {
     imageUrl,
     sourceUrl: input.file ? commonsPage(input.file) : 'https://dlib.me',
     rights: `${input.license} · Wikimedia Commons`,
+    language: input.language,
+    material: input.material,
   }
 }
 

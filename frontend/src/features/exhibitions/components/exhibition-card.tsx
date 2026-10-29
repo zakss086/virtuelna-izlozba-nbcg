@@ -20,7 +20,7 @@ export function ExhibitionCard({ exhibition, action, to }: ExhibitionCardProps) 
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground transition-shadow hover:shadow-lg">
-      <div className="relative aspect-[16/10] overflow-hidden bg-ink">
+      <div className="passepartout relative aspect-[16/10] overflow-hidden bg-ink">
         <SmartImage
           src={exhibition.coverUrl}
           alt=""
