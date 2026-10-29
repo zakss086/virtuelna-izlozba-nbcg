@@ -17,7 +17,7 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 - **Interactive map**: the libraries of Montenegro (with photos where a free one exists) and the places named in exhibitions on one map. Search that ignores diacritics, a type filter, layers, a "nearest library" button, detail cards with contact details and links, and a link from every place to its exhibition. Sources: COBISS.CG statistics, OpenStreetMap and Wikimedia Commons.
 - **Demo assistant** for visitors: answers questions about exhibitions, objects, libraries and how to use the site. It is a simulation: no AI service is called, it searches the site content and ready-made guides, so it costs nothing to run.
 - **Exhibition check** for curators in the editor: a checklist (translations, summary, tags, sections, section texts, places for the map template, chronology for the timeline) and tag suggestions, also rule-based.
-- **Three roles**: visitor, curator (builds and submits exhibitions), admin (publishes, manages users).
+- **No accounts for visitors, two staff roles**: visitors browse and save favorites in their browser; curators build and submit exhibitions; admins publish them and manage users.
 - **Bilingual UI and content** (Montenegrin Latin + English), light and dark theme, favorites, responsive from 375 px to 1440 px.
 - **Accessible**: semantic HTML, labelled forms, visible focus, contrast above 4.5:1, reduced-motion friendly.
 - **Clear feedback**: loading skeletons, a retry button when data fails to load, a confirmation or error message for every action, a confirmation dialog before deleting, and a notice when the connection drops.
@@ -44,7 +44,7 @@ Built for **AI-DEV 2026, Workshop 3: Frontend in the AI era (from HTML to a Reac
 
 **Task:** build the frontend of an own app on mock data with Claude Code: 2 to 3 related entities, home, a list with a filter, a detail page, a create/update form and sign-in, responsive at 375 px and 1440 px, plus `docs/entities.md` for the backend.
 
-**Delivered:** all of the above, extended with five exhibition templates, a 3D hall, a video gallery, a bilingual UI and three roles. The backend is planned for Workshop 4 (see [`backend/README.md`](backend/README.md)).
+**Delivered:** all of the above, extended with five exhibition templates, a 3D hall, a video gallery, a bilingual UI and two staff roles. The backend is planned for Workshop 4 (see [`backend/README.md`](backend/README.md)).
 
 ## Run it
 
@@ -60,7 +60,6 @@ pnpm typecheck && pnpm lint && pnpm build
 
 | Role | Email | Can do |
 |---|---|---|
-| Visitor | ana@visitor.me | browse, save favorites |
 | Curator | marko@nb-cg.me, nikola@nb-cg.me | create, edit, delete own exhibitions, submit for publishing |
 | Admin | jelena@nb-cg.me | everything above plus publish or return exhibitions, list users |
 
@@ -70,7 +69,7 @@ Data lives in memory and resets on reload; favorites, language, theme and the de
 
 | Role | Screens and actions |
 |---|---|
-| **Visitor** | Home, catalog with search and filters, exhibition viewers (timeline, gallery, map, slider, 3D hall), object details, video gallery, collections, About; save favorites; switch language and theme; after signing in, a profile page |
+| **Visitor** (no account) | Home, catalog with search and filters, exhibition viewers (timeline, gallery, map, slider, 3D hall), object details, video gallery, collections, About; save favorites; switch language and theme |
 | **Curator** | Everything a visitor can, plus **Studio**: create an exhibition in two languages, add sections and objects, pick a template, save a draft, submit it for publishing, edit or delete own exhibitions |
 | **Admin** | Everything a curator can, plus **Administration**: review queue (publish or return to draft), edit any exhibition, list users |
 
@@ -84,7 +83,7 @@ The full list of screens with their "done when" criteria is in [`SPEC.md`](SPEC.
 | `/exhibitions` | Catalog with search and template filter (URL-synced) |
 | `/exhibitions/:slug` | Exhibition viewer (template decides the layout) + videos |
 | `/collections`, `/map`, `/videos`, `/about` | Collections of the digital library, interactive map, video gallery, about |
-| `/favorites`, `/sign-in`, `/profile` | Saved exhibitions, sign in (lands on the page for your role), profile |
+| `/favorites`, `/sign-in`, `/profile` | Saved exhibitions (kept in the browser), staff sign-in (lands on the page for your role), profile |
 | `/studio`, `/studio/new`, `/studio/:id/edit` | Curator dashboard and exhibition editor (curator, admin) |
 | `/admin` | Review queue and users (admin) |
 

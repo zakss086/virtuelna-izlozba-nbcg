@@ -6,7 +6,6 @@ import type { User } from '../types'
 export const DEMO_PASSWORD = 'demo1234'
 
 const users: User[] = [
-  { id: 1, name: 'Ana Perović', email: 'ana@visitor.me', role: 'visitor' },
   { id: 2, name: 'Marko Vuković', email: 'marko@nb-cg.me', role: 'curator' },
   { id: 3, name: 'Jelena Đurović', email: 'jelena@nb-cg.me', role: 'admin' },
   { id: 4, name: 'Nikola Radović', email: 'nikola@nb-cg.me', role: 'curator' },

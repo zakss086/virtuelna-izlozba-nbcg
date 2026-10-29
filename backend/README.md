@@ -6,7 +6,7 @@ The contract the frontend expects is in [`../docs/entities.md`](../docs/entities
 
 ## Plan
 
-1. **Database** modelled after `docs/entities.md`: users, exhibitions, sections, objects, videos, favorites.
+1. **Database** modelled after `docs/entities.md`: users (curators and admins only), exhibitions, sections, objects, videos.
 2. **Authentication** with sessions or tokens, replacing the demo accounts; passwords are hashed and never reach the frontend.
 3. **Authorization on the server** (the frontend guards are only a convenience):
    - anyone reads published exhibitions;
@@ -25,7 +25,6 @@ The contract the frontend expects is in [`../docs/entities.md`](../docs/entities
 - `PATCH /exhibitions/:id/status`
 - `POST /auth/sign-in`, `POST /auth/sign-out`, `GET /auth/me`
 - `GET /users` (admin)
-- `GET /favorites`, `PUT /favorites/:exhibitionId`, `DELETE /favorites/:exhibitionId`
 
 ## Rule of the monorepo
 

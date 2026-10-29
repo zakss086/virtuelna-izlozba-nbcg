@@ -75,7 +75,7 @@ Code: `frontend/src/features/auth/`
 | id | number | yes | |
 | name | string | yes | |
 | email | string | yes | unique |
-| role | `visitor` \| `curator` \| `admin` | yes | |
+| role | `curator` \| `admin` | yes | visitors have no account |
 
 ## Library
 A library in Montenegro shown on the interactive map (`frontend/src/features/libraries/`). Read-only for visitors; the backend may later let an admin edit the list.
@@ -97,11 +97,11 @@ A library in Montenegro shown on the interactive map (`frontend/src/features/lib
 Source of the sample data: names from the COBISS.CG statistics for 2025 (full members), coordinates from OpenStreetMap (ODbL).
 
 ## Favorite
-Saved exhibitions of a visitor. Mock: `localStorage` (`frontend/src/features/favorites/`). Backend: table `(userId, exhibitionId)`.
+Saved exhibitions of a visitor. Visitors have no account, so favorites live only in the visitor's browser (`localStorage`, `frontend/src/features/favorites/`). The backend does not store them.
 
 ## Access rules
 - Anyone reads **published** exhibitions.
-- Visitor: reads published, manages own favorites.
+- Visitor (no account): reads published exhibitions, libraries, collections and videos.
 - Curator: creates exhibitions; edits and deletes only their own; can submit a draft (`pending`).
 - Admin: edits any exhibition, publishes or returns `pending` exhibitions to `draft`, lists users.
 
@@ -114,4 +114,3 @@ Saved exhibitions of a visitor. Mock: `localStorage` (`frontend/src/features/fav
 - `POST /auth/sign-in`, `POST /auth/sign-out`, `GET /auth/me`
 - `GET /users` (admin)
 - `GET /libraries?type=&city=`, `GET /libraries/:id` (anonymous)
-- `GET /favorites`, `PUT /favorites/:exhibitionId`, `DELETE /favorites/:exhibitionId` (signed in)

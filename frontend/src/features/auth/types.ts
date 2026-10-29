@@ -1,4 +1,5 @@
-export type Role = 'visitor' | 'curator' | 'admin'
+// Visitors have no account; only library staff sign in.
+export type Role = 'curator' | 'admin'
 
 export type User = {
   id: number

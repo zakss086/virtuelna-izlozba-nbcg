@@ -227,7 +227,7 @@ export function AppLayout() {
       <AssistantHost />
 
       <footer className="border-t bg-ink text-on-ink">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 text-sm">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pt-8 pb-16 text-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="flex items-center gap-3">
               <span className="rounded-md bg-plate p-2">

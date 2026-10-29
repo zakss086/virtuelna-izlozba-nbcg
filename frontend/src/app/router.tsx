@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
       {
         path: '/profile',
         element: (
-          <RequireRole roles={['visitor', 'curator', 'admin']}>
+          <RequireRole roles={['curator', 'admin']}>
             <Profile />
           </RequireRole>
         ),

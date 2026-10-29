@@ -32,11 +32,11 @@ export const guides: Guide[] = [
   },
   {
     id: 'sign-in',
-    question: { me: 'Kako da se prijavim?', en: 'How do I sign in?' },
-    keywords: 'prijava prijaviti nalog lozinka demo posjetilac kustos administrator sign login account password',
+    question: { me: 'Treba li mi nalog ili prijava?', en: 'Do I need an account or to sign in?' },
+    keywords: 'prijava prijaviti nalog lozinka demo posjetilac kustos administrator osoblje sign login account password staff visitor',
     answer: {
-      me: 'Otvorite stranicu „Prijava“. Za probu izaberite demo nalog (lozinka je demo1234): posjetilac, kustos ili administrator. Poslije prijave stižete na stranicu za svoju ulogu.',
-      en: 'Open the "Sign in" page. To try the site, pick a demo account (the password is demo1234): visitor, curator or admin. After signing in you land on the page for your role.',
+      me: 'Posjetiocima nalog nije potreban: izložbe možete razgledati i čuvati bez prijave. Prijava je za kustose i administratore. Za probu otvorite „Prijava osoblja“ i izaberite demo nalog (lozinka je demo1234).',
+      en: 'Visitors do not need an account: you can browse and save exhibitions without signing in. Sign-in is for curators and administrators. To try it, open "Staff sign-in" and pick a demo account (the password is demo1234).',
     },
     href: '/sign-in',
   },
@@ -45,7 +45,7 @@ export const guides: Guide[] = [
     question: { me: 'Kako napraviti izložbu?', en: 'How do I create an exhibition?' },
     keywords: 'napraviti kreirati nova izložba kustos studio create make new exhibition curator',
     answer: {
-      me: 'Prijavite se kao kustos, otvorite „Studio“ i izaberite „Nova izložba“. Unesite naslov i sažetak na oba jezika, izaberite predložak i dodajte sekcije. Možete sačuvati nacrt ili ga poslati na objavu.',
+      me: 'Prijavite se kao kustos, otvorite „Studio“ i izaberite „Nova izložba“. Unesite naslov i sažetak na oba jezika, izaberite način prikaza i dodajte sekcije. Možete sačuvati nacrt ili ga poslati na objavu.',
       en: 'Sign in as a curator, open "Studio" and choose "New exhibition". Enter the title and summary in both languages, pick a template and add sections. You can save a draft or submit it for publishing.',
     },
     href: '/studio',
@@ -61,8 +61,8 @@ export const guides: Guide[] = [
   },
   {
     id: 'templates',
-    question: { me: 'Koji predlošci izložbi postoje?', en: 'Which exhibition templates are there?' },
-    keywords: 'predložak predlošci načini prikaza vremenska traka galerija mapa slider 3D sala templates timeline gallery',
+    question: { me: 'Koji načini prikaza izložbi postoje?', en: 'Which exhibition templates are there?' },
+    keywords: 'načini prikaza predložak predlošci vremenska traka galerija mapa slider 3D sala templates timeline gallery',
     answer: {
       me: 'Pet: vremenska traka, galerija sa uvećanjem, priča na mapi, slider „prije i poslije“ i 3D sala po kojoj se može šetati.',
       en: 'Five: a timeline, a gallery with lightbox, a map story, a before/after slider and a walkable 3D hall.',

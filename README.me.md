@@ -2,7 +2,7 @@
 
 [English version](README.md)
 
-Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digitalizovane građe prave interaktivne izložbe, a posjetioci ih razgledaju. Inspirisana portalima virtuelnih izložbi nacionalnih biblioteka, sa savremenim izgledom i bogatijim predlošcima. Vizuelni identitet je preuzet sa [nb-cg.me](https://nb-cg.me), a veza je i sa digitalnom bibliotekom [dlib.me](https://dlib.me).
+Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digitalizovane građe prave interaktivne izložbe, a posjetioci ih razgledaju. Inspirisana portalima virtuelnih izložbi nacionalnih biblioteka, sa savremenim izgledom i bogatijim načinima prikaza. Vizuelni identitet je preuzet sa [nb-cg.me](https://nb-cg.me), a veza je i sa digitalnom bibliotekom [dlib.me](https://dlib.me).
 
 > Stanje: završen je **frontend** (AI-DEV 2026, Radionica 3) na probnim (mock) podacima. Backend slijedi u Radionici 4. Ugovor između njih opisan je u [`docs/entities.md`](docs/entities.md).
 
@@ -12,12 +12,12 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 
 ## Šta sajt nudi
 
-- **Pet predložaka izložbi**: vremenska traka, galerija sa uvećanjem, priča na mapi, slider „prije i poslije“ i **3D sala** po kojoj se može šetati.
+- **Pet načina prikaza izložbi**: vremenska traka, galerija sa uvećanjem, priča na mapi, slider „prije i poslije“ i **3D sala** po kojoj se može šetati.
 - **Video galerija** i video zapisi unutar izložbi.
 - **Interaktivna mapa**: biblioteke Crne Gore (sa fotografijama gdje postoji slobodna) i mjesta iz izložbi na jednoj mapi. Pretraga koja ne pravi razliku među dijakriticima, filter po vrsti, slojevi, dugme „Najbliža biblioteka“, kartice sa kontaktom i vezama, a od svakog mjesta veza ka izložbi. Izvori: statistika COBISS.CG, OpenStreetMap i Wikimedia Commons.
 - **Demo asistent** za posjetioce: odgovara na pitanja o izložbama, objektima, bibliotekama i korišćenju sajta. To je simulacija: ne poziva nikakav AI servis, već pretražuje sadržaj sajta i spremna uputstva, pa ne troši resurse.
 - **Provjera izložbe** za kustose u uređivaču: lista provjera (prevod, sažetak, oznake, sekcije, tekstovi, mjesta za mapu, hronologija za vremensku traku) i prijedlozi oznaka, takođe po jednostavnim pravilima.
-- **Tri uloge**: posjetilac, kustos (pravi i šalje izložbe) i administrator (objavljuje i upravlja korisnicima).
+- **Bez naloga za posjetioce, dvije uloge osoblja**: posjetioci razgledaju izložbe i čuvaju omiljene u pregledaču; kustosi prave i šalju izložbe na objavu; administratori ih objavljuju i upravljaju korisnicima.
 - Dvojezičan sadržaj, svijetla i tamna tema, sačuvane izložbe, prilagođen prikaz od 375 do 1440 px.
 - Pristupačnost: semantički HTML, oznake na poljima, vidljiv fokus, kontrast iznad 4.5:1.
 - Jasne poruke korisniku: prikaz učitavanja, dugme „Pokušaj ponovo“ pri grešci, potvrda ili upozorenje za svaku radnju, potvrda prije brisanja i obavještenje kad se prekine veza.
@@ -44,7 +44,7 @@ Napravljeno za **AI-DEV 2026, Radionica 3: Frontend u AI eri (od HTML-a do React
 
 **Zadatak:** napraviti frontend sopstvene aplikacije na probnim podacima uz Claude Code: 2 do 3 povezana entiteta, početna, lista sa filterom, stranica sa detaljima, forma za pravljenje i izmjenu i prijava, prilagođeno za 375 i 1440 px, uz `docs/entities.md` za backend.
 
-**Urađeno:** sve navedeno, uz pet predložaka izložbi, 3D salu, video galeriju, dvojezični interfejs i tri uloge. Backend je planiran za Radionicu 4 (vidi [`backend/README.md`](backend/README.md)).
+**Urađeno:** sve navedeno, uz pet načina prikaza izložbi, 3D salu, video galeriju, dvojezični interfejs i dvije uloge osoblja. Backend je planiran za Radionicu 4 (vidi [`backend/README.md`](backend/README.md)).
 
 ## Pokretanje
 
@@ -60,7 +60,6 @@ pnpm typecheck && pnpm lint && pnpm build
 
 | Uloga | E-pošta | Šta može |
 |---|---|---|
-| Posjetilac | ana@visitor.me | pregled, čuvanje omiljenih izložbi |
 | Kustos | marko@nb-cg.me, nikola@nb-cg.me | pravljenje, izmjena i brisanje sopstvenih izložbi, slanje na objavu |
 | Administrator | jelena@nb-cg.me | sve navedeno, plus objava ili vraćanje izložbi i lista korisnika |
 
@@ -70,8 +69,8 @@ Podaci su u memoriji i vraćaju se na početno stanje pri osvježavanju stranice
 
 | Uloga | Ekrani i radnje |
 |---|---|
-| **Posjetilac** | Početna, katalog sa pretragom i filterima, čitači izložbi, detalji objekata, video galerija, zbirke, O nama; čuvanje izložbi; promjena jezika i teme; nakon prijave, stranica profila |
-| **Kustos** | Sve što i posjetilac, plus **Studio**: pravljenje izložbe na dva jezika, sekcije i objekti, izbor predloška, čuvanje nacrta, slanje na objavu, izmjena i brisanje sopstvenih izložbi |
+| **Posjetilac** (bez naloga) | Početna, katalog sa pretragom i filterima, čitači izložbi, detalji objekata, video galerija, zbirke, O nama; čuvanje izložbi; promjena jezika i teme |
+| **Kustos** | Sve što i posjetilac, plus **Studio**: pravljenje izložbe na dva jezika, sekcije i objekti, izbor načina prikaza, čuvanje nacrta, slanje na objavu, izmjena i brisanje sopstvenih izložbi |
 | **Administrator** | Sve što i kustos, plus **Administracija**: red izložbi na čekanju (objavi ili vrati u nacrt), izmjena svake izložbe, lista korisnika |
 
 Potpuna lista ekrana sa kriterijumima „gotovo je kad“ nalazi se u [`SPEC.md`](SPEC.md) (na engleskom).
@@ -80,11 +79,11 @@ Potpuna lista ekrana sa kriterijumima „gotovo je kad“ nalazi se u [`SPEC.md`
 
 | Ruta | Ekran |
 |---|---|
-| `/` | Početna: hero, istaknuta izložba, najnovije, predlošci, video zapisi, zbirke |
-| `/exhibitions` | Katalog sa pretragom i filterom po predlošku (čuvaju se u adresi) |
-| `/exhibitions/:slug` | Čitač izložbe (predložak određuje raspored) i video zapisi |
+| `/` | Početna: hero, istaknuta izložba, najnovije, načini prikaza, video zapisi, zbirke |
+| `/exhibitions` | Katalog sa pretragom i filterom po načinu prikaza (čuvaju se u adresi) |
+| `/exhibitions/:slug` | Čitač izložbe (način prikaza određuje raspored) i video zapisi |
 | `/collections`, `/map`, `/videos`, `/about` | Zbirke, interaktivna mapa, video galerija, O nama |
-| `/favorites`, `/sign-in`, `/profile` | Sačuvano, prijava (vodi na stranicu za tvoju ulogu), profil |
+| `/favorites`, `/sign-in`, `/profile` | Sačuvano (pamti se u pregledaču), prijava osoblja (vodi na stranicu za tvoju ulogu), profil |
 | `/studio`, `/studio/new`, `/studio/:id/edit` | Pregled i uređivač izložbi (kustos, admin) |
 | `/admin` | Red za objavu i korisnici (admin) |
 
@@ -113,7 +112,7 @@ Pravila koja provjerava `pnpm lint`: funkcionalnost nikad ne uvozi drugu funkcio
 
 ## Gdje u kodu
 
-Rute i uloge: `frontend/src/app/router.tsx`. Podaci (probni, zamjenjuje ih backend): `frontend/src/features/exhibitions/api/exhibitions-api.ts` i `use-exhibitions.ts`. Pet predložaka: `frontend/src/features/exhibitions/components/viewers/`. Boje i teme: `frontend/src/index.css`. Tekstovi na oba jezika: `frontend/src/lib/messages-me.ts` i `messages-en.ts`. Ugovor sa backendom: `docs/entities.md`.
+Rute i uloge: `frontend/src/app/router.tsx`. Podaci (probni, zamjenjuje ih backend): `frontend/src/features/exhibitions/api/exhibitions-api.ts` i `use-exhibitions.ts`. Pet načina prikaza: `frontend/src/features/exhibitions/components/viewers/`. Boje i teme: `frontend/src/index.css`. Tekstovi na oba jezika: `frontend/src/lib/messages-me.ts` i `messages-en.ts`. Ugovor sa backendom: `docs/entities.md`.
 
 ## Tehnologije
 

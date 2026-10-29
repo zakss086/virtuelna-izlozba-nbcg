@@ -16,7 +16,7 @@ Must hold everywhere: loading, empty and error states for every list; usable at 
 
 | Role | Can |
 |---|---|
-| Visitor (not signed in or `visitor`) | read published exhibitions, search and filter, watch videos, save favorites |
+| Visitor (no account, not signed in) | read published exhibitions, search and filter, watch videos, save favorites |
 | Curator | everything a visitor can, plus create exhibitions, edit and delete **own** exhibitions, submit a draft for publishing |
 | Admin | everything a curator can, plus edit any exhibition, publish or return pending exhibitions to draft, list users |
 
@@ -34,7 +34,7 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 | `/videos` | Video gallery | all videos of published exhibitions play and link back to their exhibition |
 | `/about` | About | mission, how an exhibition is made, platform numbers, contact and sources |
 | `/favorites` | Saved | lists saved exhibitions; empty state explains how to save |
-| `/sign-in` | Sign in | email and password validated; wrong credentials show an error; demo accounts can be filled in with one click; after success the user lands on the page for their role (visitor: home, curator: Studio, admin: Administration) with a greeting |
+| `/sign-in` | Sign in | email and password validated; wrong credentials show an error; demo accounts can be filled in with one click; after success the user lands on the page for their role (curator: Studio, admin: Administration) with a greeting |
 | `/profile` | Profile | signed-in users see name, email, role with a short description, and their saved exhibitions |
 | `/studio` | Curator dashboard | lists own exhibitions with status; submit, edit, delete; empty state |
 | `/studio/new`, `/studio/:id/edit` | Editor | bilingual fields validated with Zod; sections can be added and removed; saved as draft or submitted; only the author or an admin can edit |
@@ -82,4 +82,4 @@ Payments, comments from visitors, real-time collaboration, and offline use.
 
 - Which digitized objects and metadata fields will the library provide, and in which formats (images, IIIF, audio)?
 - Who may publish: any admin, or a separate editor role?
-- Should visitors need an account at all, or are favorites enough in the browser?
+- Decided: visitors have no accounts. Favorites stay in the browser; only curators and admins sign in.
