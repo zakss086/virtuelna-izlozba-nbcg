@@ -4,7 +4,7 @@
 
 A bilingual (Montenegrin Latin script / English) platform where curators build interactive exhibitions from library collections and visitors explore them. Inspired by the virtual exhibition portals of national libraries, with a modern look and richer templates. Branded after [nb-cg.me](https://nb-cg.me) and linked to the digital library [dlib.me](https://dlib.me).
 
-> Status: **frontend workshop (AI-DEV 2026, Workshop 3)** is done, running on mock data. The backend comes in Workshop 4. The contract between them is in [`docs/entities.md`](docs/entities.md).
+> Status: the **frontend** (AI-DEV 2026, Workshop 3) and the **backend** (Workshop 4: FastAPI, database, staff sign-in, server-side roles) are both in this repository. The frontend runs on mock data (`pnpm dev`) or on the backend (`pnpm dev:api`). The contract between them is in [`docs/entities.md`](docs/entities.md).
 
 > **Notice:** this is an independent, educational demo project made for a workshop. It is **not** the official website of the National Library of Montenegro and is not affiliated with or endorsed by it. The library name and logo are used only for illustration, texts are illustrative, and the sample images and videos come from Wikimedia Commons.
 
@@ -53,7 +53,7 @@ Built for **AI-DEV 2026, Workshop 3: Frontend in the AI era (from HTML to a Reac
 
 **Task:** build the frontend of an own app on mock data with Claude Code: 2 to 3 related entities, home, a list with a filter, a detail page, a create/update form and sign-in, responsive at 375 px and 1440 px, plus `docs/entities.md` for the backend.
 
-**Delivered:** all of the above, extended with eight exhibition templates, a 3D hall, a video gallery, a bilingual UI and two staff roles. The backend is planned for Workshop 4 (see [`backend/README.md`](backend/README.md)).
+**Delivered:** all of the above, extended with eight exhibition templates, a 3D hall, a video gallery, a bilingual UI and two staff roles. The backend of Workshop 4 is in `backend/` (see [`backend/README.md`](backend/README.md)).
 
 ## Run it
 
@@ -65,6 +65,15 @@ pnpm dev          # http://localhost:5173
 pnpm typecheck && pnpm lint && pnpm build
 ```
 
+### With the backend
+
+Needs Python 3.13 and Poetry (details in [`backend/README.md`](backend/README.md)).
+
+```bash
+cd backend && poetry install && poetry run migrate && poetry run seed && poetry run start   # http://localhost:8000/docs
+pnpm dev:api      # in another terminal: the same site, but data and sign-in come from the API
+```
+
 ### Demo accounts (password `demo1234`)
 
 | Role | Email | Can do |
@@ -72,7 +81,7 @@ pnpm typecheck && pnpm lint && pnpm build
 | Curator | marko@nb-cg.me, nikola@nb-cg.me | create, edit, delete own exhibitions, submit for publishing |
 | Admin | jelena@nb-cg.me | everything above plus publish or return exhibitions, list users |
 
-Data lives in memory and resets on reload; favorites, language, theme and the demo session are kept in `localStorage`.
+With `pnpm dev` data lives in memory and resets on reload; with `pnpm dev:api` it is stored in the backend database (`backend/data/app.db`). Favorites, language and theme are always kept in `localStorage`.
 
 ## What each role can do
 
@@ -128,7 +137,8 @@ Rules enforced by `pnpm lint`: a feature never imports another feature, shared c
 | File | What it shows |
 |---|---|
 | `frontend/src/app/router.tsx` | all routes and the role guards |
-| `frontend/src/features/exhibitions/api/exhibitions-api.ts` | the only place that "fetches" data (mock); the backend replaces this layer |
+| `frontend/src/features/exhibitions/api/exhibitions-api.ts` | the only place that "fetches" data: picks the mock (`exhibitions-mock.ts`) or the backend (`exhibitions-http.ts`) |
+| `backend/app/exhibitions/` | the exhibitions domain of the API: model, schemas, repository, service (the rules), endpoints |
 | `frontend/src/features/exhibitions/api/use-exhibitions.ts` | TanStack Query hooks around that API |
 | `frontend/src/features/exhibitions/components/viewers/` | the eight templates (timeline, gallery, map, slider, 3D room, book, carousel, cards) |
 | `frontend/src/features/auth/api/auth-api.ts` | demo users and session |
@@ -150,9 +160,9 @@ The repo follows the workshop workflow with Claude Code:
 
 Every change was checked with typecheck, lint and build, and pages were reviewed at 375 px and 1440 px.
 
-## Next: backend (Workshop 4)
+## Next: CMS and uploads
 
-Replace the mock `api/` folders with real HTTP calls, add a database modelled after `docs/entities.md`, real authentication with server-side role checks, and file upload for images and videos. See [`backend/README.md`](backend/README.md).
+The API covers exhibitions, sign-in and users. Still to come, see [`backend/README.md`](backend/README.md): editable site content (About, collections), a media library with file upload, the libraries on the map as editable data, and account management with a change history.
 
 ## Content and licences
 

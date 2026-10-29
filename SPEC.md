@@ -54,6 +54,10 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 | Card catalogue | objects as index cards in a library drawer, one group per section; select a card to pull it out and see every catalogue detail, click the picture to enlarge |
 | 3D carousel | objects in a ring that turns by itself (pause button, stops on hover and focus, off with reduced motion); drag, arrows or click a neighbour to turn; click the front one for details |
 
+## Backend
+
+The API in `backend/` (FastAPI, SQLite or Postgres) implements the contract in `docs/entities.md`: staff sign-in with a token, exhibitions with sections, objects and videos, the draft -> pending -> published flow and the access rules, enforced on the server. `pnpm dev` runs the frontend on mock data, `pnpm dev:api` on the API.
+
 ## Exhibition page
 
 Every exhibition page has, above the viewer: the curator's introduction (or the summary), a facts panel (curator, period, collections, objects, year), a ready-made citation with a copy button, a "view as" switch (any viewer can show any exhibition; the map only when every section has a place), full screen and a "Download catalogue (PDF)" button that prints a clean catalogue page. Related exhibitions follow the viewer. The object dialog zooms (wheel, buttons, `+` / `-` keys, double click), shows optional shelf mark, inventory number, language, material and dimensions, and offers a download only for public-domain or CC material.

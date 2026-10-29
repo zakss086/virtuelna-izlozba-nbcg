@@ -4,7 +4,7 @@
 
 Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digitalizovane građe prave interaktivne izložbe, a posjetioci ih razgledaju. Inspirisana portalima virtuelnih izložbi nacionalnih biblioteka, sa savremenim izgledom i bogatijim načinima prikaza. Vizuelni identitet je preuzet sa [nb-cg.me](https://nb-cg.me), a veza je i sa digitalnom bibliotekom [dlib.me](https://dlib.me).
 
-> Stanje: završen je **frontend** (AI-DEV 2026, Radionica 3) na probnim (mock) podacima. Backend slijedi u Radionici 4. Ugovor između njih opisan je u [`docs/entities.md`](docs/entities.md).
+> Stanje: u ovom repozitorijumu su **frontend** (AI-DEV 2026, Radionica 3) i **backend** (Radionica 4: FastAPI, baza, prijava osoblja, uloge provjerene na serveru). Frontend radi na probnim podacima (`pnpm dev`) ili na backendu (`pnpm dev:api`). Ugovor između njih opisan je u [`docs/entities.md`](docs/entities.md).
 
 > **Napomena:** ovo je samostalan, edukativni demo projekat nastao na radionici. **Nije** zvanični sajt Nacionalne biblioteke Crne Gore, niti je povezan sa njom ili odobren od nje. Naziv i logo biblioteke koriste se samo radi ilustracije, tekstovi su ilustrativni, a probne slike i video zapisi su sa Wikimedia Commons.
 
@@ -53,7 +53,7 @@ Napravljeno za **AI-DEV 2026, Radionica 3: Frontend u AI eri (od HTML-a do React
 
 **Zadatak:** napraviti frontend sopstvene aplikacije na probnim podacima uz Claude Code: 2 do 3 povezana entiteta, početna, lista sa filterom, stranica sa detaljima, forma za pravljenje i izmjenu i prijava, prilagođeno za 375 i 1440 px, uz `docs/entities.md` za backend.
 
-**Urađeno:** sve navedeno, uz osam načina prikaza izložbi, 3D salu, video galeriju, dvojezični interfejs i dvije uloge osoblja. Backend je planiran za Radionicu 4 (vidi [`backend/README.md`](backend/README.md)).
+**Urađeno:** sve navedeno, uz osam načina prikaza izložbi, 3D salu, video galeriju, dvojezični interfejs i dvije uloge osoblja. Backend iz Radionice 4 je u folderu `backend/` (vidi [`backend/README.md`](backend/README.md)).
 
 ## Pokretanje
 
@@ -65,6 +65,15 @@ pnpm dev          # http://localhost:5173
 pnpm typecheck && pnpm lint && pnpm build
 ```
 
+### Sa backendom
+
+Potrebni su Python 3.13 i Poetry (detalji u [`backend/README.md`](backend/README.md)).
+
+```bash
+cd backend && poetry install && poetry run migrate && poetry run seed && poetry run start   # http://localhost:8000/docs
+pnpm dev:api      # u drugom terminalu: isti sajt, ali podaci i prijava dolaze iz API-ja
+```
+
 ### Demo nalozi (lozinka `demo1234`)
 
 | Uloga | E-pošta | Šta može |
@@ -72,7 +81,7 @@ pnpm typecheck && pnpm lint && pnpm build
 | Kustos | marko@nb-cg.me, nikola@nb-cg.me | pravljenje, izmjena i brisanje sopstvenih izložbi, slanje na objavu |
 | Administrator | jelena@nb-cg.me | sve navedeno, plus objava ili vraćanje izložbi i lista korisnika |
 
-Podaci su u memoriji i vraćaju se na početno stanje pri osvježavanju stranice. Jezik, tema, sačuvane izložbe i prijava čuvaju se u pregledaču.
+Uz `pnpm dev` podaci su u memoriji i vraćaju se na početno stanje pri osvježavanju stranice; uz `pnpm dev:api` čuvaju se u bazi backenda (`backend/data/app.db`). Jezik, tema i sačuvane izložbe uvijek se čuvaju u pregledaču.
 
 ## Šta koja uloga može
 
@@ -121,7 +130,7 @@ Pravila koja provjerava `pnpm lint`: funkcionalnost nikad ne uvozi drugu funkcio
 
 ## Gdje u kodu
 
-Rute i uloge: `frontend/src/app/router.tsx`. Podaci (probni, zamjenjuje ih backend): `frontend/src/features/exhibitions/api/exhibitions-api.ts` i `use-exhibitions.ts`. Sedam načina prikaza: `frontend/src/features/exhibitions/components/viewers/`. Boje i teme: `frontend/src/index.css`. Tekstovi na oba jezika: `frontend/src/lib/messages-me.ts` i `messages-en.ts`. Ugovor sa backendom: `docs/entities.md`.
+Rute i uloge: `frontend/src/app/router.tsx`. Podaci (probni, zamjenjuje ih backend): `frontend/src/features/exhibitions/api/exhibitions-api.ts` i `use-exhibitions.ts`. Osam načina prikaza: `frontend/src/features/exhibitions/components/viewers/`. Boje i teme: `frontend/src/index.css`. Tekstovi na oba jezika: `frontend/src/lib/messages-me.ts` i `messages-en.ts`. Ugovor sa backendom: `docs/entities.md`.
 
 ## Tehnologije
 
@@ -140,9 +149,9 @@ Projekat prati tok rada radionice sa Claude Code agentom:
 
 Svaka izmjena provjerena je komandama `typecheck`, `lint` i `build`, a ekrani pregledani na 375 i 1440 px. Dokumentacija i kod su na engleskom, a tekst u aplikaciji je dvojezičan.
 
-## Sljedeće: backend (Radionica 4)
+## Sljedeće: CMS i otpremanje
 
-Mock `api/` folderi zamjenjuju se pravim HTTP pozivima, uz bazu po `docs/entities.md`, pravu prijavu sa provjerom uloga na serveru i otpremanje slika i videa. Plan je u [`backend/README.md`](backend/README.md).
+API pokriva izložbe, prijavu i korisnike. Slijedi, vidi [`backend/README.md`](backend/README.md): uređivanje sadržaja sajta (O nama, zbirke), biblioteka medija sa otpremanjem fajlova, biblioteke sa mape kao podaci koje admin uređuje i upravljanje nalozima uz istoriju izmjena.
 
 ## Sadržaj i licence
 
