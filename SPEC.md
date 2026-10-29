@@ -30,7 +30,7 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 | `/exhibitions` | Catalog | search and template filter work and stay in the URL; empty result offers a reset; error offers a retry |
 | `/exhibitions/:slug` | Exhibition viewer | the template renders the sections; items open a detail dialog with author, year, collection, rights and a source link; videos play; unknown slug shows a not-found message |
 | `/collections` | Collections | the eight collections of the digital library link out; exhibitions from them are listed |
-| `/libraries` | Libraries map | libraries of Montenegro shown as pins on a map and as a list; search (ignores diacritics) and type filter work; approximate locations are marked; the sources are named |
+| `/map` | Interactive map | libraries of Montenegro (photo pins where a free photo exists) and places from exhibitions as two layers; search ignoring diacritics and a type filter work; a detail card shows the photo with credit, facts, contact and links; "nearest library" asks for the location only on click and stores nothing; every place links to its exhibition; approximate locations are marked and the sources are named |
 | `/videos` | Video gallery | all videos of published exhibitions play and link back to their exhibition |
 | `/about` | About | mission, how an exhibition is made, platform numbers, contact and sources |
 | `/favorites` | Saved | lists saved exhibitions; empty state explains how to save |
@@ -58,6 +58,13 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 - Colors, fonts and radius only from the tokens in `frontend/src/index.css`.
 - Images and videos are freely licensed (Wikimedia Commons); the author and licence are shown with each object.
 
+## Demo assistant and editor check
+
+Both are simulations that call no AI service and send no data anywhere.
+
+- **Assistant** (button on every page): answers from the content of the site (exhibitions, objects, libraries, collections) and from ready-made guides, in the current language; it says it is a demo. Replace its `api/` layer with a real model after the backend exists.
+- **Exhibition check** (editor): a rule-based checklist and tag suggestions that update while the curator types.
+
 ## Later (not in the MVP)
 
 - Real backend, database and authentication (Workshop 4).
@@ -65,6 +72,7 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 - Reordering sections by drag and drop; several objects per section in the editor; live preview.
 - User management by admins (create accounts, change roles); editing the About and Collections pages from the app.
 - Search inside exhibition texts; sharing and QR codes.
+- A real AI assistant (grounded in the exhibition texts), translation and image-description help for curators, virtual tours from 360° photographs.
 
 ## Out of scope
 

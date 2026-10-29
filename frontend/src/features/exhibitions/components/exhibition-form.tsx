@@ -17,6 +17,7 @@ import {
   toFormValues,
   type FormValues,
 } from './exhibition-form-model'
+import { EditorAssistant } from './editor-assistant'
 import { FieldError } from './field-error'
 import { SectionFields } from './section-fields'
 
@@ -145,6 +146,8 @@ export function ExhibitionForm({
             {t('editor.addSection')}
           </Button>
         </div>
+
+        <EditorAssistant />
 
         <div className="flex flex-wrap gap-3">
           <Button type="submit" disabled={isSaving}>

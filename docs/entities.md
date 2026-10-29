@@ -78,7 +78,7 @@ Code: `frontend/src/features/auth/`
 | role | `visitor` \| `curator` \| `admin` | yes | |
 
 ## Library
-A library in Montenegro shown on the libraries map (`frontend/src/features/libraries/`). Read-only for visitors; the backend may later let an admin edit the list.
+A library in Montenegro shown on the interactive map (`frontend/src/features/libraries/`). Read-only for visitors; the backend may later let an admin edit the list.
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
@@ -90,7 +90,9 @@ A library in Montenegro shown on the libraries map (`frontend/src/features/libra
 | website | string (URL) | no | |
 | email | string | no | |
 | phone | string | no | |
-| location | `{ lat: number, lng: number, precision: 'exact' | 'town' }` | no | `town` = centre of the town (approximate); missing = no pin on the map |
+| description | Localized | no | short facts, only where a source states them |
+| image | `{ url, credit, license, sourceUrl }` | no | free photo of the building; the credit must be shown |
+| location | `{ lat: number, lng: number, precision: 'exact' \| 'town' }` | no | `town` = centre of the town (approximate); missing = no pin on the map |
 
 Source of the sample data: names from the COBISS.CG statistics for 2025 (full members), coordinates from OpenStreetMap (ODbL).
 

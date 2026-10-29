@@ -2,6 +2,7 @@ import { Heart, LogOut, Menu, Moon, Sun, UserRound, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router'
 
+import { AssistantHost } from '@/app/assistant-host'
 import { OfflineBanner } from '@/components/offline-banner'
 import { Toaster } from '@/components/toaster'
 import { Button } from '@/components/ui/button'
@@ -19,7 +20,7 @@ const links: NavItem[] = [
   { to: '/', label: 'nav.home' },
   { to: '/exhibitions', label: 'nav.exhibitions' },
   { to: '/collections', label: 'nav.collections' },
-  { to: '/libraries', label: 'nav.libraries' },
+  { to: '/map', label: 'nav.map' },
   { to: '/videos', label: 'nav.videos' },
   { to: '/about', label: 'nav.about' },
   { to: '/studio', label: 'nav.studio', roles: ['curator', 'admin'] },
@@ -223,6 +224,7 @@ export function AppLayout() {
       </main>
 
       <Toaster />
+      <AssistantHost />
 
       <footer className="border-t bg-ink text-on-ink">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 text-sm">

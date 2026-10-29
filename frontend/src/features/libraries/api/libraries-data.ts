@@ -29,8 +29,12 @@ const TOWN = {
 } as const
 
 type Town = keyof typeof TOWN
-type Extra = Partial<Pick<Library, 'address' | 'website' | 'email' | 'phone'>>
+type Extra = Partial<Pick<Library, 'address' | 'website' | 'email' | 'phone' | 'description' | 'image'>>
 type Place = { lat: number; lng: number } | 'town' | 'none'
+
+const commons = (file: string) =>
+  `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=640`
+const commonsPage = (file: string) => `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file)}`
 
 let nextId = 1
 
@@ -50,6 +54,16 @@ export const libraries: Library[] = [
     website: 'https://www.nb-cg.me',
     email: 'info@nb-cg.me',
     phone: '+382 41 231 143',
+    description: {
+      me: 'Osnovana 1893. kao javna biblioteka kneza Nikole. Čuva oko dva miliona jedinica građe, među njima stare i rijetke knjige, atlase i karte, plakate i razglednice. Smještena je u dvije zgrade u Cetinju, nekadašnjim ambasadama Italije i Francuske.',
+      en: 'Founded in 1893 as a public library by Prince Nikola. It holds about two million items, among them old and rare books, atlases and maps, posters and postcards. It occupies two buildings in Cetinje, the former Italian and French embassies.',
+    },
+    image: {
+      url: commons('Former Italian Embassy in Cetinje, Montenegro.jpg'),
+      credit: 'Сергей Наруков',
+      license: 'CC BY 3.0',
+      sourceUrl: commonsPage('Former Italian Embassy in Cetinje, Montenegro.jpg'),
+    },
   }),
 
   entry('Centralna univerzitetska biblioteka', 'university', 'Podgorica', 'none', { website: 'https://www.ucg.ac.me' }),
@@ -75,11 +89,29 @@ export const libraries: Library[] = [
   entry('Gradska biblioteka Mojkovac', 'public', 'Mojkovac', 'town'),
   entry('Gradska biblioteka Plužine', 'public', 'Plužine', 'town'),
   entry('JU Gradska biblioteka Tivat', 'public', 'Tivat', 'town'),
-  entry('JU Narodna biblioteka „Miroslav Luketić“', 'public', 'Budva', 'town'),
+  entry('JU Narodna biblioteka „Miroslav Luketić“', 'public', 'Budva', 'town', {
+    description: {
+      me: 'Gradska biblioteka u Budvi smještena je u Citadeli, utvrđenom starom jezgru grada.',
+      en: 'The municipal library of Budva is located in the Citadel, the fortified old core of the town.',
+    },
+    image: {
+      url: commons('Budva Zitadelle - Bibliothek 2.jpg'),
+      credit: 'Wolfgang Sauber',
+      license: 'CC BY-SA 4.0',
+      sourceUrl: commonsPage('Budva Zitadelle - Bibliothek 2.jpg'),
+    },
+  }),
   entry('Narodna biblioteka „Dr Radovan Lalić“', 'public', 'Berane', 'town'),
   entry('Narodna biblioteka „Mihailo-Miho Vuković“', 'public', 'Danilovgrad', 'town'),
   entry('Narodna biblioteka „Mirko Srzentić“', 'public', 'Ulcinj', 'town'),
-  entry('Narodna biblioteka „Njegoš“', 'public', 'Nikšić', 'town'),
+  entry('Narodna biblioteka „Njegoš“', 'public', 'Nikšić', 'town', {
+    image: {
+      url: commons('Library in Nikšić.jpg'),
+      credit: 'Niegodzisie',
+      license: 'CC BY-SA 4.0',
+      sourceUrl: commonsPage('Library in Nikšić.jpg'),
+    },
+  }),
   entry('Narodna biblioteka „Radosav Ljumović“', 'public', 'Podgorica', { lat: 42.4417, lng: 19.26226 }, {
     address: 'Njegoševa 22',
     website: 'https://www.nbpg.me',
@@ -94,7 +126,18 @@ export const libraries: Library[] = [
   entry('Crnogorska akademija nauka i umjetnosti', 'special', 'Podgorica', 'none'),
   entry('Istorijski institut Crne Gore', 'special', 'Podgorica', { lat: 42.43953, lng: 19.24988 }),
   entry('Matica crnogorska', 'special', 'Podgorica', 'none'),
-  entry('Narodni muzej Crne Gore', 'special', 'Cetinje', { lat: 42.38931, lng: 18.92316 }),
+  entry('Narodni muzej Crne Gore', 'special', 'Cetinje', { lat: 42.38931, lng: 18.92316 }, {
+    description: {
+      me: 'Fotografija prikazuje Vladin dom u Cetinju, nekadašnju zgradu vlade u kojoj su danas Umjetnički i Istorijski muzej.',
+      en: 'The photo shows the Government House in Cetinje, the former seat of the government, which now houses the Art Museum and the History Museum.',
+    },
+    image: {
+      url: commons('Vladin Dom (Dom Rządowy) w Cetinje 01.jpg'),
+      credit: 'Marcin Konsek',
+      license: 'CC BY-SA 4.0',
+      sourceUrl: commonsPage('Vladin Dom (Dom Rządowy) w Cetinje 01.jpg'),
+    },
+  }),
   entry('Pomorski muzej Crne Gore', 'special', 'Kotor', 'none'),
   entry('Skupština Crne Gore', 'special', 'Podgorica', { lat: 42.43989, lng: 19.26054 }),
 ]

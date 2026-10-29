@@ -1,5 +1,6 @@
-import { ExternalLink, Mail, MapPin, Phone } from 'lucide-react'
+import { Landmark, MapPin } from 'lucide-react'
 
+import { SmartImage } from '@/components/smart-image'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/lib/i18n'
@@ -13,7 +14,7 @@ type LibraryCardProps = {
   onSelect: (id: number) => void
 }
 
-// One library in the list: name, type, place and contact details where they are known.
+// One library in the list: small photo (or a placeholder), name, type and place.
 export function LibraryCard({ library, selected, onSelect }: LibraryCardProps) {
   const { t } = useI18n()
   const place = library.address ? `${library.city}, ${library.address}` : library.city
@@ -21,54 +22,42 @@ export function LibraryCard({ library, selected, onSelect }: LibraryCardProps) {
   return (
     <li
       className={cn(
-        'flex flex-col gap-2 rounded-lg border p-4 transition-colors',
+        'flex gap-3 rounded-lg border p-3 transition-colors',
         selected ? 'border-accent bg-secondary' : 'bg-card',
       )}
     >
-      <div className="flex items-start justify-between gap-3">
-        <h3 className="font-heading text-lg font-semibold">{library.name}</h3>
-        <Badge variant={library.type === 'national' ? 'accent' : 'secondary'} className="shrink-0">
-          {t(`libraries.type.${library.type}`)}
-        </Badge>
-      </div>
-      <p className="text-sm text-muted-foreground">{place}</p>
-
-      <ul className="flex flex-col gap-1 text-sm">
-        {library.phone && (
-          <li className="flex items-center gap-2">
-            <Phone className="size-4 text-gold" aria-hidden="true" />
-            <span>{library.phone}</span>
-          </li>
-        )}
-        {library.email && (
-          <li className="flex items-center gap-2">
-            <Mail className="size-4 text-gold" aria-hidden="true" />
-            <span>{library.email}</span>
-          </li>
-        )}
-      </ul>
-
-      <div className="mt-1 flex flex-wrap items-center gap-2">
-        {library.location ? (
-          <Button type="button" variant="outline" size="sm" onClick={() => onSelect(library.id)}>
-            <MapPin />
-            {t('libraries.showOnMap')}
-          </Button>
-        ) : (
-          <span className="text-xs text-muted-foreground">{t('libraries.noPin')}</span>
-        )}
-        {library.website && (
-          <Button asChild variant="ghost" size="sm">
-            <a href={library.website} target="_blank" rel="noreferrer">
-              <ExternalLink />
-              {t('libraries.website')}
-            </a>
-          </Button>
-        )}
-      </div>
-      {library.location?.precision === 'town' && (
-        <p className="text-xs text-muted-foreground">{t('libraries.approx')}</p>
+      {library.image ? (
+        <SmartImage src={library.image.url} alt="" className="size-16 shrink-0 rounded object-cover" />
+      ) : (
+        <div className="flex size-16 shrink-0 items-center justify-center rounded bg-muted text-muted-foreground">
+          <Landmark className="size-6" aria-hidden="true" />
+        </div>
       )}
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="font-heading text-base leading-snug font-semibold">{library.name}</h3>
+          <Badge variant={library.type === 'national' ? 'accent' : 'secondary'} className="shrink-0">
+            {t(`libraries.type.${library.type}`)}
+          </Badge>
+        </div>
+        <p className="text-sm text-muted-foreground">{place}</p>
+        <div className="mt-1">
+          {library.location ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              aria-pressed={selected}
+              onClick={() => onSelect(library.id)}
+            >
+              <MapPin />
+              {t('libraries.showOnMap')}
+            </Button>
+          ) : (
+            <span className="text-xs text-muted-foreground">{t('libraries.noPin')}</span>
+          )}
+        </div>
+      </div>
     </li>
   )
 }

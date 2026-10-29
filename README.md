@@ -14,7 +14,9 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 
 - **Five exhibition templates**: vertical timeline, masonry gallery with lightbox, map story, slider with before/after comparison, and a walkable **3D hall**.
 - **Video gallery** and videos inside exhibitions.
-- **Libraries map**: the national, university, public and special libraries of Montenegro on one map, with search, a type filter and links to their websites (sources: COBISS.CG statistics and OpenStreetMap).
+- **Interactive map**: the libraries of Montenegro (with photos where a free one exists) and the places named in exhibitions on one map. Search that ignores diacritics, a type filter, layers, a "nearest library" button, detail cards with contact details and links, and a link from every place to its exhibition. Sources: COBISS.CG statistics, OpenStreetMap and Wikimedia Commons.
+- **Demo assistant** for visitors: answers questions about exhibitions, objects, libraries and how to use the site. It is a simulation: no AI service is called, it searches the site content and ready-made guides, so it costs nothing to run.
+- **Exhibition check** for curators in the editor: a checklist (translations, summary, tags, sections, section texts, places for the map template, chronology for the timeline) and tag suggestions, also rule-based.
 - **Three roles**: visitor, curator (builds and submits exhibitions), admin (publishes, manages users).
 - **Bilingual UI and content** (Montenegrin Latin + English), light and dark theme, favorites, responsive from 375 px to 1440 px.
 - **Accessible**: semantic HTML, labelled forms, visible focus, contrast above 4.5:1, reduced-motion friendly.
@@ -32,7 +34,9 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 |---|---|---|
 | ![Editor](docs/screenshots/editor-desktop.png) | ![Admin](docs/screenshots/admin-desktop.png) | ![Home on a phone](docs/screenshots/home-mobile.png) |
 
-![Libraries map](docs/screenshots/libraries-desktop.png)
+| Interactive map | Demo assistant | Editor check |
+|---|---|---|
+| ![Interactive map](docs/screenshots/map-desktop.png) | ![Assistant](docs/screenshots/assistant-desktop.png) | ![Editor check](docs/screenshots/editor-check-desktop.png) |
 
 ## Workshop context
 
@@ -79,7 +83,7 @@ The full list of screens with their "done when" criteria is in [`SPEC.md`](SPEC.
 | `/` | Home: hero, featured exhibition, latest, templates, videos, collections |
 | `/exhibitions` | Catalog with search and template filter (URL-synced) |
 | `/exhibitions/:slug` | Exhibition viewer (template decides the layout) + videos |
-| `/collections`, `/libraries`, `/videos`, `/about` | Collections of the digital library, map of libraries, video gallery, about |
+| `/collections`, `/map`, `/videos`, `/about` | Collections of the digital library, interactive map, video gallery, about |
 | `/favorites`, `/sign-in`, `/profile` | Saved exhibitions, sign in (lands on the page for your role), profile |
 | `/studio`, `/studio/new`, `/studio/:id/edit` | Curator dashboard and exhibition editor (curator, admin) |
 | `/admin` | Review queue and users (admin) |
@@ -96,7 +100,8 @@ frontend/src/
   features/
     exhibitions/  types, api/ (mock + hooks), components/ (cards, viewers, editor)
     collections/  digital library collections
-    libraries/    libraries of Montenegro for the map (mock data, sources in the code)
+    libraries/    libraries of Montenegro for the interactive map (mock data, sources in the code)
+    assistant/    demo assistant: ready-made guides and the answer logic (no AI service)
     auth/         mock sign-in, roles, users
     favorites/    saved exhibitions
     about/        About page content
