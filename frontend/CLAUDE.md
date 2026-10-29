@@ -15,7 +15,7 @@ Dependency direction: shared code -> features -> app, never the other way around
 - `src/app/router.tsx`: all routes; `src/app/providers.tsx`: global providers (TanStack Query)
 - `src/app/routes/`: one file per route, only combines features and layout
 - `src/features/<name>/types.ts`: entity types of that feature
-- `src/features/<name>/api/<name>-api.ts`: the only place that fetches data (mock for now)
+- `src/features/<name>/api/<name>-api.ts`: the only place that fetches data; it picks `<name>-mock.ts` (in-memory) or `<name>-http.ts` (the backend through `src/lib/http.ts`) by `VITE_API_MODE`
 - `src/features/<name>/api/use-<name>.ts`: TanStack Query hooks around the API
 - `src/features/<name>/components/`: components of that feature (e.g. `listing-card.tsx`)
 - `src/components/ui/`: shadcn/ui components, added with `pnpm dlx shadcn@latest add <name>` (run inside `frontend/`)

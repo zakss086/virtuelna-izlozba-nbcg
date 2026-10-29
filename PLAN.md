@@ -1,6 +1,6 @@
 # Virtual Exhibitions of the National Library of Montenegro - Plan
 
-**Status:** milestones 1 to 5 are done in the frontend on mock data (all eight templates, auth with two staff roles, curator studio, favorites, video gallery, collections and about pages). Milestone 6 (review, README, push) is in progress; the backend follows in Workshop 4. See README.md for what exists now; the sections below are the original plan.
+**Status:** milestones 1 to 5 are done in the frontend on mock data (all eight templates, auth with two staff roles, curator studio, favorites, video gallery, collections and about pages). Milestone 6 (review, README, push) is done; the backend of Workshop 4 is in `backend/` (API, database, sign-in, roles) and the frontend can run on it with `pnpm dev:api`. Next: the CMS part (site content, media library, libraries, accounts). See README.md for what exists now; the sections below are the original plan.
 
 Reference: virtual exhibition portals of national libraries, modernized.
 Course: AI-DEV 2026 Workshop 3 (frontend with mock data), Workshop 4 (backend).
