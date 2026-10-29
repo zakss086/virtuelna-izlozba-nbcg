@@ -26,6 +26,9 @@ Dignified, editorial, warm. A modern museum website, not a library catalog.
 6. Book: paper pages stay light in both themes (`plate` and `ink` tokens); a sheet turns in CSS 3D (`rotateY`, `backface-visibility`), one page at a time below 768 px; hidden pages are `inert`.
 7. Carousel: CSS 3D ring (`translateZ`, `rotateY`) with the front object active; autoplay stops on hover, focus, pause and with `prefers-reduced-motion`.
 
+## Exhibition page
+Above every viewer: curator's introduction in `font-heading`, a facts card, the citation (gold left rule), then a toolbar with the "view as" select, full screen and the PDF catalogue (print stylesheet: the page chrome is `print:hidden`, `ExhibitionCatalog` is `hidden print:block`). The object dialog has a zoomable image, optional catalogue rows and a download button for open licences only.
+
 ## Avoid
 - Gradients without purpose, emoji instead of icons, generic "Welcome to..." hero text.
 - Hex, rgb or hsl values in components. The only exceptions live in plain `.ts` files: `src/lib/scene-palette.ts` (3D room and map route, because three.js and Leaflet cannot read CSS tokens) and `src/lib/art.ts` (generated placeholder images).

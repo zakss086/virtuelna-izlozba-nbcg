@@ -53,6 +53,12 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 | Page-turning book | a cover, one spread per section (picture left, text right) and a credits page; a sheet turns in 3D on wide screens, one page at a time on phones; arrow keys work |
 | 3D carousel | objects in a ring that turns by itself (pause button, stops on hover and focus, off with reduced motion); drag, arrows or click a neighbour to turn; click the front one for details |
 
+## Exhibition page
+
+Every exhibition page has, above the viewer: the curator's introduction (or the summary), a facts panel (curator, period, collections, objects, year), a ready-made citation with a copy button, a "view as" switch (any viewer can show any exhibition; the map only when every section has a place), full screen and a "Download catalogue (PDF)" button that prints a clean catalogue page. Related exhibitions follow the viewer. The object dialog zooms (wheel, buttons, `+` / `-` keys, double click), shows optional shelf mark, inventory number, language, material and dimensions, and offers a download only for public-domain or CC material.
+
+Viewer extras: timeline year ruler, gallery filters and sorting, map popups with a picture, 3D hall loading bar and object list, book contents, carousel thumbnail strip.
+
 ## App-wide rules
 
 - Montenegrin (Latin script, never Cyrillic) and English for all UI text; content fields are `{ me, en }`.

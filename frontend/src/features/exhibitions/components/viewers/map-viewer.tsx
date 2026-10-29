@@ -2,7 +2,7 @@ import { SmartImage } from '@/components/smart-image'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useEffect, useState } from 'react'
-import { MapContainer, Marker, Polyline, TileLayer, useMap } from 'react-leaflet'
+import { MapContainer, Marker, Polyline, Popup, TileLayer, useMap } from 'react-leaflet'
 
 import { useI18n } from '@/lib/i18n'
 import { MAP_ROUTE_COLOR } from '@/lib/scene-palette'
@@ -93,7 +93,18 @@ export default function MapViewer({ exhibition }: MapViewerProps) {
                 position={[section.place.lat, section.place.lng]}
                 icon={markerIcon(index + 1, index === active)}
                 eventHandlers={{ click: () => setActive(index) }}
-              />
+              >
+                <Popup>
+                  <p className="font-semibold">{l(section.title)}</p>
+                  {section.items[0] && (
+                    <img
+                      src={section.items[0].imageUrl}
+                      alt={l(section.items[0].title)}
+                      className="mt-2 aspect-[16/10] w-48 rounded object-cover"
+                    />
+                  )}
+                </Popup>
+              </Marker>
             ) : null,
           )}
           <FlyTo center={[current.lat, current.lng]} />

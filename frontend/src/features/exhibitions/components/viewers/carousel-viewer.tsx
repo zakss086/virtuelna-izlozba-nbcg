@@ -55,6 +55,21 @@ export function CarouselViewer({ exhibition }: CarouselViewerProps) {
   const activeIndex = mod(step, slots) % count
   const { item, section } = current
 
+  // Turn the ring the shortest way to the given object.
+  function goTo(target: number) {
+    const here = mod(step, slots)
+    let best = 0
+    let bestDistance = Infinity
+    for (let slot = target; slot < slots; slot += count) {
+      const delta = mod(slot - here + slots / 2, slots) - slots / 2
+      if (Math.abs(delta) < bestDistance) {
+        best = delta
+        bestDistance = Math.abs(delta)
+      }
+    }
+    setStep(step + best)
+  }
+
   function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === 'ArrowRight') setStep((s) => s + 1)
     if (event.key === 'ArrowLeft') setStep((s) => s - 1)
@@ -134,7 +149,18 @@ export function CarouselViewer({ exhibition }: CarouselViewerProps) {
                         front ? 'opacity-0' : 'opacity-50',
                       )}
                     />
-                    <span aria-hidden="true" className="pointer-events-none absolute inset-2 border border-accent/60" />
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-2 border border-accent/60"
+                    />
+                    {front && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-x-0 bottom-0 bg-ink/80 p-2 text-center text-xs font-medium text-on-ink"
+                      >
+                        {l(entry.item.title)}
+                      </span>
+                    )}
                   </button>
                 )
               })}
@@ -147,7 +173,12 @@ export function CarouselViewer({ exhibition }: CarouselViewerProps) {
         </div>
 
         <div className="mx-auto flex w-full max-w-md items-center justify-between gap-4">
-          <Button variant="outline" size="icon" onClick={() => setStep(step - 1)} aria-label={t('viewer.prev')}>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setStep(step - 1)}
+            aria-label={t('viewer.prev')}
+          >
             <ChevronLeft />
           </Button>
           <div className="flex items-center gap-3">
@@ -165,10 +196,31 @@ export function CarouselViewer({ exhibition }: CarouselViewerProps) {
               {t('viewer.position', { a: activeIndex + 1, b: count })}
             </p>
           </div>
-          <Button variant="outline" size="icon" onClick={() => setStep(step + 1)} aria-label={t('viewer.next')}>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setStep(step + 1)}
+            aria-label={t('viewer.next')}
+          >
             <ChevronRight />
           </Button>
         </div>
+
+        <ul aria-label={t('viewer.thumbnails')} className="flex gap-2 overflow-x-auto pb-2 md:justify-center">
+          {entries.map((entry, i) => (
+            <li key={entry.item.id} className="shrink-0">
+              <button
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={l(entry.item.title)}
+                aria-current={i === activeIndex}
+                className="block overflow-hidden rounded-sm border-2 border-transparent opacity-60 focus-visible:outline-2 focus-visible:outline-ring aria-[current=true]:border-accent aria-[current=true]:opacity-100"
+              >
+                <SmartImage src={entry.item.imageUrl} alt="" className="size-12 object-cover md:size-14" />
+              </button>
+            </li>
+          ))}
+        </ul>
 
         <div className="mx-auto max-w-2xl text-center" aria-live={autoplay ? 'off' : 'polite'}>
           <p className="text-sm font-medium tracking-widest text-gold uppercase">{l(section.title)}</p>

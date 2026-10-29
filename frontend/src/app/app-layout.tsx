@@ -45,11 +45,11 @@ export function AppLayout() {
     <div className="flex min-h-dvh flex-col">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground"
+        className="sr-only print:hidden focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground"
       >
         {t('nav.skip')}
       </a>
-      <header className="sticky top-0 z-40 bg-ink text-on-ink">
+      <header className="sticky top-0 z-40 bg-ink text-on-ink print:hidden">
         <nav
           className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3"
           aria-label={t('nav.main')}
@@ -223,7 +223,7 @@ export function AppLayout() {
       <Toaster />
       <AssistantHost />
 
-      <footer className="bg-ink text-on-ink">
+      <footer className="bg-ink text-on-ink print:hidden">
         <BraidDivider className="pt-2" />
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pt-8 pb-16 text-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

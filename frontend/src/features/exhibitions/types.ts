@@ -5,7 +5,15 @@ export type ExhibitionTemplate = 'timeline' | 'gallery' | 'map' | 'slider' | 'ro
 export type ExhibitionStatus = 'draft' | 'pending' | 'published'
 export type ItemType = ArtKind
 
-export const TEMPLATES: ExhibitionTemplate[] = ['timeline', 'gallery', 'map', 'slider', 'room', 'book', 'carousel']
+export const TEMPLATES: ExhibitionTemplate[] = [
+  'timeline',
+  'gallery',
+  'map',
+  'slider',
+  'room',
+  'book',
+  'carousel',
+]
 export const ITEM_TYPES: ItemType[] = ['book', 'manuscript', 'map', 'photo', 'periodical', 'poster', 'audio']
 
 // A digitized object (book, map, photo...) shown inside an exhibition.
@@ -19,6 +27,12 @@ export type ExhibitionItem = {
   imageUrl: string
   sourceUrl: string
   rights: string
+  // Optional catalogue details shown in the object dialog.
+  signature?: string
+  inventoryNo?: string
+  language?: string
+  material?: string
+  dimensions?: string
 }
 
 export type Place = {
@@ -41,6 +55,8 @@ export type Exhibition = {
   slug: string
   title: Localized
   summary: Localized
+  /** Curator's introduction shown above the viewer. */
+  intro?: Localized
   coverUrl: string
   template: ExhibitionTemplate
   status: ExhibitionStatus

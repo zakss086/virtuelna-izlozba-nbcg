@@ -1,4 +1,4 @@
-import { OrbitControls, useCursor, useTexture } from '@react-three/drei'
+import { OrbitControls, useCursor, useProgress, useTexture } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Suspense, useState } from 'react'
 
@@ -127,8 +127,23 @@ function Room({ items, onSelect }: { items: ExhibitionItem[]; onSelect: (item: E
   )
 }
 
-export default function RoomViewer({ exhibition }: RoomViewerProps) {
+function LoadingBar() {
   const { t } = useI18n()
+  const { active, progress } = useProgress()
+  if (!active) return null
+
+  return (
+    <div role="status" className="absolute inset-x-6 bottom-6 flex flex-col gap-2 text-on-ink">
+      <p className="text-sm">{t('viewer.roomLoadingPct', { n: Math.round(progress) })}</p>
+      <div className="h-1 overflow-hidden rounded-full bg-on-ink/20">
+        <div className="h-full bg-accent transition-all" style={{ width: `${progress}%` }} />
+      </div>
+    </div>
+  )
+}
+
+export default function RoomViewer({ exhibition }: RoomViewerProps) {
+  const { t, l } = useI18n()
   const items = exhibition.sections.flatMap((s) => s.items)
   const [selected, setSelected] = useState<ExhibitionItem | null>(null)
 
@@ -152,8 +167,26 @@ export default function RoomViewer({ exhibition }: RoomViewerProps) {
             enablePan={false}
           />
         </Canvas>
+        <LoadingBar />
       </div>
       <p className="text-sm text-muted-foreground">{t('viewer.roomHint')}</p>
+      <details className="rounded-lg border p-3">
+        <summary className="cursor-pointer text-sm font-medium">{t('viewer.roomObjects')}</summary>
+        <ul className="mt-3 grid gap-1 text-sm sm:grid-cols-2">
+          {items.map((item) => (
+            <li key={item.id}>
+              <button
+                type="button"
+                onClick={() => setSelected(item)}
+                className="w-full rounded px-2 py-1 text-left hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring"
+              >
+                {l(item.title)}
+                {item.year ? ` · ${item.year}` : ''}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </details>
       {selected && <ItemDialog item={selected} onClose={() => setSelected(null)} />}
     </div>
   )

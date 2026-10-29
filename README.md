@@ -18,6 +18,7 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 - **Demo assistant** for visitors: answers questions about exhibitions, objects, libraries and how to use the site. It is a simulation: no AI service is called, it searches the site content and ready-made guides, so it costs nothing to run.
 - **Exhibition check** for curators in the editor: a checklist (translations, summary, tags, sections, section texts, places for the map template, chronology for the timeline) and tag suggestions, also rule-based.
 - **No accounts for visitors, two staff roles**: visitors browse and save favorites in their browser; curators build and submit exhibitions; admins publish them and manage users.
+- **Serious exhibition pages**: a curator's introduction, facts about the exhibition, a ready-made citation, a "view as" switch between all seven viewers, full screen, a printable PDF catalogue, related exhibitions, and object dialogs with zoom, extra catalogue details (shelf mark, language, material, dimensions) and a download button where the licence allows.
 - **Bilingual UI and content** (Montenegrin Latin + English), light and dark theme, favorites, responsive from 375 px to 1440 px.
 - **Accessible**: semantic HTML, labelled forms, visible focus, contrast above 4.5:1, reduced-motion friendly.
 - **Clear feedback**: loading skeletons, a retry button when data fails to load, a confirmation or error message for every action, a confirmation dialog before deleting, and a notice when the connection drops.
@@ -30,9 +31,9 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 |---|---|---|
 | ![Gallery](docs/screenshots/gallery-desktop.png) | ![Slider](docs/screenshots/slider-desktop.png) | ![Catalog](docs/screenshots/catalog-desktop.png) |
 
-| Page-turning book | 3D carousel |
-|---|---|
-| ![Book](docs/screenshots/book-desktop.png) | ![Carousel](docs/screenshots/carousel-desktop.png) |
+| Page-turning book | 3D carousel | Exhibition page |
+|---|---|---|
+| ![Book](docs/screenshots/book-desktop.png) | ![Carousel](docs/screenshots/carousel-desktop.png) | ![Intro, citation and view switch](docs/screenshots/exhibition-intro-desktop.png) |
 
 | Curator studio (editor) | Admin | Phone (375 px) |
 |---|---|---|

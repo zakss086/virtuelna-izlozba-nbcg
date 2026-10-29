@@ -39,12 +39,17 @@ export function AssistantWidget({ docs }: AssistantWidgetProps) {
   return (
     <>
       {open && (
-        <AssistantChat entries={entries} pending={ask.isPending} onSend={send} onClose={() => setOpen(false)} />
+        <AssistantChat
+          entries={entries}
+          pending={ask.isPending}
+          onSend={send}
+          onClose={() => setOpen(false)}
+        />
       )}
       <Button
         type="button"
         size="lg"
-        className="fixed right-4 bottom-4 z-40 rounded-full shadow-lg"
+        className="fixed right-4 bottom-4 z-40 rounded-full shadow-lg print:hidden"
         aria-expanded={open}
         aria-label={t('assistant.open')}
         onClick={() => setOpen((value) => !value)}

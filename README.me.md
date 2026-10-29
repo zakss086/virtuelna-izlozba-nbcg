@@ -17,6 +17,7 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 - **Interaktivna mapa**: biblioteke Crne Gore (sa fotografijama gdje postoji slobodna) i mjesta iz izložbi na jednoj mapi. Pretraga koja ne pravi razliku među dijakriticima, filter po vrsti, slojevi, dugme „Najbliža biblioteka“, kartice sa kontaktom i vezama, a od svakog mjesta veza ka izložbi. Izvori: statistika COBISS.CG, OpenStreetMap i Wikimedia Commons.
 - **Demo asistent** za posjetioce: odgovara na pitanja o izložbama, objektima, bibliotekama i korišćenju sajta. To je simulacija: ne poziva nikakav AI servis, već pretražuje sadržaj sajta i spremna uputstva, pa ne troši resurse.
 - **Provjera izložbe** za kustose u uređivaču: lista provjera (prevod, sažetak, oznake, sekcije, tekstovi, mjesta za mapu, hronologija za vremensku traku) i prijedlozi oznaka, takođe po jednostavnim pravilima.
+- **Ozbiljnija stranica izložbe**: kustoski uvod, podaci o izložbi, gotov citat, prebacivanje između svih sedam načina prikaza, cio ekran, katalog za štampu (PDF), slične izložbe i prozor objekta sa zumiranjem, dodatnim podacima (signatura, jezik, materijal, dimenzije) i dugmetom za preuzimanje tamo gdje licenca dozvoljava.
 - **Bez naloga za posjetioce, dvije uloge osoblja**: posjetioci razgledaju izložbe i čuvaju omiljene u pregledaču; kustosi prave i šalju izložbe na objavu; administratori ih objavljuju i upravljaju korisnicima.
 - Dvojezičan sadržaj, svijetla i tamna tema, sačuvane izložbe, prilagođen prikaz od 375 do 1440 px.
 - Pristupačnost: semantički HTML, oznake na poljima, vidljiv fokus, kontrast iznad 4.5:1.
@@ -30,9 +31,9 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 |---|---|---|
 | ![Galerija](docs/screenshots/gallery-desktop.png) | ![Slider](docs/screenshots/slider-desktop.png) | ![Katalog](docs/screenshots/catalog-desktop.png) |
 
-| Listanje knjige | 3D karusel |
-|---|---|
-| ![Knjiga](docs/screenshots/book-desktop.png) | ![Karusel](docs/screenshots/carousel-desktop.png) |
+| Listanje knjige | 3D karusel | Stranica izložbe |
+|---|---|---|
+| ![Knjiga](docs/screenshots/book-desktop.png) | ![Karusel](docs/screenshots/carousel-desktop.png) | ![Uvod, citat i prebacivanje prikaza](docs/screenshots/exhibition-intro-desktop.png) |
 
 | Studio za kustosa (uređivač) | Administracija | Telefon (375 px) |
 |---|---|---|

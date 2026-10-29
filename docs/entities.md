@@ -12,6 +12,7 @@ Code: `frontend/src/features/exhibitions/`
 | slug | string | yes | unique, URL-safe, generated from the title |
 | title | Localized | yes | 3+ characters per language |
 | summary | Localized | yes | 10+ characters per language |
+| intro | Localized | no | curator's introduction shown above the viewer |
 | coverUrl | string (URL) | yes | |
 | template | `timeline` \| `gallery` \| `map` \| `slider` \| `room` \| `book` \| `carousel` | yes | selects the viewer |
 | status | `draft` \| `pending` \| `published` | yes | draft -> pending (curator submits) -> published (admin) |
@@ -51,6 +52,11 @@ A digitized object (book, manuscript, map, photo...) from the library collection
 | imageUrl | string (URL) | yes | |
 | sourceUrl | string (URL) | yes | link to the object in dlib.me |
 | rights | string | yes | |
+| signature | string | no | shelf mark in the library |
+| inventoryNo | string | no | inventory number |
+| language | string | no | language and script of the object |
+| material | string | no | e.g. "paper, print" |
+| dimensions | string | no | e.g. "21 x 15 cm" |
 
 Relations: belongs to one Section (later: many-to-many, so one object can appear in several exhibitions).
 

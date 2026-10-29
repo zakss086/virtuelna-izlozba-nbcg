@@ -95,6 +95,14 @@ export function ExhibitionForm({
             <FieldError message={errors.summaryEn?.message} />
           </div>
           <div className="flex flex-col gap-2">
+            <Label htmlFor="introMe">{t('editor.introMe')}</Label>
+            <Textarea id="introMe" rows={4} {...register('introMe')} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="introEn">{t('editor.introEn')}</Label>
+            <Textarea id="introEn" rows={4} {...register('introEn')} />
+          </div>
+          <div className="flex flex-col gap-2">
             <Label htmlFor="template">{t('catalog.template')}</Label>
             <Controller
               control={control}

@@ -12,7 +12,13 @@ import { ItemDialog } from '../item-dialog'
 
 type Side = 'left' | 'right' | 'single'
 
-type PageFrameProps = { side: Side; folio?: number; dark?: boolean; backdrop?: ReactNode; children: ReactNode }
+type PageFrameProps = {
+  side: Side
+  folio?: number
+  dark?: boolean
+  backdrop?: ReactNode
+  children: ReactNode
+}
 
 // One page of paper (or the dark cover). Paper stays light in both themes, like the logo plate.
 function PageFrame({ side, folio, dark = false, backdrop, children }: PageFrameProps) {
@@ -55,7 +61,11 @@ function CoverPage({ exhibition, side }: CoverPageProps) {
       dark
       backdrop={
         <>
-          <SmartImage src={exhibition.coverUrl} alt="" className="absolute inset-0 size-full object-cover opacity-30" />
+          <SmartImage
+            src={exhibition.coverUrl}
+            alt=""
+            className="absolute inset-0 size-full object-cover opacity-30"
+          />
           <span aria-hidden="true" className="pointer-events-none absolute inset-3 border border-accent/70" />
         </>
       }
@@ -94,12 +104,13 @@ function ImagePage({ section, side, folio, onOpen }: ImagePageProps) {
               loading="lazy"
               className="size-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
             />
-            <span aria-hidden="true" className="pointer-events-none absolute inset-2 border border-accent/70" />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-2 border border-accent/70"
+            />
           </button>
           <p className="mt-3 font-heading text-sm leading-snug italic">{l(first.title)}</p>
-          <p className="text-xs text-ink/70">
-            {[first.creator, first.year].filter(Boolean).join(' · ')}
-          </p>
+          <p className="text-xs text-ink/70">{[first.creator, first.year].filter(Boolean).join(' · ')}</p>
         </>
       )}
       {rest.length > 0 && (
@@ -112,7 +123,12 @@ function ImagePage({ section, side, folio, onOpen }: ImagePageProps) {
                 aria-label={`${l(item.title)}: ${t('viewer.details')}`}
                 className="block overflow-hidden rounded-sm bg-ink focus-visible:outline-2 focus-visible:outline-ring"
               >
-                <SmartImage src={item.imageUrl} alt={l(item.title)} loading="lazy" className="size-10 object-cover" />
+                <SmartImage
+                  src={item.imageUrl}
+                  alt={l(item.title)}
+                  loading="lazy"
+                  className="size-10 object-cover"
+                />
               </button>
             </li>
           ))}
@@ -130,7 +146,9 @@ function TextPage({ section, side, folio }: TextPageProps) {
   return (
     <PageFrame side={side} folio={folio}>
       {section.year && <p className="font-heading text-3xl font-semibold">{section.year}</p>}
-      <h2 className="mt-1 text-xl leading-tight font-semibold text-balance md:text-2xl">{l(section.title)}</h2>
+      <h2 className="mt-1 text-xl leading-tight font-semibold text-balance md:text-2xl">
+        {l(section.title)}
+      </h2>
       <div aria-hidden="true" className="my-4 flex items-center gap-2">
         <span className="h-px w-10 bg-accent" />
         <span className="size-1.5 rotate-45 bg-accent" />
@@ -172,7 +190,7 @@ type BookViewerProps = { exhibition: Exhibition }
 // A book you page through. Wide screens show an open double page with a turning sheet; phones show one page
 // at a time. Positions: spread 0 is the cover, 1..N one section each (picture left, text right), N+1 the credits.
 export function BookViewer({ exhibition }: BookViewerProps) {
-  const { t } = useI18n()
+  const { t, l } = useI18n()
   const wide = useMediaQuery('(min-width: 768px)')
   const { sections } = exhibition
   const count = sections.length
@@ -301,17 +319,50 @@ export function BookViewer({ exhibition }: BookViewerProps) {
         )}
 
         <div className="mx-auto flex w-full max-w-md items-center justify-between gap-4">
-          <Button variant="outline" size="icon" onClick={prev} disabled={!canPrev} aria-label={t('viewer.prev')}>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={prev}
+            disabled={!canPrev}
+            aria-label={t('viewer.prev')}
+          >
             <ChevronLeft />
           </Button>
           <p aria-live="polite" className="text-sm text-muted-foreground">
             {position}
           </p>
-          <Button variant="outline" size="icon" onClick={next} disabled={!canNext} aria-label={t('viewer.next')}>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={next}
+            disabled={!canNext}
+            aria-label={t('viewer.next')}
+          >
             <ChevronRight />
           </Button>
         </div>
         <p className="text-center text-sm text-muted-foreground">{t('viewer.bookHint')}</p>
+        <details className="mx-auto w-full max-w-md rounded-lg border p-3 text-sm">
+          <summary className="cursor-pointer font-medium">{t('viewer.contents')}</summary>
+          <ol className="mt-3 flex flex-col gap-1">
+            {sections.map((section, i) => (
+              <li key={section.id}>
+                <button
+                  type="button"
+                  aria-current={spread === i + 1}
+                  onClick={() => {
+                    setSpread(i + 1)
+                    setHalf(0)
+                  }}
+                  className="w-full rounded px-2 py-1 text-left hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring aria-[current=true]:font-semibold"
+                >
+                  {section.year ? `${section.year} · ` : ''}
+                  {l(section.title)}
+                </button>
+              </li>
+            ))}
+          </ol>
+        </details>
       </div>
 
       {selected && opened !== null && (
