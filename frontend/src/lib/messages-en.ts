@@ -4,6 +4,10 @@ import type { me } from './messages-me'
 export const en = {
   'app.name': 'Virtual Exhibitions',
   'app.org': 'National Library of Montenegro "Đurđe Crnojević"',
+  'app.orgShort': 'National Library of Montenegro',
+  'home.hero.caption.1': 'The Oktoih (Octoechos), 1494.',
+  'home.hero.caption.2': 'The Mountain Wreath, Vienna edition, 1847.',
+  'home.hero.caption.3': 'Special map of the Principality of Montenegro.',
   'nav.home': 'Home',
   'nav.exhibitions': 'Exhibitions',
   'nav.favorites': 'Saved',

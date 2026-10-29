@@ -47,7 +47,7 @@ export function AboutContent({ stats }: AboutContentProps) {
           <h2 id="mission" className="text-3xl font-semibold">
             {t('about.mission.title')}
           </h2>
-          <p className="text-lg leading-relaxed text-muted-foreground first-letter:float-left first-letter:pr-3 first-letter:font-heading first-letter:text-5xl first-letter:leading-[0.8] first-letter:text-gold">
+          <p className="text-lg leading-relaxed text-muted-foreground first-letter:float-left first-letter:pr-3 first-letter:font-heading first-letter:text-5xl first-letter:leading-[0.8] first-letter:text-cinnabar">
             {t('about.mission.text')}
           </p>
         </section>

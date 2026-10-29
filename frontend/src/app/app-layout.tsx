@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router'
 
 import { AssistantHost } from '@/app/assistant-host'
+import { BraidDivider } from '@/components/braid-divider'
+import { BrandLogo } from '@/components/brand-logo'
 import { OfflineBanner } from '@/components/offline-banner'
 import { Toaster } from '@/components/toaster'
 import { Button } from '@/components/ui/button'
@@ -53,18 +55,13 @@ export function AppLayout() {
           aria-label={t('nav.main')}
         >
           <Link to="/" className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-ring">
-            <span className="shrink-0 rounded-md bg-plate p-1.5 shadow-md">
-              <img
-                src="/nbcg-logo.png"
-                alt={t('app.org')}
-                width={128}
-                height={64}
-                className="h-12 w-auto lg:h-16"
-              />
-            </span>
+            <BrandLogo />
             <span className="hidden flex-col leading-tight min-[480px]:flex">
               <span className="font-heading text-xl font-semibold whitespace-nowrap text-accent">
                 {t('app.name')}
+              </span>
+              <span className="hidden text-[0.65rem] tracking-[0.2em] whitespace-nowrap uppercase opacity-70 2xl:block">
+                {t('app.orgShort')}
               </span>
             </span>
           </Link>
@@ -226,13 +223,12 @@ export function AppLayout() {
       <Toaster />
       <AssistantHost />
 
-      <footer className="border-t bg-ink text-on-ink">
+      <footer className="bg-ink text-on-ink">
+        <BraidDivider className="pt-2" />
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pt-8 pb-16 text-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="flex items-center gap-3">
-              <span className="rounded-md bg-plate p-2">
-                <img src="/nbcg-logo.png" alt="" width={144} height={72} className="h-16 w-auto" />
-              </span>
+              <BrandLogo size="footer" />
               {t('app.org')}
             </p>
             <p>

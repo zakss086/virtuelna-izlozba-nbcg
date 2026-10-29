@@ -35,3 +35,12 @@ Dignified, editorial, warm. A modern museum website, not a library catalog.
 - Actions (save, submit, publish, return to draft, delete): a toast from `lib/toast.ts` shown by `Toaster`, success or error, announced to screen readers. Deleting asks first in a dialog (`alert-dialog`), never with `window.confirm`.
 - Connection: `OfflineBanner` appears under the header when the browser goes offline.
 - Tone: short, polite sentences that say what happened and what to do next; no codes or technical terms.
+
+## Historic-modern details
+The look is a modern layout (Inter, clean cards, plenty of space) with a few manuscript-inspired touches. Keep them few and quiet.
+- **Logo plate** (`components/brand-logo.tsx`): the library logo sits on a light plate with a thin gold inner frame, so it stays readable on the dark header and footer. The logo file is small (167 x 83 px), so it is never shown much larger than its natural size.
+- **Braid band** (`components/braid-divider.tsx`): two crossing waves, echoing the interlace of medieval Montenegrin manuscripts. Used above the footer.
+- **Hero**: a thin gold inner frame with corner brackets, and a caption with progress diamonds for the current slide.
+- **Passepartout** (`.passepartout` in `index.css`): a gold frame appears inside card images on hover or focus.
+- **Cinnabar** (`--cinnabar`, manuscript red): only for tiny details, such as the initial of the About text and the diamond of the section ornament. Never for text blocks or buttons.
+- **Paper grain**: a faint noise on the page background, grey at low opacity so it works in both themes.

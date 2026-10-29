@@ -2,6 +2,10 @@
 export const me = {
   'app.name': 'Virtuelne izložbe',
   'app.org': 'Nacionalna biblioteka Crne Gore „Đurđe Crnojević“',
+  'app.orgShort': 'Nacionalna biblioteka Crne Gore',
+  'home.hero.caption.1': 'Oktoih petoglasnik, 1494.',
+  'home.hero.caption.2': 'Gorski vijenac, bečko izdanje, 1847.',
+  'home.hero.caption.3': 'Specijalna karta Kneževine Crne Gore.',
   'nav.home': 'Početna',
   'nav.exhibitions': 'Izložbe',
   'nav.favorites': 'Sačuvano',
