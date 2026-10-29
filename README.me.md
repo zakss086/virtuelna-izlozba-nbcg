@@ -14,6 +14,7 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 
 - **Pet predložaka izložbi**: vremenska traka, galerija sa uvećanjem, priča na mapi, slider „prije i poslije“ i **3D sala** po kojoj se može šetati.
 - **Video galerija** i video zapisi unutar izložbi.
+- **Mapa biblioteka**: nacionalna, univerzitetske, narodne i specijalne biblioteke Crne Gore na jednoj mapi, sa pretragom, filterom po vrsti i vezama ka njihovim veb stranicama (izvori: statistika COBISS.CG i OpenStreetMap).
 - **Tri uloge**: posjetilac, kustos (pravi i šalje izložbe) i administrator (objavljuje i upravlja korisnicima).
 - Dvojezičan sadržaj, svijetla i tamna tema, sačuvane izložbe, prilagođen prikaz od 375 do 1440 px.
 - Pristupačnost: semantički HTML, oznake na poljima, vidljiv fokus, kontrast iznad 4.5:1.
@@ -30,6 +31,8 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 | Studio za kustosa (uređivač) | Administracija | Telefon (375 px) |
 |---|---|---|
 | ![Uređivač](docs/screenshots/editor-desktop.png) | ![Administracija](docs/screenshots/admin-desktop.png) | ![Početna na telefonu](docs/screenshots/home-mobile.png) |
+
+![Mapa biblioteka](docs/screenshots/libraries-desktop.png)
 
 ## Kontekst radionice
 
@@ -76,7 +79,7 @@ Potpuna lista ekrana sa kriterijumima „gotovo je kad“ nalazi se u [`SPEC.md`
 | `/` | Početna: hero, istaknuta izložba, najnovije, predlošci, video zapisi, zbirke |
 | `/exhibitions` | Katalog sa pretragom i filterom po predlošku (čuvaju se u adresi) |
 | `/exhibitions/:slug` | Čitač izložbe (predložak određuje raspored) i video zapisi |
-| `/collections`, `/videos`, `/about` | Zbirke, video galerija, O nama |
+| `/collections`, `/libraries`, `/videos`, `/about` | Zbirke, mapa biblioteka, video galerija, O nama |
 | `/favorites`, `/sign-in`, `/profile` | Sačuvano, prijava (vodi na stranicu za tvoju ulogu), profil |
 | `/studio`, `/studio/new`, `/studio/:id/edit` | Pregled i uređivač izložbi (kustos, admin) |
 | `/admin` | Red za objavu i korisnici (admin) |
@@ -89,6 +92,7 @@ frontend/src/
   features/
     exhibitions/  tipovi, api/ (probni podaci + hookovi), components/ (kartice, čitači, uređivač)
     collections/  zbirke digitalne biblioteke
+    libraries/    biblioteke Crne Gore za mapu (probni podaci, izvori u kodu)
     auth/         probna prijava, uloge, korisnici
     favorites/    sačuvane izložbe
     about/        sadržaj stranice O nama

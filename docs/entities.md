@@ -77,6 +77,23 @@ Code: `frontend/src/features/auth/`
 | email | string | yes | unique |
 | role | `visitor` \| `curator` \| `admin` | yes | |
 
+## Library
+A library in Montenegro shown on the libraries map (`frontend/src/features/libraries/`). Read-only for visitors; the backend may later let an admin edit the list.
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| id | number | yes | |
+| name | string | yes | proper noun, not translated |
+| type | `national` | `university` | `public` | `special` | yes | |
+| city | string | yes | |
+| address | string | no | only where an official source states it |
+| website | string (URL) | no | |
+| email | string | no | |
+| phone | string | no | |
+| location | `{ lat: number, lng: number, precision: 'exact' | 'town' }` | no | `town` = centre of the town (approximate); missing = no pin on the map |
+
+Source of the sample data: names from the COBISS.CG statistics for 2025 (full members), coordinates from OpenStreetMap (ODbL).
+
 ## Favorite
 Saved exhibitions of a visitor. Mock: `localStorage` (`frontend/src/features/favorites/`). Backend: table `(userId, exhibitionId)`.
 
@@ -94,4 +111,5 @@ Saved exhibitions of a visitor. Mock: `localStorage` (`frontend/src/features/fav
 - `DELETE /exhibitions/:id` (author or admin)
 - `POST /auth/sign-in`, `POST /auth/sign-out`, `GET /auth/me`
 - `GET /users` (admin)
+- `GET /libraries?type=&city=`, `GET /libraries/:id` (anonymous)
 - `GET /favorites`, `PUT /favorites/:exhibitionId`, `DELETE /favorites/:exhibitionId` (signed in)

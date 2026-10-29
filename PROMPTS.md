@@ -71,6 +71,7 @@ This is the shape of a request that worked well: it names the screen, the behavi
 | The dark theme does not work well. Check text visibility and where it can go wrong, then propose what to do. | A contrast scan of 9 pages and the dark-mode screenshots found the real cause (see section 5), and a proposal with three options. |
 | Fix it using option A. | A new `on-ink` token for light text on dark surfaces, applied in 8 files; re-scan found no low-contrast text. |
 | Check the rest, and whether the visual identity is consistent everywhere. | Review of 14 screens in dark mode at 1440 and 375 px: the identity is consistent; faint form borders, a bright map and a drop-cap misalignment were listed. |
+| Add a libraries map that does not depend on COBISS; pull the list of libraries from the internet. | A new `libraries` feature and `/libraries` page: 39 libraries (names from the COBISS.CG 2025 statistics, coordinates from OpenStreetMap), search, type filter, exact and approximate pins, sources shown on the page. A scrape of OpenStreetMap alone gave only 16 noisy entries, so it is used for coordinates, not for the list. |
 | Fix what is needed. Also: does the user get notices when something fails or loads slowly, and is the site built on modern design principles? | Audit of user feedback, then toasts for every action, an error notice with a retry button, an offline banner, a delete dialog instead of `window.confirm`, and polite bilingual messages. |
 
 ## 5. What the agent got wrong, and how it was fixed

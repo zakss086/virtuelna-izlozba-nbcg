@@ -30,6 +30,7 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 | `/exhibitions` | Catalog | search and template filter work and stay in the URL; empty result offers a reset; error offers a retry |
 | `/exhibitions/:slug` | Exhibition viewer | the template renders the sections; items open a detail dialog with author, year, collection, rights and a source link; videos play; unknown slug shows a not-found message |
 | `/collections` | Collections | the eight collections of the digital library link out; exhibitions from them are listed |
+| `/libraries` | Libraries map | libraries of Montenegro shown as pins on a map and as a list; search (ignores diacritics) and type filter work; approximate locations are marked; the sources are named |
 | `/videos` | Video gallery | all videos of published exhibitions play and link back to their exhibition |
 | `/about` | About | mission, how an exhibition is made, platform numbers, contact and sources |
 | `/favorites` | Saved | lists saved exhibitions; empty state explains how to save |

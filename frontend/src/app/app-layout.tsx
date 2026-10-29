@@ -19,6 +19,7 @@ const links: NavItem[] = [
   { to: '/', label: 'nav.home' },
   { to: '/exhibitions', label: 'nav.exhibitions' },
   { to: '/collections', label: 'nav.collections' },
+  { to: '/libraries', label: 'nav.libraries' },
   { to: '/videos', label: 'nav.videos' },
   { to: '/about', label: 'nav.about' },
   { to: '/studio', label: 'nav.studio', roles: ['curator', 'admin'] },

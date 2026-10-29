@@ -8,6 +8,7 @@ import { Exhibition } from '@/app/routes/exhibition'
 import { Exhibitions } from '@/app/routes/exhibitions'
 import { Favorites } from '@/app/routes/favorites'
 import { Home } from '@/app/routes/home'
+import { Libraries } from '@/app/routes/libraries'
 import { Profile } from '@/app/routes/profile'
 import { NotFound } from '@/app/routes/not-found'
 import { SignIn } from '@/app/routes/sign-in'
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
       { path: '/exhibitions', element: <Exhibitions /> },
       { path: '/exhibitions/:slug', element: <Exhibition /> },
       { path: '/collections', element: <Collections /> },
+      { path: '/libraries', element: <Libraries /> },
       { path: '/videos', element: <Videos /> },
       { path: '/about', element: <About /> },
       { path: '/favorites', element: <Favorites /> },
