@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { useI18n } from '@/lib/i18n'
 
 import type { ExhibitionItem } from '../types'
+import { itemRows } from './item-rows'
 import { ZoomableImage } from './zoomable-image'
 
 // Downloads are offered only for material the licence lets people copy.
@@ -37,18 +38,7 @@ export function ItemDialog({ item, onClose, onPrev, onNext }: ItemDialogProps) {
     }
   }, [onClose, onPrev, onNext])
 
-  const rows: [string, string][] = [
-    [t('item.creator'), item.creator],
-    ...(item.year ? ([[t('item.year'), String(item.year)]] as [string, string][]) : []),
-    [t('item.type'), t(`type.${item.type}`)],
-    [t('item.collection'), item.collection],
-    ...(item.signature ? ([[t('item.signature'), item.signature]] as [string, string][]) : []),
-    ...(item.inventoryNo ? ([[t('item.inventory'), item.inventoryNo]] as [string, string][]) : []),
-    ...(item.language ? ([[t('item.language'), item.language]] as [string, string][]) : []),
-    ...(item.material ? ([[t('item.material'), item.material]] as [string, string][]) : []),
-    ...(item.dimensions ? ([[t('item.dimensions'), item.dimensions]] as [string, string][]) : []),
-    [t('item.rights'), item.rights],
-  ]
+  const rows = itemRows(item, t)
 
   return (
     <div

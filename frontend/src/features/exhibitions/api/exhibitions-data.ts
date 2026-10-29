@@ -6,6 +6,7 @@ import { booksAndPostcards } from './seed-exhibitions-1'
 import { mapAndSlider } from './seed-exhibitions-2'
 import { roomAndDrafts } from './seed-exhibitions-3'
 import { bookAndCarousel } from './seed-exhibitions-4'
+import { cardCatalogue } from './seed-exhibitions-5'
 
 // Sample data inspired by the National Library of Montenegro collections (nb-cg.me, dlib.me).
 // The seed files next to this one hold the content; helpers live in seed-helpers.ts.
@@ -35,6 +36,10 @@ const intros: Record<string, Localized> = {
     me: 'Četiri djela koja su oblikovala crnogorsku štampanu riječ, postavljena kao knjiga koju listate. Na svakom razvijenom listu lijevo je slika, a desno kratak tekst, dok posljednja stranica navodi izvore i prava.',
     en: 'Four works that shaped the Montenegrin printed word, laid out as a book you turn. Each spread has a picture on the left and a short text on the right, and the last page lists sources and rights.',
   },
+  'iz-fioke-montenegrine': {
+    me: 'Kartice iz zbirke Montenegrina poredane kao u bibliotečkoj kartoteci. Izvucite karticu da vidite autora, godinu, zbirku, jezik, materijal i prava korišćenja, a klikom na sliku je uvećajte.',
+    en: 'Cards from the Montenegrina collection laid out like a library card catalogue. Pull out a card to see the author, year, collection, language, material and usage rights, and click the picture to enlarge it.',
+  },
   'crna-gora-u-krugu': {
     me: 'Deset fotografija poredanih u prsten koji se polako okreće. Zaustavite ga kad vam se nešto dopadne, pa otvorite detalje i uvećajte sliku.',
     en: 'Ten photographs arranged in a slowly turning ring. Stop it when something catches your eye, then open the details and enlarge the picture.',
@@ -46,4 +51,5 @@ export const initialExhibitions: Exhibition[] = [
   ...mapAndSlider,
   ...roomAndDrafts,
   ...bookAndCarousel,
+  ...cardCatalogue,
 ].map((exhibition) => ({ ...exhibition, intro: intros[exhibition.slug] }))

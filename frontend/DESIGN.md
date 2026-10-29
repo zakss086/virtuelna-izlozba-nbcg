@@ -24,7 +24,8 @@ Dignified, editorial, warm. A modern museum website, not a library catalog.
 4. Slider: horizontal snap slides with a before/after compare handle.
 5. 3D room: react-three-fiber hall with framed objects; orbit controls; click opens the metadata dialog.
 6. Book: paper pages stay light in both themes (`plate` and `ink` tokens); a sheet turns in CSS 3D (`rotateY`, `backface-visibility`), one page at a time below 768 px; hidden pages are `inert`.
-7. Carousel: CSS 3D ring (`translateZ`, `rotateY`) with the front object active; autoplay stops on hover, focus, pause and with `prefers-reduced-motion`.
+$1
+8. Card catalogue: dark drawer (`ink`) with light cards (`plate`), a cinnabar top rule and a stepped tab per card; one card open at a time, opened with a smooth row-height transition (instant with reduced motion).
 
 ## Exhibition page
 Above every viewer: curator's introduction in `font-heading`, a facts card, the citation (gold left rule), then a toolbar with the "view as" select, full screen and the PDF catalogue (print stylesheet: the page chrome is `print:hidden`, `ExhibitionCatalog` is `hidden print:block`). The object dialog has a zoomable image, optional catalogue rows and a download button for open licences only.

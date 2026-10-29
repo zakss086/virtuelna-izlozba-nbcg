@@ -1,6 +1,6 @@
 # Virtual Exhibitions of the National Library of Montenegro
 
-A bilingual (Montenegrin Latin script + English) platform where curators build interactive exhibitions from library collections and visitors explore them. Inspired by the virtual exhibition portals of national libraries, with seven viewer templates: timeline, gallery, map story, slider, 3D room, page-turning book and carousel.
+A bilingual (Montenegrin Latin script + English) platform where curators build interactive exhibitions from library collections and visitors explore them. Inspired by the virtual exhibition portals of national libraries, with eight viewer templates: timeline, gallery, map story, slider, 3D room, page-turning book, carousel and card catalogue.
 
 This is a monorepo: one repository for the whole app.
 - `frontend/`: React app (Workshop 3). Details in @frontend/CLAUDE.md

@@ -12,12 +12,12 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 
 ## Šta sajt nudi
 
-- **Sedam načina prikaza izložbi**: vremenska traka, galerija sa uvećanjem, priča na mapi, slider „prije i poslije“, **3D sala** po kojoj se može šetati, **knjiga čije se stranice listaju** i **3D karusel**.
+- **Osam načina prikaza izložbi**: vremenska traka, galerija sa uvećanjem, priča na mapi, slider „prije i poslije“, **3D sala** po kojoj se može šetati, **knjiga čije se stranice listaju**, **3D karusel** i **kartoteka**.
 - **Video galerija** i video zapisi unutar izložbi.
 - **Interaktivna mapa**: biblioteke Crne Gore (sa fotografijama gdje postoji slobodna) i mjesta iz izložbi na jednoj mapi. Pretraga koja ne pravi razliku među dijakriticima, filter po vrsti, slojevi, dugme „Najbliža biblioteka“, kartice sa kontaktom i vezama, a od svakog mjesta veza ka izložbi. Izvori: statistika COBISS.CG, OpenStreetMap i Wikimedia Commons.
 - **Demo asistent** za posjetioce: odgovara na pitanja o izložbama, objektima, bibliotekama i korišćenju sajta. To je simulacija: ne poziva nikakav AI servis, već pretražuje sadržaj sajta i spremna uputstva, pa ne troši resurse.
 - **Provjera izložbe** za kustose u uređivaču: lista provjera (prevod, sažetak, oznake, sekcije, tekstovi, mjesta za mapu, hronologija za vremensku traku) i prijedlozi oznaka, takođe po jednostavnim pravilima.
-- **Ozbiljnija stranica izložbe**: kustoski uvod, podaci o izložbi, gotov citat, prebacivanje između svih sedam načina prikaza, cio ekran, katalog za štampu (PDF), slične izložbe i prozor objekta sa zumiranjem, dodatnim podacima (signatura, jezik, materijal, dimenzije) i dugmetom za preuzimanje tamo gdje licenca dozvoljava.
+- **Ozbiljnija stranica izložbe**: kustoski uvod, podaci o izložbi, gotov citat, prebacivanje između svih osam načina prikaza, cio ekran, katalog za štampu (PDF), slične izložbe i prozor objekta sa zumiranjem, dodatnim podacima (signatura, jezik, materijal, dimenzije) i dugmetom za preuzimanje tamo gdje licenca dozvoljava.
 - **Bez naloga za posjetioce, dvije uloge osoblja**: posjetioci razgledaju izložbe i čuvaju omiljene u pregledaču; kustosi prave i šalju izložbe na objavu; administratori ih objavljuju i upravljaju korisnicima.
 - Dvojezičan sadržaj, svijetla i tamna tema, sačuvane izložbe, prilagođen prikaz od 375 do 1440 px.
 - Pristupačnost: semantički HTML, oznake na poljima, vidljiv fokus, kontrast iznad 4.5:1.
@@ -31,9 +31,13 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 |---|---|---|
 | ![Galerija](docs/screenshots/gallery-desktop.png) | ![Slider](docs/screenshots/slider-desktop.png) | ![Katalog](docs/screenshots/catalog-desktop.png) |
 
-| Listanje knjige | 3D karusel | Stranica izložbe |
+| Listanje knjige | 3D karusel | Kartoteka |
 |---|---|---|
-| ![Knjiga](docs/screenshots/book-desktop.png) | ![Karusel](docs/screenshots/carousel-desktop.png) | ![Uvod, citat i prebacivanje prikaza](docs/screenshots/exhibition-intro-desktop.png) |
+| ![Knjiga](docs/screenshots/book-desktop.png) | ![Karusel](docs/screenshots/carousel-desktop.png) | ![Kartoteka](docs/screenshots/cards-desktop.png) |
+
+| Stranica izložbe (uvod, citat, prebacivanje prikaza) |
+|---|
+| ![Stranica izložbe](docs/screenshots/exhibition-intro-desktop.png) |
 
 | Studio za kustosa (uređivač) | Administracija | Telefon (375 px) |
 |---|---|---|
@@ -49,7 +53,7 @@ Napravljeno za **AI-DEV 2026, Radionica 3: Frontend u AI eri (od HTML-a do React
 
 **Zadatak:** napraviti frontend sopstvene aplikacije na probnim podacima uz Claude Code: 2 do 3 povezana entiteta, početna, lista sa filterom, stranica sa detaljima, forma za pravljenje i izmjenu i prijava, prilagođeno za 375 i 1440 px, uz `docs/entities.md` za backend.
 
-**Urađeno:** sve navedeno, uz sedam načina prikaza izložbi, 3D salu, video galeriju, dvojezični interfejs i dvije uloge osoblja. Backend je planiran za Radionicu 4 (vidi [`backend/README.md`](backend/README.md)).
+**Urađeno:** sve navedeno, uz osam načina prikaza izložbi, 3D salu, video galeriju, dvojezični interfejs i dvije uloge osoblja. Backend je planiran za Radionicu 4 (vidi [`backend/README.md`](backend/README.md)).
 
 ## Pokretanje
 

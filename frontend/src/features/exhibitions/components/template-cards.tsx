@@ -1,4 +1,4 @@
-import { BookOpen, Box, Clock, Disc3, GalleryHorizontal, Images, Map } from 'lucide-react'
+import { Archive, BookOpen, Box, Clock, Disc3, GalleryHorizontal, Images, Map } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { Link } from 'react-router'
 
@@ -15,6 +15,7 @@ const TEMPLATE_ICONS: Record<ExhibitionTemplate, ComponentType<{ className?: str
   room: Box,
   book: BookOpen,
   carousel: Disc3,
+  cards: Archive,
 }
 
 // One card per exhibition template; each links to the catalog filtered by that template.

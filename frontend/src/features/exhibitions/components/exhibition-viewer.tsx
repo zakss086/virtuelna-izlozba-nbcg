@@ -5,6 +5,7 @@ import { useI18n } from '@/lib/i18n'
 
 import type { Exhibition } from '../types'
 import { BookViewer } from './viewers/book-viewer'
+import { CardsViewer } from './viewers/cards-viewer'
 import { CarouselViewer } from './viewers/carousel-viewer'
 import { GalleryViewer } from './viewers/gallery-viewer'
 import { SliderViewer } from './viewers/slider-viewer'
@@ -30,6 +31,8 @@ export function ExhibitionViewer({ exhibition }: ExhibitionViewerProps) {
       return <BookViewer exhibition={exhibition} />
     case 'carousel':
       return <CarouselViewer exhibition={exhibition} />
+    case 'cards':
+      return <CardsViewer exhibition={exhibition} />
     case 'map':
       return (
         <Suspense fallback={<Skeleton className="h-[60vh] w-full" aria-label={t('viewer.mapLoading')} />}>
