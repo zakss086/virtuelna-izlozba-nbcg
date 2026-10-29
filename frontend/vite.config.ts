@@ -8,4 +8,6 @@ export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(import.meta.dirname, './src') },
   },
+  // `pnpm dev:api`: the app calls /api and Vite forwards it to the backend (`poetry run start` in backend/).
+  server: { proxy: { '/api': 'http://localhost:8000' } },
 })
