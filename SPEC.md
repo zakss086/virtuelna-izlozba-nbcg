@@ -50,6 +50,8 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 | Map story | numbered stops on a map with a route line and a chapter list |
 | Slider | horizontal slides with a before/after comparison handle |
 | 3D hall | a virtual room with framed objects; drag to look around, click a frame for details |
+| Page-turning book | a cover, one spread per section (picture left, text right) and a credits page; a sheet turns in 3D on wide screens, one page at a time on phones; arrow keys work |
+| 3D carousel | objects in a ring that turns by itself (pause button, stops on hover and focus, off with reduced motion); drag, arrows or click a neighbour to turn; click the front one for details |
 
 ## App-wide rules
 

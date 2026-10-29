@@ -62,10 +62,10 @@ export const guides: Guide[] = [
   {
     id: 'templates',
     question: { me: 'Koji načini prikaza izložbi postoje?', en: 'Which exhibition templates are there?' },
-    keywords: 'načini prikaza predložak predlošci vremenska traka galerija mapa slider 3D sala templates timeline gallery',
+    keywords: 'načini prikaza predložak predlošci vremenska traka galerija mapa slider 3D sala knjiga listanje karusel templates timeline gallery book carousel',
     answer: {
-      me: 'Pet: vremenska traka, galerija sa uvećanjem, priča na mapi, slider „prije i poslije“ i 3D sala po kojoj se može šetati.',
-      en: 'Five: a timeline, a gallery with lightbox, a map story, a before/after slider and a walkable 3D hall.',
+      me: 'Sedam: vremenska traka, galerija sa uvećanjem, priča na mapi, slider „prije i poslije“, 3D sala po kojoj se može šetati, knjiga čije se stranice listaju i kružni karusel.',
+      en: 'Seven: a timeline, a gallery with lightbox, a map story, a before/after slider, a walkable 3D hall, a page-turning book and a carousel.',
     },
     href: '/exhibitions',
   },

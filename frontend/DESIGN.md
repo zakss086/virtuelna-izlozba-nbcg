@@ -23,6 +23,8 @@ Dignified, editorial, warm. A modern museum website, not a library catalog.
 3. Map story: Leaflet map with numbered stops and a route line, chapter list beside it.
 4. Slider: horizontal snap slides with a before/after compare handle.
 5. 3D room: react-three-fiber hall with framed objects; orbit controls; click opens the metadata dialog.
+6. Book: paper pages stay light in both themes (`plate` and `ink` tokens); a sheet turns in CSS 3D (`rotateY`, `backface-visibility`), one page at a time below 768 px; hidden pages are `inert`.
+7. Carousel: CSS 3D ring (`translateZ`, `rotateY`) with the front object active; autoplay stops on hover, focus, pause and with `prefers-reduced-motion`.
 
 ## Avoid
 - Gradients without purpose, emoji instead of icons, generic "Welcome to..." hero text.

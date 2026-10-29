@@ -191,7 +191,27 @@
     hero-zoom 21s infinite alternate;
 }
 
+/* Page turn for the single-page book on phones. */
+@keyframes book-turn {
+  from {
+    opacity: 0.2;
+    transform: perspective(1200px) rotateY(-55deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1200px) rotateY(0);
+  }
+}
+
+.book-turn {
+  transform-origin: left center;
+  animation: book-turn 0.55s ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .book-turn {
+    animation: none;
+  }
   .hero-slide {
     animation: none;
   }

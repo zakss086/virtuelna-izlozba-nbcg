@@ -1,11 +1,11 @@
 import type { ArtKind } from '@/lib/art'
 import type { Localized } from '@/lib/i18n'
 
-export type ExhibitionTemplate = 'timeline' | 'gallery' | 'map' | 'slider' | 'room'
+export type ExhibitionTemplate = 'timeline' | 'gallery' | 'map' | 'slider' | 'room' | 'book' | 'carousel'
 export type ExhibitionStatus = 'draft' | 'pending' | 'published'
 export type ItemType = ArtKind
 
-export const TEMPLATES: ExhibitionTemplate[] = ['timeline', 'gallery', 'map', 'slider', 'room']
+export const TEMPLATES: ExhibitionTemplate[] = ['timeline', 'gallery', 'map', 'slider', 'room', 'book', 'carousel']
 export const ITEM_TYPES: ItemType[] = ['book', 'manuscript', 'map', 'photo', 'periodical', 'poster', 'audio']
 
 // A digitized object (book, map, photo...) shown inside an exhibition.

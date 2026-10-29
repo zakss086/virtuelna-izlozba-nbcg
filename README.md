@@ -12,7 +12,7 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 
 ## Highlights
 
-- **Five exhibition templates**: vertical timeline, masonry gallery with lightbox, map story, slider with before/after comparison, and a walkable **3D hall**.
+- **Seven exhibition templates**: vertical timeline, masonry gallery with lightbox, map story, slider with before/after comparison, a walkable **3D hall**, a **page-turning book** and a **3D carousel**.
 - **Video gallery** and videos inside exhibitions.
 - **Interactive map**: the libraries of Montenegro (with photos where a free one exists) and the places named in exhibitions on one map. Search that ignores diacritics, a type filter, layers, a "nearest library" button, detail cards with contact details and links, and a link from every place to its exhibition. Sources: COBISS.CG statistics, OpenStreetMap and Wikimedia Commons.
 - **Demo assistant** for visitors: answers questions about exhibitions, objects, libraries and how to use the site. It is a simulation: no AI service is called, it searches the site content and ready-made guides, so it costs nothing to run.
@@ -30,6 +30,10 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 |---|---|---|
 | ![Gallery](docs/screenshots/gallery-desktop.png) | ![Slider](docs/screenshots/slider-desktop.png) | ![Catalog](docs/screenshots/catalog-desktop.png) |
 
+| Page-turning book | 3D carousel |
+|---|---|
+| ![Book](docs/screenshots/book-desktop.png) | ![Carousel](docs/screenshots/carousel-desktop.png) |
+
 | Curator studio (editor) | Admin | Phone (375 px) |
 |---|---|---|
 | ![Editor](docs/screenshots/editor-desktop.png) | ![Admin](docs/screenshots/admin-desktop.png) | ![Home on a phone](docs/screenshots/home-mobile.png) |
@@ -44,7 +48,7 @@ Built for **AI-DEV 2026, Workshop 3: Frontend in the AI era (from HTML to a Reac
 
 **Task:** build the frontend of an own app on mock data with Claude Code: 2 to 3 related entities, home, a list with a filter, a detail page, a create/update form and sign-in, responsive at 375 px and 1440 px, plus `docs/entities.md` for the backend.
 
-**Delivered:** all of the above, extended with five exhibition templates, a 3D hall, a video gallery, a bilingual UI and two staff roles. The backend is planned for Workshop 4 (see [`backend/README.md`](backend/README.md)).
+**Delivered:** all of the above, extended with seven exhibition templates, a 3D hall, a video gallery, a bilingual UI and two staff roles. The backend is planned for Workshop 4 (see [`backend/README.md`](backend/README.md)).
 
 ## Run it
 
@@ -69,7 +73,7 @@ Data lives in memory and resets on reload; favorites, language, theme and the de
 
 | Role | Screens and actions |
 |---|---|
-| **Visitor** (no account) | Home, catalog with search and filters, exhibition viewers (timeline, gallery, map, slider, 3D hall), object details, video gallery, collections, About; save favorites; switch language and theme |
+| **Visitor** (no account) | Home, catalog with search and filters, exhibition viewers (timeline, gallery, map, slider, 3D hall, book, carousel), object details, video gallery, collections, About; save favorites; switch language and theme |
 | **Curator** | Everything a visitor can, plus **Studio**: create an exhibition in two languages, add sections and objects, pick a template, save a draft, submit it for publishing, edit or delete own exhibitions |
 | **Admin** | Everything a curator can, plus **Administration**: review queue (publish or return to draft), edit any exhibition, list users |
 
@@ -121,7 +125,7 @@ Rules enforced by `pnpm lint`: a feature never imports another feature, shared c
 | `frontend/src/app/router.tsx` | all routes and the role guards |
 | `frontend/src/features/exhibitions/api/exhibitions-api.ts` | the only place that "fetches" data (mock); the backend replaces this layer |
 | `frontend/src/features/exhibitions/api/use-exhibitions.ts` | TanStack Query hooks around that API |
-| `frontend/src/features/exhibitions/components/viewers/` | the five templates (timeline, gallery, map, slider, 3D room) |
+| `frontend/src/features/exhibitions/components/viewers/` | the seven templates (timeline, gallery, map, slider, 3D room, book, carousel) |
 | `frontend/src/features/auth/api/auth-api.ts` | demo users and session |
 | `frontend/src/index.css` | design tokens for both themes |
 | `frontend/src/lib/messages-me.ts`, `messages-en.ts` | all UI text in both languages |

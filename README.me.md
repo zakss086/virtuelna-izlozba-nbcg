@@ -12,7 +12,7 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 
 ## Šta sajt nudi
 
-- **Pet načina prikaza izložbi**: vremenska traka, galerija sa uvećanjem, priča na mapi, slider „prije i poslije“ i **3D sala** po kojoj se može šetati.
+- **Sedam načina prikaza izložbi**: vremenska traka, galerija sa uvećanjem, priča na mapi, slider „prije i poslije“, **3D sala** po kojoj se može šetati, **knjiga čije se stranice listaju** i **3D karusel**.
 - **Video galerija** i video zapisi unutar izložbi.
 - **Interaktivna mapa**: biblioteke Crne Gore (sa fotografijama gdje postoji slobodna) i mjesta iz izložbi na jednoj mapi. Pretraga koja ne pravi razliku među dijakriticima, filter po vrsti, slojevi, dugme „Najbliža biblioteka“, kartice sa kontaktom i vezama, a od svakog mjesta veza ka izložbi. Izvori: statistika COBISS.CG, OpenStreetMap i Wikimedia Commons.
 - **Demo asistent** za posjetioce: odgovara na pitanja o izložbama, objektima, bibliotekama i korišćenju sajta. To je simulacija: ne poziva nikakav AI servis, već pretražuje sadržaj sajta i spremna uputstva, pa ne troši resurse.
@@ -30,6 +30,10 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 |---|---|---|
 | ![Galerija](docs/screenshots/gallery-desktop.png) | ![Slider](docs/screenshots/slider-desktop.png) | ![Katalog](docs/screenshots/catalog-desktop.png) |
 
+| Listanje knjige | 3D karusel |
+|---|---|
+| ![Knjiga](docs/screenshots/book-desktop.png) | ![Karusel](docs/screenshots/carousel-desktop.png) |
+
 | Studio za kustosa (uređivač) | Administracija | Telefon (375 px) |
 |---|---|---|
 | ![Uređivač](docs/screenshots/editor-desktop.png) | ![Administracija](docs/screenshots/admin-desktop.png) | ![Početna na telefonu](docs/screenshots/home-mobile.png) |
@@ -44,7 +48,7 @@ Napravljeno za **AI-DEV 2026, Radionica 3: Frontend u AI eri (od HTML-a do React
 
 **Zadatak:** napraviti frontend sopstvene aplikacije na probnim podacima uz Claude Code: 2 do 3 povezana entiteta, početna, lista sa filterom, stranica sa detaljima, forma za pravljenje i izmjenu i prijava, prilagođeno za 375 i 1440 px, uz `docs/entities.md` za backend.
 
-**Urađeno:** sve navedeno, uz pet načina prikaza izložbi, 3D salu, video galeriju, dvojezični interfejs i dvije uloge osoblja. Backend je planiran za Radionicu 4 (vidi [`backend/README.md`](backend/README.md)).
+**Urađeno:** sve navedeno, uz sedam načina prikaza izložbi, 3D salu, video galeriju, dvojezični interfejs i dvije uloge osoblja. Backend je planiran za Radionicu 4 (vidi [`backend/README.md`](backend/README.md)).
 
 ## Pokretanje
 
@@ -112,7 +116,7 @@ Pravila koja provjerava `pnpm lint`: funkcionalnost nikad ne uvozi drugu funkcio
 
 ## Gdje u kodu
 
-Rute i uloge: `frontend/src/app/router.tsx`. Podaci (probni, zamjenjuje ih backend): `frontend/src/features/exhibitions/api/exhibitions-api.ts` i `use-exhibitions.ts`. Pet načina prikaza: `frontend/src/features/exhibitions/components/viewers/`. Boje i teme: `frontend/src/index.css`. Tekstovi na oba jezika: `frontend/src/lib/messages-me.ts` i `messages-en.ts`. Ugovor sa backendom: `docs/entities.md`.
+Rute i uloge: `frontend/src/app/router.tsx`. Podaci (probni, zamjenjuje ih backend): `frontend/src/features/exhibitions/api/exhibitions-api.ts` i `use-exhibitions.ts`. Sedam načina prikaza: `frontend/src/features/exhibitions/components/viewers/`. Boje i teme: `frontend/src/index.css`. Tekstovi na oba jezika: `frontend/src/lib/messages-me.ts` i `messages-en.ts`. Ugovor sa backendom: `docs/entities.md`.
 
 ## Tehnologije
 

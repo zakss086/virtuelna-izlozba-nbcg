@@ -1,6 +1,7 @@
 import { useI18n } from '@/lib/i18n'
 
 import { useExhibitions } from '../api/use-exhibitions'
+import { TEMPLATES } from '../types'
 
 type PlatformStatsProps = {
   /** `hero` renders on a dark background; `plain` on the page background. */
@@ -24,7 +25,7 @@ export function PlatformStats({ tone = 'plain' }: PlatformStatsProps) {
     { value: count(exhibitions), label: t('home.stat.exhibitions') },
     { value: count(objects), label: t('home.stat.objects') },
     { value: count(videos), label: t('home.stat.videos') },
-    { value: 5, label: t('home.stats.templates') },
+    { value: TEMPLATES.length, label: t('home.stats.templates') },
   ]
 
   return (

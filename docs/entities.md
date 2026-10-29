@@ -13,7 +13,7 @@ Code: `frontend/src/features/exhibitions/`
 | title | Localized | yes | 3+ characters per language |
 | summary | Localized | yes | 10+ characters per language |
 | coverUrl | string (URL) | yes | |
-| template | `timeline` \| `gallery` \| `map` \| `slider` \| `room` | yes | selects the viewer |
+| template | `timeline` \| `gallery` \| `map` \| `slider` \| `room` \| `book` \| `carousel` | yes | selects the viewer |
 | status | `draft` \| `pending` \| `published` | yes | draft -> pending (curator submits) -> published (admin) |
 | period | string | yes | free text, e.g. "1494 – 1873" |
 | tags | string[] | no | |
