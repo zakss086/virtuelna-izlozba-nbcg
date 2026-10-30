@@ -4,6 +4,8 @@ from typing import Protocol
 
 from sqlalchemy.exc import IntegrityError
 
+from app.audit.models.audit import AuditAction, AuditEntityType
+from app.audit.services.audit import IAuditService
 from app.auth.password import hash_password
 from app.auth.permissions import require_admin
 from app.auth.schemas.auth import CurrentUser
@@ -39,8 +41,9 @@ class IUserService(Protocol):
 
 @inject(alias=IUserService)
 class UserService(IUserService):
-    def __init__(self, user_repository: IUserRepository) -> None:
+    def __init__(self, user_repository: IUserRepository, audit_service: IAuditService) -> None:
         self._user_repository = user_repository
+        self._audit_service = audit_service
 
     def list(
         self, pagination_params: PaginationParams, current_user: CurrentUser
@@ -68,6 +71,14 @@ class UserService(IUserService):
         except IntegrityError as e:
             # The UNIQUE constraint on users.email decides, not an `if` before the insert (ADR-007).
             raise EmailAlreadyRegisteredException from e
+        self._audit_service.record(
+            current_user=current_user,
+            action=AuditAction.CREATE,
+            entity_type=AuditEntityType.USER,
+            entity_ref=saved.id,
+            label=f"{saved.name} <{saved.email}>",
+            detail=f"role={saved.role}",
+        )
         return UserResponseSchema.model_validate(saved)
 
     def update(
@@ -85,12 +96,28 @@ class UserService(IUserService):
         ):
             raise CannotChangeOwnAccessException
 
-        if changes.get("name") is not None:
+        # Only the fact of a change is recorded; a password never appears in the history.
+        notes: list[str] = []
+        if changes.get("name") is not None and changes["name"] != user.name:
+            notes.append("name")
             user.name = changes["name"]
-        if changes.get("role") is not None:
+        if changes.get("role") is not None and changes["role"] != user.role:
+            notes.append(f"role={user.role}>{changes['role']}")
             user.role = changes["role"]
-        if changes.get("is_active") is not None:
+        if changes.get("is_active") is not None and changes["is_active"] != user.is_active:
+            notes.append("switched_on" if changes["is_active"] else "switched_off")
             user.is_active = changes["is_active"]
         if changes.get("password") is not None:
+            notes.append("new_password")
             user.password_hash = hash_password(changes["password"])
-        return UserResponseSchema.model_validate(self._user_repository.save(user))
+        saved = self._user_repository.save(user)
+        if notes:
+            self._audit_service.record(
+                current_user=current_user,
+                action=AuditAction.UPDATE,
+                entity_type=AuditEntityType.USER,
+                entity_ref=saved.id,
+                label=f"{saved.name} <{saved.email}>",
+                detail=", ".join(notes),
+            )
+        return UserResponseSchema.model_validate(saved)

@@ -165,7 +165,7 @@ Every change was checked with typecheck, lint and build, and pages were reviewed
 
 ## Next: CMS and uploads
 
-The API covers exhibitions, sign-in, account management, editable site content, media, libraries and collections. Still to come, see [`backend/README.md`](backend/README.md): a change history of edits.
+The API covers exhibitions, sign-in, account management, editable site content, media, libraries and collections. A history of changes (who changed what and when) is kept for admins.
 
 ## Content and licences
 

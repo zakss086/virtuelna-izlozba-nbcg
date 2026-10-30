@@ -3,6 +3,8 @@ from __future__ import annotations
 from typing import BinaryIO, Protocol
 from uuid import uuid4
 
+from app.audit.models.audit import AuditAction, AuditEntityType
+from app.audit.services.audit import IAuditService
 from app.auth.schemas.auth import CurrentUser
 from app.config.settings import Settings
 from app.media.exceptions.media import (
@@ -72,8 +74,10 @@ class MediaService(IMediaService):
         media_repository: IMediaRepository,
         file_store: IMediaFileStore,
         settings: Settings,
+        audit_service: IAuditService,
     ) -> None:
         self._media_repository = media_repository
+        self._audit_service = audit_service
         self._file_store = file_store
         self._limit_mb = settings.MAX_UPLOAD_MB
 
@@ -115,6 +119,14 @@ class MediaService(IMediaService):
             # No record without a file, and no file without a record.
             self._file_store.delete(stored_name)
             raise
+        self._audit_service.record(
+            current_user=current_user,
+            action=AuditAction.CREATE,
+            entity_type=AuditEntityType.MEDIA,
+            entity_ref=saved.id,
+            label=saved.filename,
+            detail=f"type={saved.content_type}, size={saved.size}",
+        )
         return MediaAssetResponseSchema.model_validate(saved)
 
     def list(
@@ -138,5 +150,12 @@ class MediaService(IMediaService):
         if asset.uploaded_by_id != current_user.id and current_user.role != UserRole.ADMIN:
             raise NotMediaOwnerException
         stored_name = asset.stored_name
+        self._audit_service.record(
+            current_user=current_user,
+            action=AuditAction.DELETE,
+            entity_type=AuditEntityType.MEDIA,
+            entity_ref=asset.id,
+            label=asset.filename,
+        )
         self._media_repository.delete(asset)
         self._file_store.delete(stored_name)
