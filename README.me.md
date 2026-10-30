@@ -4,7 +4,7 @@
 
 Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digitalizovane građe prave interaktivne izložbe, a posjetioci ih razgledaju. Inspirisana portalima virtuelnih izložbi nacionalnih biblioteka, sa savremenim izgledom i bogatijim načinima prikaza. Vizuelni identitet je preuzet sa [nb-cg.me](https://nb-cg.me), a veza je i sa digitalnom bibliotekom [dlib.me](https://dlib.me).
 
-> Stanje: u ovom repozitorijumu su **frontend** (AI-DEV 2026, Radionica 3) i **backend** (Radionica 4: FastAPI, baza, prijava osoblja, uloge provjerene na serveru). Frontend radi na probnim podacima (`pnpm dev`) ili na backendu (`pnpm dev:api`). Ugovor između njih opisan je u [`docs/entities.md`](docs/entities.md).
+> Stanje: u ovom repozitorijumu su **frontend** (AI-DEV 2026, Radionica 3) i **backend** (Radionica 4: FastAPI, baza, prijava, uloge provjerene na serveru). Frontend radi na probnim podacima (`pnpm dev`) ili na backendu (`pnpm dev:api`). Ugovor između njih opisan je u [`docs/entities.md`](docs/entities.md).
 
 > **Napomena:** ovo je samostalan, edukativni demo projekat nastao na radionici. **Nije** zvanični sajt Nacionalne biblioteke Crne Gore, niti je povezan sa njom ili odobren od nje. Naziv i logo biblioteke koriste se samo radi ilustracije, tekstovi su ilustrativni, a probne slike i video zapisi su sa Wikimedia Commons.
 
@@ -104,7 +104,7 @@ Potpuna lista ekrana sa kriterijumima „gotovo je kad“ nalazi se u [`SPEC.md`
 | `/exhibitions` | Katalog sa pretragom i filterom po načinu prikaza (čuvaju se u adresi) |
 | `/exhibitions/:slug` | Čitač izložbe (način prikaza određuje raspored) i video zapisi |
 | `/collections`, `/map`, `/videos`, `/about` | Zbirke, interaktivna mapa, video galerija, O nama |
-| `/favorites`, `/sign-in`, `/profile` | Sačuvano (pamti se u pregledaču), prijava osoblja (vodi na stranicu za tvoju ulogu), profil |
+| `/favorites`, `/sign-in`, `/profile` | Sačuvano (pamti se u pregledaču), prijava (vodi na stranicu za tvoju ulogu), profil |
 | `/studio`, `/studio/new`, `/studio/:id/edit` | Pregled i uređivač izložbi (kustos, admin) |
 | `/admin` | Red za objavu i korisnici (admin) |
 
