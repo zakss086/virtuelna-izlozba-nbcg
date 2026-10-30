@@ -1,25 +1,37 @@
+import { lazy, type ComponentType, type ReactNode } from 'react'
 import { createBrowserRouter } from 'react-router'
 
-import { About } from '@/app/routes/about'
-import { Admin } from '@/app/routes/admin'
-import { AdminCollectionEditor, AdminCollections } from '@/app/routes/admin-collections'
-import { AdminContent } from '@/app/routes/admin-content'
-import { AdminLibraries, AdminLibraryEditor } from '@/app/routes/admin-libraries'
-import { StudioMedia } from '@/app/routes/studio-media'
-import { Collections } from '@/app/routes/collections'
 import { AppLayout } from '@/app/app-layout'
-import { Exhibition } from '@/app/routes/exhibition'
-import { Exhibitions } from '@/app/routes/exhibitions'
-import { Favorites } from '@/app/routes/favorites'
 import { Home } from '@/app/routes/home'
-import { MapPage } from '@/app/routes/map'
-import { Profile } from '@/app/routes/profile'
 import { NotFound } from '@/app/routes/not-found'
-import { SignIn } from '@/app/routes/sign-in'
-import { Videos } from '@/app/routes/videos'
-import { Studio } from '@/app/routes/studio'
-import { StudioEditor } from '@/app/routes/studio-editor'
 import { RequireRole } from '@/app/require-role'
+
+// Every page except the home page is its own chunk, loaded when the visitor opens it (AppLayout shows a skeleton meanwhile).
+function page<K extends string>(load: () => Promise<Record<K, ComponentType>>, name: K) {
+  return lazy(async () => ({ default: (await load())[name] }))
+}
+
+const About = page(() => import('@/app/routes/about'), 'About')
+const Admin = page(() => import('@/app/routes/admin'), 'Admin')
+const AdminCollections = page(() => import('@/app/routes/admin-collections'), 'AdminCollections')
+const AdminCollectionEditor = page(() => import('@/app/routes/admin-collections'), 'AdminCollectionEditor')
+const AdminContent = page(() => import('@/app/routes/admin-content'), 'AdminContent')
+const AdminLibraries = page(() => import('@/app/routes/admin-libraries'), 'AdminLibraries')
+const AdminLibraryEditor = page(() => import('@/app/routes/admin-libraries'), 'AdminLibraryEditor')
+const Collections = page(() => import('@/app/routes/collections'), 'Collections')
+const Exhibition = page(() => import('@/app/routes/exhibition'), 'Exhibition')
+const Exhibitions = page(() => import('@/app/routes/exhibitions'), 'Exhibitions')
+const Favorites = page(() => import('@/app/routes/favorites'), 'Favorites')
+const MapPage = page(() => import('@/app/routes/map'), 'MapPage')
+const Profile = page(() => import('@/app/routes/profile'), 'Profile')
+const SignIn = page(() => import('@/app/routes/sign-in'), 'SignIn')
+const Studio = page(() => import('@/app/routes/studio'), 'Studio')
+const StudioEditor = page(() => import('@/app/routes/studio-editor'), 'StudioEditor')
+const StudioMedia = page(() => import('@/app/routes/studio-media'), 'StudioMedia')
+const Videos = page(() => import('@/app/routes/videos'), 'Videos')
+
+const staff = (element: ReactNode) => <RequireRole roles={['curator', 'admin']}>{element}</RequireRole>
+const admin = (element: ReactNode) => <RequireRole roles={['admin']}>{element}</RequireRole>
 
 export const router = createBrowserRouter([
   {
@@ -34,110 +46,19 @@ export const router = createBrowserRouter([
       { path: '/about', element: <About /> },
       { path: '/favorites', element: <Favorites /> },
       { path: '/sign-in', element: <SignIn /> },
-      {
-        path: '/profile',
-        element: (
-          <RequireRole roles={['curator', 'admin']}>
-            <Profile />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/studio',
-        element: (
-          <RequireRole roles={['curator', 'admin']}>
-            <Studio />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/studio/media',
-        element: (
-          <RequireRole roles={['curator', 'admin']}>
-            <StudioMedia />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/studio/new',
-        element: (
-          <RequireRole roles={['curator', 'admin']}>
-            <StudioEditor />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/studio/:id/edit',
-        element: (
-          <RequireRole roles={['curator', 'admin']}>
-            <StudioEditor />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/admin',
-        element: (
-          <RequireRole roles={['admin']}>
-            <Admin />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/admin/libraries',
-        element: (
-          <RequireRole roles={['admin']}>
-            <AdminLibraries />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/admin/libraries/new',
-        element: (
-          <RequireRole roles={['admin']}>
-            <AdminLibraryEditor />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/admin/libraries/:id',
-        element: (
-          <RequireRole roles={['admin']}>
-            <AdminLibraryEditor />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/admin/collections',
-        element: (
-          <RequireRole roles={['admin']}>
-            <AdminCollections />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/admin/collections/new',
-        element: (
-          <RequireRole roles={['admin']}>
-            <AdminCollectionEditor />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/admin/collections/:id',
-        element: (
-          <RequireRole roles={['admin']}>
-            <AdminCollectionEditor />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/admin/content',
-        element: (
-          <RequireRole roles={['admin']}>
-            <AdminContent />
-          </RequireRole>
-        ),
-      },
+      { path: '/profile', element: staff(<Profile />) },
+      { path: '/studio', element: staff(<Studio />) },
+      { path: '/studio/media', element: staff(<StudioMedia />) },
+      { path: '/studio/new', element: staff(<StudioEditor />) },
+      { path: '/studio/:id/edit', element: staff(<StudioEditor />) },
+      { path: '/admin', element: admin(<Admin />) },
+      { path: '/admin/libraries', element: admin(<AdminLibraries />) },
+      { path: '/admin/libraries/new', element: admin(<AdminLibraryEditor />) },
+      { path: '/admin/libraries/:id', element: admin(<AdminLibraryEditor />) },
+      { path: '/admin/collections', element: admin(<AdminCollections />) },
+      { path: '/admin/collections/new', element: admin(<AdminCollectionEditor />) },
+      { path: '/admin/collections/:id', element: admin(<AdminCollectionEditor />) },
+      { path: '/admin/content', element: admin(<AdminContent />) },
       { path: '*', element: <NotFound /> },
     ],
   },
