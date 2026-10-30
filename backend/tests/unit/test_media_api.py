@@ -109,6 +109,7 @@ def test_upload_without_a_file_is_422(client: TestClient, media_service: Mock) -
 
     assert response.status_code == 422
     assert "file" in response.json()["fieldErrors"]
+    media_service.upload.assert_not_called()
 
 
 def test_upload_of_a_wrong_type_is_400_with_field_error(

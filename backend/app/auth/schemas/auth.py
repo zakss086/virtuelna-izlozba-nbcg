@@ -27,6 +27,7 @@ class CurrentUser(BaseModel):
     email: str
     name: str
     role: UserRole
+    is_active: bool = True
     created_at: datetime
 
 

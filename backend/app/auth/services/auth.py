@@ -5,7 +5,11 @@ from typing import Protocol
 
 import jwt
 
-from app.auth.exceptions.auth import InvalidCredentialsException, InvalidTokenException
+from app.auth.exceptions.auth import (
+    AccountDisabledException,
+    InvalidCredentialsException,
+    InvalidTokenException,
+)
 from app.auth.password import verify_password
 from app.auth.repositories.auth import IAuthRepository
 from app.auth.schemas.auth import (
@@ -36,18 +40,21 @@ class AuthService(IAuthService):
         user = self._auth_repository.get_user_by_email(data.email.lower())
         if user is None or not verify_password(data.password, user.password_hash):
             raise InvalidCredentialsException
+        if not user.is_active:
+            raise AccountDisabledException
         return self._authentication_response(user)
 
     def get_current_user(self, token: str) -> CurrentUser:
         payload = self._decode_token(token)
         user = self._auth_repository.get_user_by_id(int(payload.sub))
-        if user is None:
+        if user is None or not user.is_active:
             raise InvalidTokenException
         return CurrentUser(
             id=user.id,
             email=user.email,
             name=user.name,
             role=UserRole(user.role),
+            is_active=user.is_active,
             created_at=user.created_at,
         )
 

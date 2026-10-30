@@ -36,8 +36,8 @@ export const guides: Guide[] = [
     keywords:
       'prijava prijaviti nalog lozinka demo posjetilac kustos administrator osoblje sign login account password staff visitor',
     answer: {
-      me: 'Posjetiocima nalog nije potreban: izložbe možete razgledati i čuvati bez prijave. Prijava je za kustose i administratore. Za probu otvorite „Prijava osoblja“ i izaberite demo nalog (lozinka je demo1234).',
-      en: 'Visitors do not need an account: you can browse and save exhibitions without signing in. Sign-in is for curators and administrators. To try it, open "Staff sign-in" and pick a demo account (the password is demo1234).',
+      me: 'Posjetiocima nalog nije potreban: izložbe možete razgledati i čuvati bez prijave. Prijava je za kustose i administratore. Za probu otvorite „Prijava“ i izaberite demo nalog (lozinka je demo1234).',
+      en: 'Visitors do not need an account: you can browse and save exhibitions without signing in. Sign-in is for curators and administrators. To try it, open "Sign in" and pick a demo account (the password is demo1234).',
     },
     href: '/sign-in',
   },

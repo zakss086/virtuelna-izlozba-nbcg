@@ -68,7 +68,9 @@ A curator opens Studio -> Media library (`/studio/media`) and uploads a picture 
 
 ## Site content (CMS)
 
-An admin opens Administration -> Edit site content (`/admin/content`) and edits 62 site texts in both languages, in seven groups with a search: Home, Collections/Video/Map, About, the descriptions of the eight viewing modes, hints and notices (including the citation format), staff sign-in and the footer. Labels of buttons and menus, and the texts of the exhibition editor and the assistant, are not offered. A text that contains marks like `{title}` can be edited only while the marks stay in both languages. A saved text replaces the default for every visitor (kept in the database with `pnpm dev:api`, in memory with `pnpm dev`); "Restore default" deletes it. Both languages are required.
+An admin opens Administration -> Edit site content (`/admin/content`) and edits 62 site texts in both languages, in seven groups with a search: Home, Collections/Video/Map, About, the descriptions of the eight viewing modes, hints and notices (including the citation format), sign-in and the footer.
+
+An admin opens Administration -> Users to create an account (name, email, role, first password), change a role, switch an account off or on and set a new password. A switched-off account cannot sign in and its token stops working at once; an admin cannot change their own role or switch themselves off. Labels of buttons and menus, and the texts of the exhibition editor and the assistant, are not offered. A text that contains marks like `{title}` can be edited only while the marks stay in both languages. A saved text replaces the default for every visitor (kept in the database with `pnpm dev:api`, in memory with `pnpm dev`); "Restore default" deletes it. Both languages are required.
 
 ## Exhibition page
 
@@ -94,7 +96,7 @@ Both are simulations that call no AI service and send no data anywhere.
 
 - Real backend, database and authentication (Workshop 4).
 - Reordering sections by drag and drop; several objects per section in the editor; live preview.
-- User management by admins (create accounts, change roles); editing the About and Collections pages from the app.
+- Editing the About and Collections pages from the app is done through the site-content editor; a change history of edits is not built.
 - Search inside exhibition texts; sharing and QR codes.
 - A real AI assistant (grounded in the exhibition texts), translation and image-description help for curators, virtual tours from 360° photographs.
 

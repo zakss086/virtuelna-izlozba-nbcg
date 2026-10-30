@@ -33,6 +33,7 @@ def test_sign_in_returns_token_and_user(client: TestClient, auth_service: Mock) 
             "email": "marko@nb-cg.me",
             "name": "Test User",
             "role": "curator",
+            "isActive": True,
             "createdAt": "2026-01-01T00:00:00Z",
         },
     }
