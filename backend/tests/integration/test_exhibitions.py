@@ -261,3 +261,51 @@ def test_delete_by_other_curator_is_404_for_a_draft_and_403_for_a_published_one(
 
 def test_delete_without_token_is_401(client: TestClient, exhibition_id: int) -> None:
     assert client.delete(f"/api/exhibitions/{exhibition_id}").status_code == 401
+
+
+def test_view_switch_is_on_by_default_and_the_curator_can_turn_it_off(
+    client: TestClient, auth_headers: dict[str, str]
+) -> None:
+    created = client.post("/api/exhibitions", json=exhibition_body(), headers=auth_headers).json()
+    assert created["allowViewSwitch"] is True  # camelCase, on unless the curator says otherwise
+
+    off = client.patch(
+        f"/api/exhibitions/{created['id']}", json={"allowViewSwitch": False}, headers=auth_headers
+    )
+
+    assert off.json()["allowViewSwitch"] is False
+    assert (
+        client.get(f"/api/exhibitions/{created['id']}", headers=auth_headers).json()[
+            "allowViewSwitch"
+        ]
+        is False
+    )
+    back = client.patch(
+        f"/api/exhibitions/{created['id']}", json={"allowViewSwitch": True}, headers=auth_headers
+    )
+    assert back.json()["allowViewSwitch"] is True
+
+
+def test_an_exhibition_can_be_created_with_the_view_switch_off(
+    client: TestClient, auth_headers: dict[str, str]
+) -> None:
+    response = client.post(
+        "/api/exhibitions", json=exhibition_body(allowViewSwitch=False), headers=auth_headers
+    )
+
+    assert response.status_code == 201
+    assert response.json()["allowViewSwitch"] is False
+
+
+def test_other_changes_keep_the_view_switch_as_it_was(
+    client: TestClient, auth_headers: dict[str, str]
+) -> None:
+    created = client.post(
+        "/api/exhibitions", json=exhibition_body(allowViewSwitch=False), headers=auth_headers
+    ).json()
+
+    changed = client.patch(
+        f"/api/exhibitions/{created['id']}", json={"period": "1900 – 1950"}, headers=auth_headers
+    )
+
+    assert changed.json()["allowViewSwitch"] is False

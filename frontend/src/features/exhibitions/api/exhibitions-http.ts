@@ -16,6 +16,7 @@ function toBody(input: Partial<NewExhibition>) {
     status: input.status,
     period: input.period,
     tags: input.tags,
+    allowViewSwitch: input.allowViewSwitch,
     sections: input.sections,
     videos: input.videos,
   }

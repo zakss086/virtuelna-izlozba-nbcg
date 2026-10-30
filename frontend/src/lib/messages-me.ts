@@ -308,6 +308,8 @@ export const me = {
   'editor.videoLicense': 'Licenca',
   'editor.videoSource': 'Stranica originala (neobavezno)',
   'editor.videoSourceHint': 'Ako ostane prazno, koristi se link videa.',
+  'editor.allowViewSwitch': 'Dozvoli posjetiocima da mijenjaju prikaz',
+  'editor.allowViewSwitchHint': 'Kad je isključeno, izložba se uvijek prikazuje samo u izabranom načinu prikaza.',
   'editor.sections': 'Sekcije',
   'editor.addSection': 'Dodaj sekciju',
   'editor.removeSection': 'Ukloni sekciju',

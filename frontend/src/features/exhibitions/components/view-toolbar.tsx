@@ -20,24 +20,28 @@ export function ViewToolbar({ view, options, onViewChange, fullscreen }: ViewToo
 
   return (
     <div className="flex flex-wrap items-end justify-between gap-4 print:hidden">
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="view-as">{t('viewer.viewAs')}</Label>
-        <Select
-          value={view}
-          onValueChange={(value) => onViewChange(options.find((o) => o === value) ?? view)}
-        >
-          <SelectTrigger id="view-as" className="w-56">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {options.map((option) => (
-              <SelectItem key={option} value={option}>
-                {t(`tpl.${option}`)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      {options.length > 1 ? (
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="view-as">{t('viewer.viewAs')}</Label>
+          <Select
+            value={view}
+            onValueChange={(value) => onViewChange(options.find((o) => o === value) ?? view)}
+          >
+            <SelectTrigger id="view-as" className="w-56">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {options.map((option) => (
+                <SelectItem key={option} value={option}>
+                  {t(`tpl.${option}`)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      ) : (
+        <span />
+      )}
       <div className="flex flex-wrap items-center gap-2">
         {fullscreen.supported && (
           <Button variant="outline" onClick={fullscreen.toggle}>

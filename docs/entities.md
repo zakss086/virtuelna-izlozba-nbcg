@@ -20,6 +20,7 @@ Code: `frontend/src/features/exhibitions/`
 | status | `draft` \| `pending` \| `published` | yes | draft -> pending (curator submits) -> published (admin) |
 | period | string | yes | free text, e.g. "1494 – 1873" |
 | tags | string[] | no | |
+| allowViewSwitch | boolean | no | default `true`. When `false` the visitor sees only the chosen `template` (no "view as" choice; full screen and the PDF catalogue stay) |
 | authorId | number | yes | User.id of the curator |
 | authorName | string | yes | denormalized for display |
 | sections | Section[] | yes | ordered, at least 1 |

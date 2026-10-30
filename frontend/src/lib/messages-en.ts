@@ -310,6 +310,8 @@ export const en = {
   'editor.videoLicense': 'Licence',
   'editor.videoSource': 'Page of the original (optional)',
   'editor.videoSourceHint': 'If left empty, the video link is used.',
+  'editor.allowViewSwitch': 'Let visitors change the way it is shown',
+  'editor.allowViewSwitchHint': 'When off, the exhibition is always shown only in the chosen view.',
   'editor.sections': 'Sections',
   'editor.addSection': 'Add section',
   'editor.removeSection': 'Remove section',

@@ -62,6 +62,7 @@ class ExhibitionCreateRequestSchema(CamelCaseModel):
     status: ExhibitionStatus = ExhibitionStatus.DRAFT
     period: str = Field(min_length=2, max_length=60)
     tags: list[str] = Field(default_factory=list, max_length=20)
+    allow_view_switch: bool = True
     sections: list[SectionRequestSchema] = Field(min_length=1, max_length=100)
     videos: list[VideoRequestSchema] = Field(default_factory=list, max_length=50)
 
@@ -80,6 +81,7 @@ class ExhibitionUpdateRequestSchema(CamelCaseModel):
     status: ExhibitionStatus | None = None
     period: str | None = Field(default=None, min_length=2, max_length=60)
     tags: list[str] | None = Field(default=None, max_length=20)
+    allow_view_switch: bool | None = None
     sections: list[SectionRequestSchema] | None = Field(default=None, min_length=1, max_length=100)
     videos: list[VideoRequestSchema] | None = Field(default=None, max_length=50)
 
@@ -135,6 +137,7 @@ class ExhibitionResponseSchema(CamelCaseResponseModel):
     status: ExhibitionStatus
     period: str
     tags: list[str]
+    allow_view_switch: bool
     author_id: int
     author_name: str
     sections: list[SectionResponseSchema]

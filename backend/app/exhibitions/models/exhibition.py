@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import StrEnum
 from typing import TYPE_CHECKING, Any
 
-from sqlalchemy import JSON, TIMESTAMP, CheckConstraint, ForeignKey, String, Text, func
+from sqlalchemy import JSON, TIMESTAMP, CheckConstraint, ForeignKey, String, Text, func, true
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
@@ -66,6 +66,8 @@ class Exhibition(Base):
     status: Mapped[str] = mapped_column(String(20), index=True)
     period: Mapped[str] = mapped_column(String(60))
     tags: Mapped[list[str]] = mapped_column(JSON, default=list)
+    # When false the visitor sees only the template the curator chose (no "view as" choice).
+    allow_view_switch: Mapped[bool] = mapped_column(default=True, server_default=true())
     created_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True), server_default=func.now()
     )

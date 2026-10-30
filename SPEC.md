@@ -70,6 +70,8 @@ A curator opens Studio -> Media library (`/studio/media`) and uploads a picture 
 
 An admin opens Administration -> Edit site content (`/admin/content`) and edits 62 site texts in both languages, in seven groups with a search: Home, Collections/Video/Map, About, the descriptions of the eight viewing modes, hints and notices (including the citation format), sign-in and the footer.
 
+A curator can turn off "Let visitors change the way it is shown" for an exhibition; it is then always shown in the chosen view and the "View as" choice is hidden.
+
 A curator can add videos to an exhibition in the editor (Videos): a YouTube or Vimeo link, or the address of a video file, with titles and descriptions in both languages, author and licence. A YouTube or Vimeo video is not loaded until a visitor presses play, so no third-party cookies or tracking are set before that.
 
 A shared link to an exhibition shows its title, description and picture in Facebook, Viber and LinkedIn, and search engines read a sitemap and structured data (the backend answers `/exhibitions/:slug`, `/sitemap.xml` and `/robots.txt`).

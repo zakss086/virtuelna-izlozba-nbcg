@@ -50,6 +50,7 @@ export const exhibitionFormSchema = z.object({
   template: z.enum(TEMPLATES),
   period: z.string().min(2),
   tags: z.string(),
+  allowViewSwitch: z.boolean(),
   sections: z.array(sectionSchema).min(1),
   videos: z.array(videoSchema),
 })
@@ -101,6 +102,7 @@ export function toFormValues(exhibition?: Exhibition): FormValues {
       template: 'timeline',
       period: '',
       tags: '',
+      allowViewSwitch: true,
       sections: [emptySection],
       videos: [],
     }
@@ -115,6 +117,7 @@ export function toFormValues(exhibition?: Exhibition): FormValues {
     template: exhibition.template,
     period: exhibition.period,
     tags: exhibition.tags.join(', '),
+    allowViewSwitch: exhibition.allowViewSwitch !== false,
     videos: exhibition.videos.map((v) => ({
       titleMe: v.title.me,
       titleEn: v.title.en,
@@ -172,6 +175,7 @@ export function toExhibition(
     template: values.template,
     status,
     period: values.period,
+    allowViewSwitch: values.allowViewSwitch,
     tags: values.tags
       .split(',')
       .map((tag) => tag.trim())

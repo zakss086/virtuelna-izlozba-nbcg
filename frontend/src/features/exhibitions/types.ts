@@ -63,6 +63,8 @@ export type Exhibition = {
   status: ExhibitionStatus
   period: string
   tags: string[]
+  /** Missing means true. When false the visitor cannot change the way the exhibition is shown. */
+  allowViewSwitch?: boolean
   authorId: number
   authorName: string
   sections: Section[]

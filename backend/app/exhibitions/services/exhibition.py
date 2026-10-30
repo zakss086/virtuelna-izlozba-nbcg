@@ -120,6 +120,7 @@ def build_exhibition(data: ExhibitionCreateRequestSchema, author_id: int, slug: 
         status=data.status,
         period=data.period,
         tags=data.tags,
+        allow_view_switch=data.allow_view_switch,
         author_id=author_id,
         sections=_build_sections(data.sections),
         videos=_build_videos(data.videos),
@@ -202,7 +203,7 @@ class ExhibitionService(IExhibitionService):
                 wanted=data.status,
             )
             exhibition.status = data.status
-        for name in ("cover_url", "template", "period", "tags"):
+        for name in ("cover_url", "template", "period", "tags", "allow_view_switch"):
             if name in changes and changes[name] is not None:
                 setattr(exhibition, name, changes[name])
         for name in ("title", "summary"):
