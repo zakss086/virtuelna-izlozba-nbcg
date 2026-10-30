@@ -111,6 +111,9 @@
 /* Leaflet overrides so the map follows the theme. */
 .leaflet-container {
   font-family: var(--font-body);
+  /* Leaflet's panes and controls use z-index 400 to 1000. Without its own stacking context the map would slide
+     over the sticky header (z-40) and the dialogs when the page scrolls. */
+  isolation: isolate;
 }
 
 /* Calm base map: the tiles are toned down so that the gold pins and the route are what the eye finds. */
