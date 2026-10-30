@@ -1,10 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { lazy, Suspense } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/lib/i18n'
@@ -17,6 +19,9 @@ import {
   toNewLibrary,
   type LibraryFormValues,
 } from './library-form-model'
+
+// Leaflet loads only when an admin opens a library form.
+const LocationPicker = lazy(() => import('./location-picker'))
 
 type TextField = Exclude<keyof LibraryFormValues, 'type' | 'precision'>
 
@@ -50,6 +55,9 @@ export function LibraryForm({ initial, isSaving, onSubmit, onCancel }: LibraryFo
     register,
     control,
     handleSubmit,
+    setValue,
+    trigger,
+    watch,
     formState: { errors },
   } = useForm<LibraryFormValues>({
     resolver: zodResolver(libraryFormSchema),
@@ -142,6 +150,24 @@ export function LibraryForm({ initial, isSaving, onSubmit, onCancel }: LibraryFo
               </Select>
             )}
           />
+        </div>
+        <div className="flex flex-col gap-2 md:col-span-3">
+          <p className="text-sm text-muted-foreground">{t('adm.pickOnMap')}</p>
+          <Suspense fallback={<Skeleton className="h-72 w-full" aria-label={t('map.loading')} />}>
+            <LocationPicker
+              lat={watch('lat')}
+              lng={watch('lng')}
+              onPick={(lat, lng) => {
+                const options = { shouldDirty: true }
+                setValue('lat', lat.toFixed(5), options)
+                setValue('lng', lng.toFixed(5), options)
+                // A click on the map is a position of a building; the admin can still change it to approximate.
+                if (!watch('precision')) setValue('precision', 'exact', options)
+                // The three belong together: check them as a group once all are set.
+                void trigger(['lat', 'lng', 'precision'])
+              }}
+            />
+          </Suspense>
         </div>
         <div className="md:col-span-3">
           <FormError isInvalid={Boolean(errors.lat)} messageKey="adm.err.location" />

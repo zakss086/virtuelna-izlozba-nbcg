@@ -82,6 +82,8 @@ export const en = {
   'viewer.stop': 'Stop',
   'viewer.of': 'of',
   'adm.back': 'Back',
+  'adm.pickOnMap': 'Click on the map to place the pin, or type the coordinates above.',
+  'adm.libraries.add': 'Add a library',
   'adm.new': 'Add',
   'adm.edit': 'Edit',
   'adm.delete': 'Delete',

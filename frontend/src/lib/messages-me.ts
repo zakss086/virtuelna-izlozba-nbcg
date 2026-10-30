@@ -80,6 +80,8 @@ export const me = {
   'viewer.stop': 'Stanica',
   'viewer.of': 'od',
   'adm.back': 'Nazad',
+  'adm.pickOnMap': 'Kliknite na mapu da postavite oznaku, ili upišite koordinate iznad.',
+  'adm.libraries.add': 'Dodaj biblioteku',
   'adm.new': 'Dodaj',
   'adm.edit': 'Uredi',
   'adm.delete': 'Obriši',

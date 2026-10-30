@@ -1,5 +1,5 @@
 import { LocateFixed, Search } from 'lucide-react'
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react'
 import { useSearchParams } from 'react-router'
 
 import { ErrorNotice } from '@/components/error-notice'
@@ -26,6 +26,8 @@ const MapCanvas = lazy(() => import('./map-canvas'))
 type MapExplorerProps = {
   /** Places named in exhibitions; the route supplies them so this feature does not depend on exhibitions. */
   places: MapPlace[]
+  /** Extra actions under the selected library (the route puts an admin's "Edit" here). */
+  renderLibraryActions?: (library: Library) => ReactNode
 }
 
 function matchesLibrary(library: Library, query: string, type: LibraryType | undefined) {
@@ -46,7 +48,7 @@ const pillClass = (active: boolean) =>
   )
 
 // Interactive map of libraries and places from exhibitions, with search, filters, details and "nearest library".
-export function MapExplorer({ places }: MapExplorerProps) {
+export function MapExplorer({ places, renderLibraryActions }: MapExplorerProps) {
   const { t } = useI18n()
   const { data, isPending, isError, refetch } = useLibraries()
   const [params, setParams] = useSearchParams()
@@ -194,6 +196,7 @@ export function MapExplorer({ places }: MapExplorerProps) {
 
         <div ref={sideRef} className="flex max-h-[80vh] flex-col gap-4 overflow-y-auto pr-2 [overflow-anchor:none] *:shrink-0 lg:order-1">
           {selectedLibrary && <LibraryDetail library={selectedLibrary} onClose={() => select(undefined)} />}
+          {selectedLibrary && renderLibraryActions?.(selectedLibrary)}
           {selectedPlace && <PlaceDetail place={selectedPlace} onClose={() => select(undefined)} />}
           {!selectedLibrary && !selectedPlace && (
             <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">{t('map.hint')}</p>
