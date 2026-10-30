@@ -9,11 +9,13 @@ import type { MapPlace } from '@/lib/map-place'
 
 type PlaceDetailProps = {
   place: MapPlace
+  /** Which stop of the exhibition's route this is, when the exhibition has several places. */
+  stop?: { n: number; total: number }
   onClose: () => void
 }
 
 // Card for a place that appears in an exhibition, with a link back to that exhibition.
-export function PlaceDetail({ place, onClose }: PlaceDetailProps) {
+export function PlaceDetail({ place, stop, onClose }: PlaceDetailProps) {
   const { t } = useI18n()
 
   return (
@@ -24,7 +26,9 @@ export function PlaceDetail({ place, onClose }: PlaceDetailProps) {
       <div className="flex flex-col gap-3 p-4">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <Badge variant="secondary">{t('map.exhibitionPlace')}</Badge>
+            <Badge variant="secondary">
+              {stop ? t('map.stop', { n: stop.n, total: stop.total }) : t('map.exhibitionPlace')}
+            </Badge>
             <h2 className="mt-2 text-xl font-semibold">{place.title}</h2>
             <p className="text-sm text-muted-foreground">{place.subtitle}</p>
           </div>

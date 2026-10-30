@@ -113,6 +113,11 @@
   font-family: var(--font-body);
 }
 
+/* Calm base map: the tiles are toned down so that the gold pins and the route are what the eye finds. */
+.map-calm .leaflet-tile-pane {
+  filter: grayscale(0.55) sepia(0.18) brightness(1.04) contrast(0.92);
+}
+
 /* Passepartout: a thin gold frame appears inside an image when its card is hovered or focused. */
 .passepartout {
   position: relative;

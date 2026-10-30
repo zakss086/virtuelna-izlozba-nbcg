@@ -15,7 +15,7 @@ export function useExhibitionPlaces() {
   return useMemo(() => {
     if (!data) return NO_PLACES
     return data.flatMap((exhibition) =>
-      exhibition.sections.flatMap((section) =>
+      exhibition.sections.flatMap((section, order) =>
         section.place
           ? [
               {
@@ -26,6 +26,9 @@ export function useExhibitionPlaces() {
                 lng: section.place.lng,
                 href: `/exhibitions/${exhibition.slug}`,
                 imageUrl: section.items[0]?.imageUrl,
+                exhibitionId: exhibition.id,
+                order,
+                year: section.year ?? section.items[0]?.year,
               },
             ]
           : [],

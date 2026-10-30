@@ -80,7 +80,7 @@ export default function MapViewer({ exhibition }: MapViewerProps) {
       </ol>
 
       <div className="h-[50vh] overflow-hidden rounded-lg border lg:h-[70vh]" aria-label={t('tpl.map')}>
-        <MapContainer center={[first.lat, first.lng]} zoom={9} scrollWheelZoom={false} className="size-full">
+        <MapContainer center={[first.lat, first.lng]} zoom={9} scrollWheelZoom={false} className="map-calm size-full">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
