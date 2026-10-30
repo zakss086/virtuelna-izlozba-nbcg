@@ -7,7 +7,7 @@ paths:
 
 - Two layers, two folders (ADR-011):
   - `tests/unit/test_<name>_api.py`: the HTTP layer with the service mocked (`create_autospec(I<Name>Service, instance=True)` registered with `add_to_di_container`, removed with `remove_from_di_container`); routing, validation, auth, status codes and the error shape, no database
-  - `tests/integration/test_<name>.py`: the whole stack against a real temporary SQLite database (or `DATABASE_URL` from the environment); records are created through the API
+  - `tests/integration/test_<name>.py`: the whole stack against a real temporary SQLite database (or a `DATABASE_URL` whose database name contains `test`); records are created through the API
 - Shared fixtures only in `conftest.py` files: `client` (`tests/conftest.py`), `session_factory` + `auth_service` + `exhibition_service` + `user_service` (`tests/unit/conftest.py`), `tables` + `clean_tables` + `sign_in` + `auth_headers` + `other_auth_headers` + `admin_headers` + `exhibition_id` (`tests/integration/conftest.py`)
 - Every endpoint has at least: the happy path, unauthenticated (`401`) for writes, forbidden (`403`) where there is an owner, not found (`404`) where there is an id, validation (`422`) where there is input
 - Assert on the status code and on the error shape: `response.json() == {"detail": ..., "code": ...}`, or the exact `fieldErrors` keys for `422` (ADR-005)

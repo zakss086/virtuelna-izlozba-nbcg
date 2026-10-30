@@ -61,7 +61,16 @@ echo 'DATABASE_URL=postgresql+psycopg://app:app@localhost:5432/app' >> .env
 poetry run migrate && poetry run seed
 ```
 
-The same models, migrations and tests run on both databases (not tried here: Docker is not installed on the development computer).
+The same models, migrations and tests run on both databases (tried with postgres:17: migration, seed, `alembic check` and all 52 tests pass).
+
+The integration tests create and drop every table, so run them against a **separate** database, never the one you use:
+
+```bash
+docker compose exec db createdb -U app app_test
+DATABASE_URL=postgresql+psycopg://app:app@localhost:5432/app_test poetry run test
+```
+
+The tests refuse to run on a non-SQLite database whose name does not contain `test`.
 
 ## Layout
 

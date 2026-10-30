@@ -1,6 +1,6 @@
 """Integration tests run against a real database: a temporary SQLite file, created once per package.
 
-Set DATABASE_URL (e.g. to a Postgres from `docker compose up -d db`) to run the same tests on it.
+Set DATABASE_URL to a separate Postgres database whose name contains "test" (see backend/README.md) to run the same tests on it.
 """
 
 from __future__ import annotations
@@ -33,6 +33,13 @@ def setup_db(tmp_path_factory: pytest.TempPathFactory) -> Generator[None]:
     previous_session_factory = get_from_di_container(ISessionFactory)
 
     database_url = os.environ.get("DATABASE_URL")
+    # The tests create and drop every table, so a real database must be a separate one made for them.
+    if database_url and not database_url.startswith("sqlite") and "test" not in database_url:
+        pytest.exit(
+            "Integration tests drop all tables: point DATABASE_URL at a database whose name "
+            "contains 'test' (e.g. postgresql+psycopg://app:app@localhost:5432/app_test).",
+            returncode=2,
+        )
     if not database_url:
         db_file: Path = tmp_path_factory.mktemp("db") / "test.db"
         database_url = f"sqlite:///{db_file}"
