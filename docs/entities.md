@@ -70,7 +70,7 @@ Embedded in Exhibition (own table in the database). Files are served by the back
 | id | number | yes | |
 | title | Localized | yes | |
 | description | Localized | yes | |
-| src | string (URL) | yes | webm or mp4 |
+| src | string (URL) | yes | a webm or mp4 file, or the page of a YouTube or Vimeo video (shown through the provider's player, loaded only when a visitor presses play) |
 | credit | string | yes | author or source |
 | license | string | yes | e.g. CC BY-SA 4.0 |
 | sourceUrl | string (URL) | yes | page of the original file |
@@ -221,6 +221,17 @@ gets `403 account_disabled` on sign-in (after the right password) and `401 inval
 | `GET /api/audit?entityType=&page=&size=` | admin | `entityType` is one of the six kinds | `200` page of entries, newest first; `401`, `403` `admin_only`, `422` for an unknown kind |
 
 Recorded: creating, changing and deleting exhibitions (including every status move), site texts (and restoring the default), libraries, collections, accounts (role, on/off, new password; never the password itself) and uploaded files.
+
+### Pages for search engines and link previews
+Not under `/api`: public pages at the site's own addresses. The reverse proxy sends `/exhibitions/*`, `/sitemap.xml` and `/robots.txt` to the backend (everything else to the built frontend).
+
+| Route | Response |
+|---|---|
+| `GET /exhibitions/:slug` | the built `index.html` with the exhibition's title, description, picture, canonical address and schema.org data in the head, so Facebook, Viber, LinkedIn and search engines see them without running JavaScript; `404` for an unknown or unpublished exhibition, or when the frontend is not built |
+| `GET /sitemap.xml` | the public pages and every published exhibition |
+| `GET /robots.txt` | allows everything except `/admin`, `/studio`, `/profile`, `/sign-in`; points to the sitemap |
+
+Settings: `PUBLIC_BASE_URL` (the address the site is reached at, used in links) and `FRONTEND_DIST_DIR` (folder with the built frontend).
 
 ### Exhibitions
 Create and PATCH bodies have the fields of **Exhibition** above except `id`, `slug`, `authorId`, `authorName`, `createdAt`; sections have no `id`.

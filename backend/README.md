@@ -47,7 +47,7 @@ before the API leaves your computer.
 ## Everyday commands
 
 ```bash
-poetry run test                                   # 159 tests: unit (services mocked) and integration (temporary SQLite)
+poetry run test                                   # 169 tests: unit (services mocked) and integration (temporary SQLite)
 poetry run lint                                   # ruff + black; `--fix` fixes and formats
 poetry run typecheck                              # mypy, strict
 poetry run makemigrations "what changed"          # after changing a model; read the generated file
@@ -84,6 +84,7 @@ app/media/          media library: model, file store, service (type check by con
 app/libraries/      libraries of the map: model (all-or-nothing position), service, endpoints
 app/collections/    collections of the digital library: model, service, endpoints
 app/users/          user model, admin account management
+app/seo/            crawler pages: exhibition head tags, sitemap, robots
 app/audit/          history of changes: entries written by the other services, admin-only list
 app/auth/           sign-in, JWT, password hashing
 app/utils/          error shape, camelCase schemas, pagination, DI, slugs
@@ -110,3 +111,8 @@ Each is a new domain package with its own migration, tests and a section in `../
 ## Rule of the monorepo
 
 A change that touches frontend and backend goes in one commit or pull request, and `docs/entities.md` is updated in the same change.
+
+## Production notes: crawler pages and embeds
+- Build the frontend (`pnpm build`) and set `FRONTEND_DIST_DIR` to its `dist` folder and `PUBLIC_BASE_URL` to the public address, e.g. `https://izlozbe.example.me`.
+- The reverse proxy (nginx) serves `dist` for everything, but sends `/exhibitions/*`, `/sitemap.xml`, `/robots.txt`, `/api/*` and `/media/*` to the backend. Visitors then get the normal app and crawlers get the exhibition's title, picture and structured data in the head.
+- If a Content-Security-Policy is set, allow `frame-src https://www.youtube-nocookie.com https://player.vimeo.com` for embedded videos.

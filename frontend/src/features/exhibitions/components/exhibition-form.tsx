@@ -14,6 +14,7 @@ import type { ImageValue } from '@/lib/image-value'
 import { TEMPLATES, type Exhibition, type ExhibitionStatus, type NewExhibition } from '../types'
 import {
   emptySection,
+  emptyVideo,
   exhibitionFormSchema,
   toExhibition,
   toFormValues,
@@ -22,6 +23,7 @@ import {
 import { EditorAssistant } from './editor-assistant'
 import { FieldError } from './field-error'
 import { SectionFields } from './section-fields'
+import { VideoFields } from './video-fields'
 
 type ExhibitionFormProps = {
   initial?: Exhibition
@@ -54,11 +56,10 @@ export function ExhibitionForm({
     formState: { errors },
   } = form
   const { fields, append, remove } = useFieldArray({ control, name: 'sections' })
+  const videos = useFieldArray({ control, name: 'videos' })
 
   const submit = (status: ExhibitionStatus) =>
-    handleSubmit((values) =>
-      onSubmit(toExhibition(values, authorId, authorName, status, initial?.videos ?? [])),
-    )
+    handleSubmit((values) => onSubmit(toExhibition(values, authorId, authorName, status)))
 
   return (
     <FormProvider {...form}>
@@ -157,6 +158,20 @@ export function ExhibitionForm({
           <Button type="button" variant="outline" className="w-fit" onClick={() => append(emptySection)}>
             <Plus />
             {t('editor.addSection')}
+          </Button>
+        </div>
+
+        <div className="flex flex-col gap-6">
+          <div>
+            <h2 className="text-2xl font-semibold">{t('editor.videos')}</h2>
+            <p className="mt-1 max-w-prose text-sm text-muted-foreground">{t('editor.videosHint')}</p>
+          </div>
+          {videos.fields.map((field, index) => (
+            <VideoFields key={field.id} index={index} onRemove={() => videos.remove(index)} />
+          ))}
+          <Button type="button" variant="outline" className="w-fit" onClick={() => videos.append(emptyVideo)}>
+            <Plus />
+            {t('editor.addVideo')}
           </Button>
         </div>
 

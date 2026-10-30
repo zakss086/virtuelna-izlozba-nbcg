@@ -27,5 +27,10 @@ class Settings(DBSettings):
     MEDIA_DIR: str = "./data/media"
     MAX_UPLOAD_MB: int = 50
 
+    # Where the site is reached from outside (links in the sitemap and in share previews), and the folder with the
+    # built frontend (`pnpm build` writes frontend/dist) whose index.html the server completes for search engines.
+    PUBLIC_BASE_URL: str = "http://localhost:5173"
+    FRONTEND_DIST_DIR: str = "../frontend/dist"
+
     # NOTE: ALLOWED_ORIGINS='["http://localhost:5173","https://app.example.com"]'
     ALLOWED_ORIGINS: list[str] = ["http://localhost:5173"]

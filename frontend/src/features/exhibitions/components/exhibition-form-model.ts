@@ -28,6 +28,18 @@ const sectionSchema = z.object({
   objectDimensions: z.string(),
 })
 
+const videoSchema = z.object({
+  titleMe: z.string().min(2),
+  titleEn: z.string().min(2),
+  descriptionMe: z.string().min(2),
+  descriptionEn: z.string().min(2),
+  src: z.string().url(),
+  credit: z.string().min(2),
+  license: z.string().min(2),
+  // Empty means "the page of the video itself" (the same address).
+  sourceUrl: z.union([z.literal(''), z.string().url()]),
+})
+
 export const exhibitionFormSchema = z.object({
   titleMe: z.string().min(3),
   titleEn: z.string().min(3),
@@ -39,6 +51,7 @@ export const exhibitionFormSchema = z.object({
   period: z.string().min(2),
   tags: z.string(),
   sections: z.array(sectionSchema).min(1),
+  videos: z.array(videoSchema),
 })
 
 export type FormValues = z.infer<typeof exhibitionFormSchema>
@@ -65,6 +78,17 @@ export const emptySection: FormValues['sections'][number] = {
   objectDimensions: '',
 }
 
+export const emptyVideo: FormValues['videos'][number] = {
+  titleMe: '',
+  titleEn: '',
+  descriptionMe: '',
+  descriptionEn: '',
+  src: '',
+  credit: '',
+  license: '',
+  sourceUrl: '',
+}
+
 export function toFormValues(exhibition?: Exhibition): FormValues {
   if (!exhibition) {
     return {
@@ -78,6 +102,7 @@ export function toFormValues(exhibition?: Exhibition): FormValues {
       period: '',
       tags: '',
       sections: [emptySection],
+      videos: [],
     }
   }
   return {
@@ -90,6 +115,16 @@ export function toFormValues(exhibition?: Exhibition): FormValues {
     template: exhibition.template,
     period: exhibition.period,
     tags: exhibition.tags.join(', '),
+    videos: exhibition.videos.map((v) => ({
+      titleMe: v.title.me,
+      titleEn: v.title.en,
+      descriptionMe: v.description.me,
+      descriptionEn: v.description.en,
+      src: v.src,
+      credit: v.credit,
+      license: v.license,
+      sourceUrl: v.sourceUrl === v.src ? '' : v.sourceUrl,
+    })),
     sections: exhibition.sections.map((s) => {
       const obj = s.items[0]
       return {
@@ -123,7 +158,6 @@ export function toExhibition(
   authorId: number,
   authorName: string,
   status: ExhibitionStatus,
-  videos: Exhibition['videos'],
 ): NewExhibition {
   let id = Date.now()
   return {
@@ -144,7 +178,15 @@ export function toExhibition(
       .filter(Boolean),
     authorId,
     authorName,
-    videos,
+    videos: values.videos.map((v) => ({
+      id: id++,
+      title: { me: v.titleMe, en: v.titleEn },
+      description: { me: v.descriptionMe, en: v.descriptionEn },
+      src: v.src,
+      credit: v.credit,
+      license: v.license,
+      sourceUrl: v.sourceUrl || v.src,
+    })),
     sections: values.sections.map((s) => ({
       id: id++,
       title: { me: s.titleMe, en: s.titleEn },
