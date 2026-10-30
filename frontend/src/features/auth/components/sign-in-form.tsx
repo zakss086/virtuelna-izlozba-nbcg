@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { ApiError } from '@/lib/http'
 import { useI18n } from '@/lib/i18n'
 
 import { authApi, DEMO_PASSWORD } from '../api/auth-api'
@@ -55,7 +56,9 @@ export function SignInForm({ onSuccess }: SignInFormProps) {
         </div>
         {signIn.isError && (
           <p role="alert" className="text-sm text-destructive">
-            {t('auth.invalid')}
+            {signIn.error instanceof ApiError && signIn.error.code === 'account_disabled'
+              ? t('auth.disabled')
+              : t('auth.invalid')}
           </p>
         )}
         <Button type="submit" disabled={signIn.isPending}>

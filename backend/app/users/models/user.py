@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
-from sqlalchemy import TIMESTAMP, CheckConstraint, String, func
+from sqlalchemy import TIMESTAMP, CheckConstraint, String, func, true
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
@@ -32,6 +32,8 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(String(128))
     name: Mapped[str] = mapped_column(String(80))
     role: Mapped[str] = mapped_column(String(20))
+    # A switched-off account cannot sign in and its token stops working; its exhibitions stay.
+    is_active: Mapped[bool] = mapped_column(default=True, server_default=true())
     created_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True), server_default=func.now()
     )

@@ -84,6 +84,7 @@ Code: `frontend/src/features/auth/`, `backend/app/users/` and `backend/app/auth/
 | name | string | yes | 1-80 characters |
 | email | string | yes | unique, stored lowercase |
 | role | `curator` \| `admin` | yes | visitors have no account |
+| isActive | boolean | yes | a switched-off account cannot sign in and its token stops working at once |
 | createdAt | date | yes | assigned by the backend (API only) |
 
 The password (hashed with bcrypt) is sent only on sign-in and never returned.
@@ -157,7 +158,7 @@ Saved exhibitions of a visitor. Visitors have no account, so favorites live only
 - Anyone reads **published** exhibitions.
 - Visitor (no account): reads published exhibitions, libraries, collections and videos.
 - Curator: creates exhibitions; edits and deletes only their own; can submit a draft (`pending`).
-- Admin: edits any exhibition, publishes or returns `pending` exhibitions to `draft`, lists users.
+- Admin: edits any exhibition, publishes or returns `pending` exhibitions to `draft`, creates and manages staff accounts (role, on/off, new password).
 
 ## API
 
@@ -178,9 +179,9 @@ http://localhost:8000/docs while the backend runs. The frontend uses it with `pn
 | Status | When | `code` |
 |---|---|---|
 | 401 | no token / bad or expired token / wrong e-mail or password | `not_authenticated` / `invalid_token` / `invalid_credentials` |
-| 403 | not the author or an admin / not an admin / status change not allowed | `not_exhibition_author` / `admin_only` / `status_change_not_allowed` (with `fieldErrors.status`) |
+| 403 | not the author or an admin / not an admin / status change not allowed | `not_exhibition_author` / `admin_only` / `status_change_not_allowed` (with `fieldErrors.status`) / `cannot_change_own_access` / `account_disabled` |
 | 404 | no such exhibition, or a draft or pending one the caller may not see / no such edited text | `exhibition_not_found` / `content_block_not_found` |
-| 409 | the address (slug) could not be made unique / two admins saved a new text at once | `slug_taken` / `content_conflict` |
+| 409 | the address (slug) could not be made unique / two admins saved a new text at once | `slug_taken` / `content_conflict` / `email_already_registered` |
 | 422 | invalid input | `validation_error`, with `fieldErrors` |
 
 ### Auth and users
@@ -189,9 +190,13 @@ http://localhost:8000/docs while the backend runs. The frontend uses it with `pn
 | `POST /api/auth/sign-in` | no | `{ email, password }` | `200 { token, user }`, `401` |
 | `GET /api/auth/me` | yes | | `200` user |
 | `GET /api/users?page=&size=` | admin | | `200` page of users, `403` for a curator |
+| `POST /api/users` | admin | `{ email, name (1-80), role, password (8-72) }` | `201` user, `403` `admin_only`, `409` `email_already_registered` (with `fieldErrors.email`), `422` |
+| `PATCH /api/users/:id` | admin | any subset of `{ name, role, isActive, password }` | `200` user, `403` `admin_only` / `cannot_change_own_access`, `404` `user_not_found`, `422` |
 
-There is no sign-out call (the client drops the token) and no registration: staff accounts are created by an admin in the database
-(`poetry run seed` creates the three demo accounts, password `demo1234`). User: `{ id, name, email, role, createdAt }`.
+There is no sign-out call (the client drops the token) and no public registration: an admin creates staff accounts (Administration -> Users),
+chooses the role and a first password and hands both to the person. `poetry run seed` creates the three demo accounts, password `demo1234`.
+User: `{ id, name, email, role, isActive, createdAt }`. An admin cannot change their own role or switch themselves off. A switched-off account
+gets `403 account_disabled` on sign-in (after the right password) and `401 invalid_token` on any call with an older token.
 
 ### Exhibitions
 Create and PATCH bodies have the fields of **Exhibition** above except `id`, `slug`, `authorId`, `authorName`, `createdAt`; sections have no `id`.

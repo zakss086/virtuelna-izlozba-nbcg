@@ -1,6 +1,6 @@
 import { MAX_PAGE_SIZE, request, setSessionExpiredHandler, tokenStore, type Page } from '@/lib/http'
 
-import type { User } from '../types'
+import type { NewUser, User, UserChanges } from '../types'
 import { DEMO_PASSWORD, demoUsers } from './auth-mock'
 
 const USER_KEY = 'nbcg.user'
@@ -65,7 +65,7 @@ export const httpAuthApi = {
     try {
       localStorage.setItem(
         USER_KEY,
-        JSON.stringify({ id: user.id, name: user.name, email: user.email, role: user.role }),
+        JSON.stringify({ id: user.id, name: user.name, email: user.email, role: user.role, isActive: user.isActive }),
       )
     } catch {
       // storage unavailable
@@ -77,6 +77,10 @@ export const httpAuthApi = {
   signOut: endSession,
 
   list: async () => (await request<Page<User>>('GET', '/users', { query: { size: MAX_PAGE_SIZE } })).items,
+
+  create: (data: NewUser) => request<User>('POST', '/users', { body: data }),
+
+  update: (id: number, changes: UserChanges) => request<User>('PATCH', `/users/${id}`, { body: changes }),
 }
 
 export { DEMO_PASSWORD }

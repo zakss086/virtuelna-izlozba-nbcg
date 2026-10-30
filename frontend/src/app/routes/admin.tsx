@@ -2,6 +2,7 @@ import { FileText, Landmark, LibraryBig } from 'lucide-react'
 import { Link } from 'react-router'
 
 import { Button } from '@/components/ui/button'
+import { UserCreateForm } from '@/features/auth/components/user-create-form'
 import { UsersTable } from '@/features/auth/components/users-table'
 import { ReviewQueue } from '@/features/exhibitions/components/review-queue'
 import { useI18n } from '@/lib/i18n'
@@ -45,6 +46,7 @@ export function Admin() {
       <div className="flex flex-col gap-4">
         <h2 className="text-2xl font-semibold">{t('admin.users')}</h2>
         <UsersTable />
+        <UserCreateForm />
       </div>
     </section>
   )

@@ -42,7 +42,8 @@ def test_upload_stores_the_file_and_serves_it_publicly(
     assert asset["credit"] == "Wikimedia Commons"
     assert asset["sourceUrl"] == "https://example.com/k"
     url = str(asset["url"])
-    assert url.startswith("/media/") and url.endswith(".png")
+    assert url.startswith("/media/")
+    assert url.endswith(".png")
     assert (_media_dir() / url.removeprefix("/media/")).read_bytes() == PNG
 
     served = client.get(url)  # no token: visitors see pictures in exhibitions

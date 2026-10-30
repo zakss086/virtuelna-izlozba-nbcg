@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useCallback, useSyncExternalStore } from 'react'
 
+import type { UserChanges } from '../types'
 import { authApi } from './auth-api'
 
 export function useCurrentUser() {
@@ -27,4 +28,20 @@ export function useSignOut() {
 
 export function useUsers() {
   return useQuery({ queryKey: ['users'], queryFn: authApi.list })
+}
+
+export function useCreateUser() {
+  const client = useQueryClient()
+  return useMutation({
+    mutationFn: authApi.create,
+    onSuccess: () => client.invalidateQueries({ queryKey: ['users'] }),
+  })
+}
+
+export function useUpdateUser() {
+  const client = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, changes }: { id: number; changes: UserChanges }) => authApi.update(id, changes),
+    onSuccess: () => client.invalidateQueries({ queryKey: ['users'] }),
+  })
 }
