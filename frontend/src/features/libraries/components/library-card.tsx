@@ -10,12 +10,14 @@ import type { Library } from '../types'
 
 type LibraryCardProps = {
   library: Library
+  /** Straight-line distance from the visitor, when they allowed their position. */
+  distanceKm?: number
   selected: boolean
   onSelect: (id: number) => void
 }
 
 // One library in the list: small photo (or a placeholder), name, type and place.
-export function LibraryCard({ library, selected, onSelect }: LibraryCardProps) {
+export function LibraryCard({ library, distanceKm, selected, onSelect }: LibraryCardProps) {
   const { t } = useI18n()
   const place = library.address ? `${library.city}, ${library.address}` : library.city
 
@@ -40,7 +42,14 @@ export function LibraryCard({ library, selected, onSelect }: LibraryCardProps) {
             {t(`libraries.type.${library.type}`)}
           </Badge>
         </div>
-        <p className="text-sm text-muted-foreground">{place}</p>
+        <p className="text-sm text-muted-foreground">
+          {place}
+          {distanceKm !== undefined && (
+            <span className="ml-2 whitespace-nowrap text-gold">
+              · {t('map.distance', { km: Math.max(1, Math.round(distanceKm)) })}
+            </span>
+          )}
+        </p>
         <div className="mt-1">
           {library.location ? (
             <Button

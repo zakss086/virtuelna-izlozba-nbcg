@@ -47,7 +47,7 @@ before the API leaves your computer.
 ## Everyday commands
 
 ```bash
-poetry run test                                   # 169 tests: unit (services mocked) and integration (temporary SQLite)
+poetry run test                                   # 172 tests: unit (services mocked) and integration (temporary SQLite)
 poetry run lint                                   # ruff + black; `--fix` fixes and formats
 poetry run typecheck                              # mypy, strict
 poetry run makemigrations "what changed"          # after changing a model; read the generated file

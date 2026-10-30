@@ -1,5 +1,5 @@
-import { LocateFixed, Search } from 'lucide-react'
-import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react'
+import { List, LocateFixed, Map as MapIcon, Search } from 'lucide-react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useSearchParams } from 'react-router'
 
 import { ErrorNotice } from '@/components/error-notice'
@@ -7,17 +7,20 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Skeleton } from '@/components/ui/skeleton'
-import { nearestTo } from '@/lib/geo'
+import { distanceKm, nearestTo } from '@/lib/geo'
 import { useI18n } from '@/lib/i18n'
 import type { MapPlace } from '@/lib/map-place'
 import { normalizeText } from '@/lib/text'
 import { showToast } from '@/lib/toast'
+import { useMediaQuery } from '@/lib/use-media-query'
 import { cn } from '@/lib/utils'
 
 import { useLibraries } from '../api/use-libraries'
 import { LIBRARY_TYPES, type Library, type LibraryType, type MapSelection } from '../types'
 import { LibraryCard } from './library-card'
 import { LibraryDetail } from './library-detail'
+import { MapLegend } from './map-legend'
+import { MapTimeline } from './map-timeline'
 import { PlaceCard } from './place-card'
 import { PlaceDetail } from './place-detail'
 
@@ -59,6 +62,14 @@ export function MapExplorer({ places, renderLibraryActions }: MapExplorerProps) 
   const [placeId, setPlaceId] = useState<string | undefined>(undefined)
   const [locating, setLocating] = useState(false)
   const [nearest, setNearest] = useState<{ name: string; km: number } | undefined>(undefined)
+  // Where the visitor is, only after they asked for the nearest library; never stored or sent anywhere.
+  const [origin, setOrigin] = useState<{ lat: number; lng: number } | undefined>(undefined)
+  const [maxYear, setMaxYear] = useState<number | undefined>(undefined)
+  // On a phone the list and the map take turns; from the lg breakpoint both are visible.
+  const [panel, setPanel] = useState<'list' | 'map'>('list')
+  const isDesktop = useMediaQuery('(min-width: 1024px)')
+  // The map is built only while it is visible: Leaflet cannot frame a map inside a hidden box.
+  const showMap = isDesktop || panel === 'map'
   const sideRef = useRef<HTMLDivElement>(null)
   const selectedLibraryParam = params.get('library')
 
@@ -66,6 +77,13 @@ export function MapExplorer({ places, renderLibraryActions }: MapExplorerProps) 
   useEffect(() => {
     sideRef.current?.scrollTo({ top: 0 })
   }, [selectedLibraryParam, placeId])
+
+  const years = useMemo(
+    () => places.flatMap((place) => (place.year === undefined ? [] : [place.year])),
+    [places],
+  )
+  const minYear = years.length > 0 ? Math.min(...years) : undefined
+  const maxYearAll = years.length > 0 ? Math.max(...years) : undefined
 
   if (isPending) {
     return <Skeleton className="h-[60vh] w-full" aria-busy="true" aria-label={t('common.loading')} />
@@ -81,10 +99,35 @@ export function MapExplorer({ places, renderLibraryActions }: MapExplorerProps) 
       : undefined
 
   const trimmed = query.trim()
-  const libraries = showLibraries ? data.filter((library) => matchesLibrary(library, trimmed, type)) : []
-  const shownPlaces = showPlaces ? places.filter((place) => matchesPlace(place, trimmed)) : []
-  const selectedLibrary = selection?.kind === 'library' ? data.find((item) => item.id === selection.id) : undefined
-  const selectedPlace = selection?.kind === 'place' ? places.find((item) => item.id === selection.id) : undefined
+  const distances = new Map<number, number>()
+  if (origin) {
+    for (const library of data) {
+      if (library.location) distances.set(library.id, distanceKm(origin, library.location))
+    }
+  }
+  const matching = showLibraries ? data.filter((library) => matchesLibrary(library, trimmed, type)) : []
+  // With the visitor's position known, the nearest libraries come first.
+  const libraries = origin
+    ? [...matching].sort((a, b) => (distances.get(a.id) ?? Infinity) - (distances.get(b.id) ?? Infinity))
+    : matching
+  const shownPlaces = showPlaces
+    ? places.filter(
+        (place) =>
+          matchesPlace(place, trimmed) &&
+          (maxYear === undefined || place.year === undefined || place.year <= maxYear),
+      )
+    : []
+  const selectedLibrary =
+    selection?.kind === 'library' ? data.find((item) => item.id === selection.id) : undefined
+  const selectedPlace =
+    selection?.kind === 'place' ? places.find((item) => item.id === selection.id) : undefined
+  // The stops of the selected place's exhibition, in the order of the story, form a route on the map.
+  const route = selectedPlace
+    ? shownPlaces
+        .filter((place) => place.exhibitionId === selectedPlace.exhibitionId)
+        .sort((a, b) => a.order - b.order)
+    : []
+  const stopIndex = selectedPlace ? route.findIndex((stop) => stop.id === selectedPlace.id) : -1
 
   function select(next: MapSelection | undefined) {
     const copy = new URLSearchParams(params)
@@ -92,6 +135,8 @@ export function MapExplorer({ places, renderLibraryActions }: MapExplorerProps) 
     else copy.delete('library')
     setPlaceId(next?.kind === 'place' ? next.id : undefined)
     setParams(copy, { replace: true })
+    // Choosing something from the list on a phone shows it on the map.
+    if (next) setPanel('map')
   }
 
   function findNearest() {
@@ -107,6 +152,7 @@ export function MapExplorer({ places, renderLibraryActions }: MapExplorerProps) 
         const best = nearestTo(from, allLibraries, (library) => library.location)
         if (!best) return
         setNearest({ name: best.item.name, km: Math.round(best.km) })
+        setOrigin(from)
         setShowLibraries(true)
         setQuery('')
         setType(undefined)
@@ -179,6 +225,10 @@ export function MapExplorer({ places, renderLibraryActions }: MapExplorerProps) 
           </div>
         )}
 
+        {showPlaces && minYear !== undefined && maxYearAll !== undefined && minYear < maxYearAll && (
+          <MapTimeline min={minYear} max={maxYearAll} value={maxYear} onChange={setMaxYear} />
+        )}
+
         <p className="text-sm text-muted-foreground" role="status">
           {nearest
             ? t('map.nearestResult', { name: nearest.name, km: nearest.km })
@@ -186,30 +236,112 @@ export function MapExplorer({ places, renderLibraryActions }: MapExplorerProps) 
         </p>
       </div>
 
+      <div className="flex gap-2 lg:hidden" role="group" aria-label={t('map.view')}>
+        {(
+          [
+            ['list', t('map.tabList'), List],
+            ['map', t('map.tabMap'), MapIcon],
+          ] as const
+        ).map(([id, label, Icon]) => (
+          <button
+            key={id}
+            type="button"
+            aria-pressed={panel === id}
+            onClick={() => setPanel(id)}
+            className={cn(pillClass(panel === id), 'flex flex-1 items-center justify-center gap-2')}
+          >
+            <Icon className="size-4" aria-hidden="true" />
+            {label}
+          </button>
+        ))}
+      </div>
+
       <div className="grid gap-6 lg:grid-cols-[2fr_3fr]">
-        <div className="lg:order-2">
-          <Suspense fallback={<Skeleton className="h-[55vh] w-full lg:h-[70vh]" aria-label={t('map.loading')} />}>
-            <MapCanvas libraries={libraries} places={shownPlaces} selection={selection} onSelect={select} />
-          </Suspense>
-          <p className="mt-2 text-xs text-muted-foreground">{t('map.legend')}</p>
+        <div className={cn('lg:order-2 lg:block', panel === 'map' ? 'block' : 'hidden')}>
+          {showMap && (
+            <Suspense
+              fallback={<Skeleton className="h-[55vh] w-full lg:h-[70vh]" aria-label={t('map.loading')} />}
+            >
+              <MapCanvas
+                libraries={libraries}
+                places={shownPlaces}
+                route={route}
+                selection={selection}
+                onSelect={select}
+              />
+            </Suspense>
+          )}
+          <div className="mt-3 flex flex-col gap-2">
+            <MapLegend />
+            <p className="text-xs text-muted-foreground">{t('map.legend')}</p>
+          </div>
+          {/* on a phone the card of the selection sits under the map, since the list is hidden */}
+          <div className="mt-4 flex flex-col gap-3 lg:hidden">
+            {selectedLibrary && (
+              <LibraryDetail
+                library={selectedLibrary}
+                distanceKm={distances.get(selectedLibrary.id)}
+                onClose={() => select(undefined)}
+              />
+            )}
+            {selectedPlace && (
+              <PlaceDetail
+                place={selectedPlace}
+                stop={
+                  stopIndex >= 0 && route.length > 1 ? { n: stopIndex + 1, total: route.length } : undefined
+                }
+                onClose={() => select(undefined)}
+              />
+            )}
+          </div>
         </div>
 
-        <div ref={sideRef} className="flex max-h-[80vh] flex-col gap-4 overflow-y-auto pr-2 [overflow-anchor:none] *:shrink-0 lg:order-1">
-          {selectedLibrary && <LibraryDetail library={selectedLibrary} onClose={() => select(undefined)} />}
-          {selectedLibrary && renderLibraryActions?.(selectedLibrary)}
-          {selectedPlace && <PlaceDetail place={selectedPlace} onClose={() => select(undefined)} />}
+        <div
+          ref={sideRef}
+          className={cn(
+            'max-h-[80vh] flex-col gap-4 overflow-y-auto pr-2 [overflow-anchor:none] *:shrink-0 lg:order-1 lg:flex',
+            panel === 'list' ? 'flex' : 'hidden',
+          )}
+        >
+          <div className="hidden flex-col gap-4 lg:flex">
+            {selectedLibrary && (
+              <LibraryDetail
+                library={selectedLibrary}
+                distanceKm={distances.get(selectedLibrary.id)}
+                onClose={() => select(undefined)}
+              />
+            )}
+            {selectedLibrary && renderLibraryActions?.(selectedLibrary)}
+            {selectedPlace && (
+              <PlaceDetail
+                place={selectedPlace}
+                stop={
+                  stopIndex >= 0 && route.length > 1 ? { n: stopIndex + 1, total: route.length } : undefined
+                }
+                onClose={() => select(undefined)}
+              />
+            )}
+          </div>
+          {origin && libraries.length > 0 && (
+            <p className="text-xs text-muted-foreground">{t('map.sortedByDistance')}</p>
+          )}
           {!selectedLibrary && !selectedPlace && (
-            <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">{t('map.hint')}</p>
+            <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+              {t('map.hint')}
+            </p>
           )}
 
           {libraries.length === 0 && shownPlaces.length === 0 ? (
-            <p className="rounded-lg border border-dashed p-8 text-muted-foreground">{t('libraries.empty')}</p>
+            <p className="rounded-lg border border-dashed p-8 text-muted-foreground">
+              {t('libraries.empty')}
+            </p>
           ) : (
             <ul className="flex flex-col gap-3">
               {libraries.map((library) => (
                 <LibraryCard
                   key={library.id}
                   library={library}
+                  distanceKm={distances.get(library.id)}
                   selected={selection?.kind === 'library' && selection.id === library.id}
                   onSelect={(id) => select({ kind: 'library', id })}
                 />

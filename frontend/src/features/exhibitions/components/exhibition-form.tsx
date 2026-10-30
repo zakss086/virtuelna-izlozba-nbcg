@@ -142,6 +142,18 @@ export function ExhibitionForm({
             <Label htmlFor="tags">{t('editor.tags')}</Label>
             <Input id="tags" {...register('tags')} />
           </div>
+          <div className="flex items-start gap-3 md:col-span-2">
+            <input
+              id="allowViewSwitch"
+              type="checkbox"
+              className="mt-1 size-4 accent-accent"
+              {...register('allowViewSwitch')}
+            />
+            <div className="flex flex-col gap-1">
+              <Label htmlFor="allowViewSwitch">{t('editor.allowViewSwitch')}</Label>
+              <p className="text-xs text-muted-foreground">{t('editor.allowViewSwitchHint')}</p>
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-col gap-6">

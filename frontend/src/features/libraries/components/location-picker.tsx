@@ -57,7 +57,7 @@ export default function LocationPicker({ lat, lng, onPick }: LocationPickerProps
 
   return (
     <div className="h-72 overflow-hidden rounded-lg border" role="region" aria-label={t('adm.pickOnMap')}>
-      <MapContainer bounds={MONTENEGRO_BOUNDS} scrollWheelZoom={false} className="size-full">
+      <MapContainer bounds={MONTENEGRO_BOUNDS} scrollWheelZoom={false} className="map-calm size-full">
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"

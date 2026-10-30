@@ -82,6 +82,7 @@ def exhibition_response(id: int = 1, status: str = "draft") -> ExhibitionRespons
             "status": status,
             "period": "1494-1873",
             "tags": [],
+            "allow_view_switch": True,
             "author_id": 1,
             "author_name": "Test User",
             "sections": [],
