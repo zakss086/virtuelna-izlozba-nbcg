@@ -107,6 +107,17 @@ A library in Montenegro shown on the interactive map (`frontend/src/features/lib
 
 Source of the sample data: names from the COBISS.CG statistics for 2025 (full members), coordinates from OpenStreetMap (ODbL).
 
+## ContentBlock
+A site text an admin has edited (CMS). Code: `frontend/src/features/content/`, `backend/app/content/`. The default texts live in the frontend
+(`messages-me.ts`, `messages-en.ts`); a block with the same `key` replaces the default, and deleting the block brings it back. Only the keys listed in
+`frontend/src/features/content/editable-keys.ts` are offered for editing.
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| key | string | yes | the message key, e.g. `about.lead`: lowercase words and digits separated by dots, at most 80 characters; unique |
+| value | Localized | yes | both languages, 1-20000 characters each |
+| updatedAt | date | yes | assigned by the backend |
+
 ## Favorite
 Saved exhibitions of a visitor. Visitors have no account, so favorites live only in the visitor's browser (`localStorage`, `frontend/src/features/favorites/`). The backend does not store them.
 
@@ -136,8 +147,8 @@ http://localhost:8000/docs while the backend runs. The frontend uses it with `pn
 |---|---|---|
 | 401 | no token / bad or expired token / wrong e-mail or password | `not_authenticated` / `invalid_token` / `invalid_credentials` |
 | 403 | not the author or an admin / not an admin / status change not allowed | `not_exhibition_author` / `admin_only` / `status_change_not_allowed` (with `fieldErrors.status`) |
-| 404 | no such exhibition, or a draft or pending one the caller may not see | `exhibition_not_found` |
-| 409 | the address (slug) could not be made unique | `slug_taken` |
+| 404 | no such exhibition, or a draft or pending one the caller may not see / no such edited text | `exhibition_not_found` / `content_block_not_found` |
+| 409 | the address (slug) could not be made unique / two admins saved a new text at once | `slug_taken` / `content_conflict` |
 | 422 | invalid input | `validation_error`, with `fieldErrors` |
 
 ### Auth and users
@@ -167,6 +178,12 @@ Limits: `period` 2-60 characters, at most 20 tags, 1-100 sections, section `year
 Status rules: an author moves an exhibition between `draft` and `pending` and cannot change a published one's status; an admin sets any status.
 Sending the current status again is always allowed (the editor does it when an author edits a published exhibition).
 
+### Site content (CMS)
+| Route | Auth | Body | Response |
+|---|---|---|---|
+| `GET /api/content?page=&size=` | no | | `200` page of blocks (the frontend applies them over its default texts) |
+| `PUT /api/content/:key` | admin | `{ value: { me, en } }` | `200` block (created or replaced), `403` `admin_only`, `422` bad key or an empty language |
+| `DELETE /api/content/:key` | admin | | `204`, `404` `content_block_not_found` when the text was never edited |
+
 ### Not in the API yet
-Libraries (`GET /libraries`), collections and the About texts are still data in the frontend; they move to the backend together with
-the CMS part (editable site content), see `backend/README.md`.
+Libraries (`GET /libraries`) and collections are still data in the frontend; they move to the backend with the next CMS steps (media library, libraries as editable data), see `backend/README.md`.

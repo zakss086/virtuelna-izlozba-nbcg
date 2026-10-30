@@ -3,17 +3,15 @@ from __future__ import annotations
 from pydantic import Field
 
 from app.exhibitions.models.exhibition import ExhibitionStatus, ExhibitionTemplate, ItemType
-from app.utils.schemas import CamelCaseModel, CamelCaseResponseModel, UtcDatetime
+from app.utils.schemas import (
+    CamelCaseModel,
+    CamelCaseResponseModel,
+    LocalizedSchema,
+    UtcDatetime,
+)
 
 # Limits mirror the Zod schema of the editor (frontend/.../exhibition-form-model.ts) and docs/entities.md.
 _URL_MAX = 100_000  # generated placeholder pictures are data URIs
-
-
-class LocalizedSchema(CamelCaseResponseModel):
-    """A text in both languages."""
-
-    me: str = Field(min_length=1, max_length=20_000)
-    en: str = Field(min_length=1, max_length=20_000)
 
 
 class PlaceSchema(CamelCaseResponseModel):

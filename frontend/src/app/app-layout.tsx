@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router'
 
 import { AssistantHost } from '@/app/assistant-host'
+import { ContentSync } from '@/app/content-sync'
 import { BraidDivider } from '@/components/braid-divider'
 import { BrandLogo } from '@/components/brand-logo'
 import { OfflineBanner } from '@/components/offline-banner'
@@ -213,6 +214,7 @@ export function AppLayout() {
         )}
       </header>
 
+      <ContentSync />
       <OfflineBanner />
       <WelcomeBanner />
 

@@ -6,6 +6,7 @@ from unittest.mock import Mock, create_autospec
 import pytest
 
 from app.auth.services.auth import IAuthService
+from app.content.services.content import IContentService
 from app.database.session_factory import ISessionFactory
 from app.exhibitions.services.exhibition import IExhibitionService
 from app.users.services.user import IUserService
@@ -39,6 +40,14 @@ def exhibition_service() -> Generator[Mock]:
     add_to_di_container(IExhibitionService, mock_service)
     yield mock_service
     remove_from_di_container(IExhibitionService)
+
+
+@pytest.fixture
+def content_service() -> Generator[Mock]:
+    mock_service = create_autospec(IContentService, instance=True)
+    add_to_di_container(IContentService, mock_service)
+    yield mock_service
+    remove_from_di_container(IContentService)
 
 
 @pytest.fixture

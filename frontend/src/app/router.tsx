@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router'
 
 import { About } from '@/app/routes/about'
 import { Admin } from '@/app/routes/admin'
+import { AdminContent } from '@/app/routes/admin-content'
 import { Collections } from '@/app/routes/collections'
 import { AppLayout } from '@/app/app-layout'
 import { Exhibition } from '@/app/routes/exhibition'
@@ -67,6 +68,14 @@ export const router = createBrowserRouter([
         element: (
           <RequireRole roles={['admin']}>
             <Admin />
+          </RequireRole>
+        ),
+      },
+      {
+        path: '/admin/content',
+        element: (
+          <RequireRole roles={['admin']}>
+            <AdminContent />
           </RequireRole>
         ),
       },

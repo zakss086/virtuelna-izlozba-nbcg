@@ -58,6 +58,10 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 
 The API in `backend/` (FastAPI, SQLite or Postgres) implements the contract in `docs/entities.md`: staff sign-in with a token, exhibitions with sections, objects and videos, the draft -> pending -> published flow and the access rules, enforced on the server. `pnpm dev` runs the frontend on mock data, `pnpm dev:api` on the API.
 
+## Site content (CMS)
+
+An admin opens Administration -> Edit site content (`/admin/content`) and edits 15 site texts in both languages: the home lead, the "more than a catalogue" block and the hero captions, the Collections and Video leads, the About lead, mission, contact and credits, and the footer note. A saved text replaces the default for every visitor (kept in the database with `pnpm dev:api`, in memory with `pnpm dev`); "Restore default" deletes it. Both languages are required.
+
 ## Exhibition page
 
 Every exhibition page has, above the viewer: the curator's introduction (or the summary), a facts panel (curator, period, collections, objects, year), a ready-made citation with a copy button, a "view as" switch (any viewer can show any exhibition; the map only when every section has a place), full screen and a "Download catalogue (PDF)" button that prints a clean catalogue page. Related exhibitions follow the viewer. The object dialog zooms (wheel, buttons, `+` / `-` keys, double click), shows optional shelf mark, inventory number, language, material and dimensions, and offers a download only for public-domain or CC material.
