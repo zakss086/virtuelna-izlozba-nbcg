@@ -1,15 +1,7 @@
-import { delay, NotFoundError } from '@/lib/mock-db'
+import { USE_API } from '@/lib/http'
 
-import type { Library } from '../types'
-import { libraries } from './libraries-data'
+import { httpLibrariesApi } from './libraries-http'
+import { mockLibrariesApi } from './libraries-mock'
 
-// Read-only mock until the backend serves GET /libraries and GET /libraries/:id (see docs/entities.md).
-export const librariesApi = {
-  list: (): Promise<Library[]> => delay([...libraries]),
-
-  get: async (id: number): Promise<Library> => {
-    const library = libraries.find((item) => item.id === id)
-    if (!library) throw new NotFoundError('Library', id)
-    return delay(library)
-  },
-}
+// `pnpm dev` uses the in-memory libraries, `pnpm dev:api` the backend.
+export const librariesApi = USE_API ? httpLibrariesApi : mockLibrariesApi

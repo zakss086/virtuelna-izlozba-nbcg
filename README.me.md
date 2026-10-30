@@ -20,6 +20,7 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 - **Ozbiljnija stranica izložbe**: kustoski uvod, podaci o izložbi, gotov citat, prebacivanje između svih osam načina prikaza, cio ekran, katalog za štampu (PDF), slične izložbe i prozor objekta sa zumiranjem, dodatnim podacima (signatura, jezik, materijal, dimenzije) i dugmetom za preuzimanje tamo gdje licenca dozvoljava.
 - **Bez naloga za posjetioce, dvije uloge osoblja**: posjetioci razgledaju izložbe i čuvaju omiljene u pregledaču; kustosi prave i šalju izložbe na objavu; administratori ih objavljuju i upravljaju korisnicima.
 - Dvojezičan sadržaj, svijetla i tamna tema, sačuvane izložbe, prilagođen prikaz od 375 do 1440 px.
+- **Biblioteke na mapi i zbirke su podaci, ne kod**: administrator ih dodaje, uređuje i briše (Administracija), svaku biblioteku sa podacima, slobodnom fotografijom i autorom i mjestom oznake.
 - **Biblioteka medija**: kustosi otpremaju slike i video zapise sa autorom i licencom (Studio -> Biblioteka medija) i biraju sliku objekta u uređivaču izložbe; vrsta fajla se provjerava iz samog fajla, a veličina je ograničena.
 - **Uređivanje sadržaja sajta (CMS)**: administrator uređuje 62 teksta (stranice, opisi načina prikaza, uputstva i podnožje) na oba jezika (Administracija -> Uredi sadržaj sajta); posjetioci izmjenu vide odmah, a „Vrati zadano“ vraća početni tekst.
 - Pristupačnost: semantički HTML, oznake na poljima, vidljiv fokus, kontrast iznad 4.5:1.
@@ -153,7 +154,7 @@ Svaka izmjena provjerena je komandama `typecheck`, `lint` i `build`, a ekrani pr
 
 ## Sljedeće: CMS i otpremanje
 
-API pokriva izložbe, prijavu, korisnike i uređivanje sadržaja sajta. Slijedi, vidi [`backend/README.md`](backend/README.md): biblioteke i zbirke sa mape kao podaci koje admin uređuje i upravljanje nalozima uz istoriju izmjena.
+API pokriva izložbe, prijavu, korisnike i uređivanje sadržaja sajta. Slijedi, vidi [`backend/README.md`](backend/README.md): upravljanje nalozima uz istoriju izmjena.
 
 ## Sadržaj i licence
 

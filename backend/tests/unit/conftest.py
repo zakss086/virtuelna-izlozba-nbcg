@@ -6,9 +6,11 @@ from unittest.mock import Mock, create_autospec
 import pytest
 
 from app.auth.services.auth import IAuthService
+from app.collections.services.collection import ICollectionService
 from app.content.services.content import IContentService
 from app.database.session_factory import ISessionFactory
 from app.exhibitions.services.exhibition import IExhibitionService
+from app.libraries.services.library import ILibraryService
 from app.media.services.media import IMediaService
 from app.users.services.user import IUserService
 from app.utils.di import add_to_di_container, get_from_di_container, remove_from_di_container
@@ -57,6 +59,22 @@ def media_service() -> Generator[Mock]:
     add_to_di_container(IMediaService, mock_service)
     yield mock_service
     remove_from_di_container(IMediaService)
+
+
+@pytest.fixture
+def library_service() -> Generator[Mock]:
+    mock_service = create_autospec(ILibraryService, instance=True)
+    add_to_di_container(ILibraryService, mock_service)
+    yield mock_service
+    remove_from_di_container(ILibraryService)
+
+
+@pytest.fixture
+def collection_service() -> Generator[Mock]:
+    mock_service = create_autospec(ICollectionService, instance=True)
+    add_to_di_container(ICollectionService, mock_service)
+    yield mock_service
+    remove_from_di_container(ICollectionService)
 
 
 @pytest.fixture

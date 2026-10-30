@@ -4,6 +4,7 @@ from typing import Protocol
 
 from sqlalchemy.exc import IntegrityError
 
+from app.auth.permissions import require_admin
 from app.auth.schemas.auth import CurrentUser
 from app.content.exceptions.content import (
     ContentBlockConflictException,
@@ -12,8 +13,6 @@ from app.content.exceptions.content import (
 from app.content.models.content import ContentBlock
 from app.content.repositories.content import IContentRepository
 from app.content.schemas.content import ContentBlockResponseSchema, ContentBlockUpdateRequestSchema
-from app.users.exceptions.user import AdminOnlyException
-from app.users.models.user import UserRole
 from app.utils.di import inject
 from app.utils.pagination import Page, PaginationParams
 
@@ -26,11 +25,6 @@ class IContentService(Protocol):
     ) -> ContentBlockResponseSchema: ...
 
     def reset(self, key: str, current_user: CurrentUser) -> None: ...
-
-
-def _require_admin(user: CurrentUser) -> None:
-    if user.role != UserRole.ADMIN:
-        raise AdminOnlyException
 
 
 @inject(alias=IContentService)
@@ -49,7 +43,7 @@ class ContentService(IContentService):
     def save(
         self, key: str, data: ContentBlockUpdateRequestSchema, current_user: CurrentUser
     ) -> ContentBlockResponseSchema:
-        _require_admin(current_user)
+        require_admin(current_user)
         block = self._content_repository.get_by_key(key) or ContentBlock(key=key)
         block.value = data.value.model_dump()
         # The editor is always the signed-in admin, never an id from the request body (ADR-006).
@@ -62,7 +56,7 @@ class ContentService(IContentService):
         return ContentBlockResponseSchema.model_validate(saved)
 
     def reset(self, key: str, current_user: CurrentUser) -> None:
-        _require_admin(current_user)
+        require_admin(current_user)
         block = self._content_repository.get_by_key(key)
         if block is None:
             raise ContentBlockNotFoundException

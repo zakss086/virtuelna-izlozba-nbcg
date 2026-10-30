@@ -14,11 +14,13 @@ from fastapi.testclient import TestClient
 from sqlalchemy import delete
 
 from app.auth.password import hash_password
+from app.collections.models.collection import Collection
 from app.config.settings import DBSettings, Settings
 from app.content.models.content import ContentBlock
 from app.database.base import Base
 from app.database.session_factory import ISessionFactory, SessionFactory
 from app.exhibitions.models.exhibition import Exhibition
+from app.libraries.models.library import Library
 from app.media.models.media import MediaAsset
 from app.users.models.user import User, UserRole
 from app.utils.di import add_to_di_container, get_from_di_container
@@ -76,6 +78,8 @@ def clean_tables() -> Generator[None]:
     yield
     session_factory = get_from_di_container(ISessionFactory)
     with session_factory() as session:
+        session.execute(delete(Collection))
+        session.execute(delete(Library))
         session.execute(delete(MediaAsset))
         session.execute(delete(ContentBlock))
         session.execute(delete(Exhibition))

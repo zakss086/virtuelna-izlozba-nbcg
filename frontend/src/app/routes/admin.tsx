@@ -1,4 +1,4 @@
-import { FileText } from 'lucide-react'
+import { FileText, Landmark, LibraryBig } from 'lucide-react'
 import { Link } from 'react-router'
 
 import { Button } from '@/components/ui/button'
@@ -18,13 +18,29 @@ export function Admin() {
       </div>
       <div className="flex flex-col gap-4">
         <h2 className="text-2xl font-semibold">{t('cms.title')}</h2>
-        <p className="max-w-prose text-muted-foreground">{t('cms.linkDesc')}</p>
-        <Button asChild variant="outline" className="w-fit">
-          <Link to="/admin/content">
-            <FileText />
-            {t('cms.link')}
-          </Link>
-        </Button>
+        <p className="max-w-prose text-muted-foreground">
+          {t('cms.linkDesc')} {t('adm.linkDesc')}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Button asChild variant="outline">
+            <Link to="/admin/content">
+              <FileText />
+              {t('cms.link')}
+            </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link to="/admin/libraries">
+              <Landmark />
+              {t('adm.libraries.title')}
+            </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link to="/admin/collections">
+              <LibraryBig />
+              {t('adm.collections.title')}
+            </Link>
+          </Button>
+        </div>
       </div>
       <div className="flex flex-col gap-4">
         <h2 className="text-2xl font-semibold">{t('admin.users')}</h2>

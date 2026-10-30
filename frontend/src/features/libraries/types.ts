@@ -37,5 +37,8 @@ export type Library = {
   location?: LibraryLocation
 }
 
+/** What an admin enters: a library without its id. */
+export type NewLibrary = Omit<Library, 'id'>
+
 // What is selected on the interactive map: a library or a place from an exhibition.
 export type MapSelection = { kind: 'library'; id: number } | { kind: 'place'; id: string }

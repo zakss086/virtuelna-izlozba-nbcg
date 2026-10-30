@@ -89,7 +89,7 @@ Code: `frontend/src/features/auth/`, `backend/app/users/` and `backend/app/auth/
 The password (hashed with bcrypt) is sent only on sign-in and never returned.
 
 ## Library
-A library in Montenegro shown on the interactive map (`frontend/src/features/libraries/`). Read-only for visitors; the backend may later let an admin edit the list.
+A library in Montenegro shown on the interactive map. Code: `frontend/src/features/libraries/`, `backend/app/libraries/`. Everyone reads the list; only an admin adds, edits or deletes (Administration -> Libraries on the map).
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
@@ -106,6 +106,18 @@ A library in Montenegro shown on the interactive map (`frontend/src/features/lib
 | location | `{ lat: number, lng: number, precision: 'exact' \| 'town' }` | no | `town` = centre of the town (approximate); missing = no pin on the map |
 
 Source of the sample data: names from the COBISS.CG statistics for 2025 (full members), coordinates from OpenStreetMap (ODbL).
+
+## Collection
+A collection of the library's digital library, shown on the Collections page and linked to dlib.me. Code: `frontend/src/features/collections/`, `backend/app/collections/`. Everyone reads; only an admin writes.
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| id | number | yes | |
+| name | Localized | yes | both languages |
+| text | Localized | yes | both languages |
+| href | string (URL) | yes | link to the collection in dlib.me |
+| image | string (URL) | yes | a link, or `/media/...` from the media library |
+| position | number | yes | 0-10000; collections are shown by position, then by id |
 
 ## ContentBlock
 A site text an admin has edited (CMS). Code: `frontend/src/features/content/`, `backend/app/content/`. The default texts live in the frontend
@@ -215,5 +227,24 @@ Sending the current status again is always allowed (the editor does it when an a
 
 Only JPEG, PNG, WebP and GIF pictures and MP4 and WebM videos are accepted; SVG and anything else is refused.
 
-### Not in the API yet
-Libraries (`GET /libraries`) and collections are still data in the frontend; they move to the backend with the next CMS step (libraries and collections as editable data), see `backend/README.md`.
+### Libraries on the map
+| Route | Auth | Body | Response |
+|---|---|---|---|
+| `GET /api/libraries?type=&city=&page=&size=` | no | | `200` page by name; `type` is one of the four types, `city` matches exactly, ignoring case |
+| `GET /api/libraries/:id` | no | | `200`, `404` `library_not_found` |
+| `POST /api/libraries` | admin | `{ name, type, city, address?, website?, email?, phone?, description?, image?, location? }` | `201`, `403` `admin_only`, `422` |
+| `PATCH /api/libraries/:id` | admin | any subset; an explicit `null` clears an optional field (not `name`, `type`, `city`) | `200`, `403`, `404`, `422` |
+| `DELETE /api/libraries/:id` | admin | | `204`, `403`, `404` |
+
+`location` is `{ lat (-90..90), lng (-180..180), precision }` as a whole or missing; the database holds the three values as one all-or-nothing group.
+`image` is `{ url, credit, license, sourceUrl }`, all four required together. `description` needs both languages.
+
+### Collections
+| Route | Auth | Body | Response |
+|---|---|---|---|
+| `GET /api/collections?page=&size=` | no | | `200` page, by `position` |
+| `POST /api/collections` | admin | `{ name, text, href, image, position? }` | `201`, `403`, `422` |
+| `PATCH /api/collections/:id` | admin | any subset | `200`, `403`, `404` `collection_not_found` |
+| `DELETE /api/collections/:id` | admin | | `204`, `403`, `404` |
+
+Everything the frontend shows now comes from the API when it runs with `pnpm dev:api`; what is left in the frontend code is only the sample data of the mock (`pnpm dev`) and the seed of the backend.

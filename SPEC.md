@@ -58,6 +58,10 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 
 The API in `backend/` (FastAPI, SQLite or Postgres) implements the contract in `docs/entities.md`: staff sign-in with a token, exhibitions with sections, objects and videos, the draft -> pending -> published flow and the access rules, enforced on the server. `pnpm dev` runs the frontend on mock data, `pnpm dev:api` on the API.
 
+## Libraries on the map and collections
+
+An admin opens Administration and chooses "Libraries on the map" or "Collections". Each is a list with Add, Edit and Delete (with a confirmation). A library has a name, type, town, optional address, website, e-mail, phone, a short description in both languages, a free photo with its author, licence and source page, and a pin (latitude, longitude and whether it is exact or the centre of the town); the optional groups are saved whole or not at all, and a library without a pin is listed but not drawn. A collection has a name and text in both languages, a link to the digital library, a picture and a position that sets the order. Everyone sees the changes at once. With `pnpm dev` they live in memory; with `pnpm dev:api` they are stored in the database, seeded with the same data.
+
 ## Media library
 
 A curator opens Studio -> Media library (`/studio/media`) and uploads a picture or video with the author and the licence (and optionally the source page); an admin sees all files, a curator their own, and each can delete their file. In the exhibition editor every section has a picker for the picture of its object: choose a file from the library or upload one on the spot, and the picture, its author and licence travel with the object (and the first one becomes the cover). The server accepts only JPEG, PNG, WebP, GIF, MP4 and WebM, decided from the content of the file, up to 50 MB. With `pnpm dev` files live in memory until the page is reloaded; with `pnpm dev:api` they are stored on the server and served at `/media/...`.

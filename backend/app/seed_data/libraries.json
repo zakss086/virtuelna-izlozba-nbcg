@@ -1,0 +1,420 @@
+[
+  {
+    "id": 1,
+    "name": "Nacionalna biblioteka Crne Gore „Đurđe Crnojević“",
+    "type": "national",
+    "city": "Cetinje",
+    "address": "Bulevar crnogorskih junaka 163",
+    "website": "https://www.nb-cg.me",
+    "email": "info@nb-cg.me",
+    "phone": "+382 41 231 143",
+    "description": {
+      "me": "Osnovana 1893. kao javna biblioteka kneza Nikole. Čuva oko dva miliona jedinica građe, među njima stare i rijetke knjige, atlase i karte, plakate i razglednice. Smještena je u dvije zgrade u Cetinju, nekadašnjim ambasadama Italije i Francuske.",
+      "en": "Founded in 1893 as a public library by Prince Nikola. It holds about two million items, among them old and rare books, atlases and maps, posters and postcards. It occupies two buildings in Cetinje, the former Italian and French embassies."
+    },
+    "image": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Former%20Italian%20Embassy%20in%20Cetinje%2C%20Montenegro.jpg?width=640",
+      "credit": "Сергей Наруков",
+      "license": "CC BY 3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Former%20Italian%20Embassy%20in%20Cetinje%2C%20Montenegro.jpg"
+    },
+    "location": {
+      "lat": 42.3945,
+      "lng": 18.9151,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Centralna univerzitetska biblioteka",
+    "type": "university",
+    "city": "Podgorica",
+    "website": "https://www.ucg.ac.me"
+  },
+  {
+    "id": 3,
+    "name": "Biblioteka prirodno-matematičkih i tehničkih nauka",
+    "type": "university",
+    "city": "Podgorica"
+  },
+  {
+    "id": 4,
+    "name": "Biblioteka umjetnosti",
+    "type": "university",
+    "city": "Cetinje"
+  },
+  {
+    "id": 5,
+    "name": "Arhitektonski fakultet",
+    "type": "university",
+    "city": "Podgorica"
+  },
+  {
+    "id": 6,
+    "name": "Biotehnički fakultet",
+    "type": "university",
+    "city": "Podgorica"
+  },
+  {
+    "id": 7,
+    "name": "Ekonomski fakultet",
+    "type": "university",
+    "city": "Podgorica",
+    "location": {
+      "lat": 42.44608,
+      "lng": 19.25712,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Fakultet političkih nauka",
+    "type": "university",
+    "city": "Podgorica"
+  },
+  {
+    "id": 9,
+    "name": "Fakultet za crnogorski jezik i književnost",
+    "type": "university",
+    "city": "Cetinje"
+  },
+  {
+    "id": 10,
+    "name": "Fakultet za pomorstvo",
+    "type": "university",
+    "city": "Kotor"
+  },
+  {
+    "id": 11,
+    "name": "Filozofski fakultet",
+    "type": "university",
+    "city": "Nikšić",
+    "location": {
+      "lat": 42.77423,
+      "lng": 18.95479,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Medicinski fakultet",
+    "type": "university",
+    "city": "Podgorica",
+    "location": {
+      "lat": 42.43662,
+      "lng": 19.24461,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Pravni fakultet",
+    "type": "university",
+    "city": "Podgorica",
+    "location": {
+      "lat": 42.44603,
+      "lng": 19.25643,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 14,
+    "name": "Univerzitet Donja Gorica",
+    "type": "university",
+    "city": "Podgorica",
+    "location": {
+      "lat": 42.41755,
+      "lng": 19.2029,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Centar za kulturu Kolašin, Gradska biblioteka „Ljubo Anđelić“",
+    "type": "public",
+    "city": "Kolašin",
+    "location": {
+      "lat": 42.8235,
+      "lng": 19.5209,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Centar za kulturu Žabljak",
+    "type": "public",
+    "city": "Žabljak",
+    "location": {
+      "lat": 43.1551,
+      "lng": 19.1209,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 17,
+    "name": "Gradska biblioteka i čitaonica Herceg Novi",
+    "type": "public",
+    "city": "Herceg Novi",
+    "address": "Trg Herceg Stjepana 6",
+    "location": {
+      "lat": 42.45143,
+      "lng": 18.53732,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 18,
+    "name": "Gradska biblioteka Kotor",
+    "type": "public",
+    "city": "Kotor",
+    "location": {
+      "lat": 42.4249,
+      "lng": 18.7713,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 19,
+    "name": "Gradska biblioteka Mojkovac",
+    "type": "public",
+    "city": "Mojkovac",
+    "location": {
+      "lat": 42.9625,
+      "lng": 19.58,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 20,
+    "name": "Gradska biblioteka Plužine",
+    "type": "public",
+    "city": "Plužine",
+    "location": {
+      "lat": 43.1562,
+      "lng": 18.8452,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 21,
+    "name": "JU Gradska biblioteka Tivat",
+    "type": "public",
+    "city": "Tivat",
+    "location": {
+      "lat": 42.4304,
+      "lng": 18.6988,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 22,
+    "name": "JU Narodna biblioteka „Miroslav Luketić“",
+    "type": "public",
+    "city": "Budva",
+    "description": {
+      "me": "Gradska biblioteka u Budvi smještena je u Citadeli, utvrđenom starom jezgru grada.",
+      "en": "The municipal library of Budva is located in the Citadel, the fortified old core of the town."
+    },
+    "image": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Budva%20Zitadelle%20-%20Bibliothek%202.jpg?width=640",
+      "credit": "Wolfgang Sauber",
+      "license": "CC BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Budva%20Zitadelle%20-%20Bibliothek%202.jpg"
+    },
+    "location": {
+      "lat": 42.2886,
+      "lng": 18.842,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 23,
+    "name": "Narodna biblioteka „Dr Radovan Lalić“",
+    "type": "public",
+    "city": "Berane",
+    "location": {
+      "lat": 42.8436,
+      "lng": 19.8729,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 24,
+    "name": "Narodna biblioteka „Mihailo-Miho Vuković“",
+    "type": "public",
+    "city": "Danilovgrad",
+    "location": {
+      "lat": 42.5524,
+      "lng": 19.1053,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 25,
+    "name": "Narodna biblioteka „Mirko Srzentić“",
+    "type": "public",
+    "city": "Ulcinj",
+    "location": {
+      "lat": 41.926,
+      "lng": 19.2056,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 26,
+    "name": "Narodna biblioteka „Njegoš“",
+    "type": "public",
+    "city": "Nikšić",
+    "image": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Library%20in%20Nik%C5%A1i%C4%87.jpg?width=640",
+      "credit": "Niegodzisie",
+      "license": "CC BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Library%20in%20Nik%C5%A1i%C4%87.jpg"
+    },
+    "location": {
+      "lat": 42.7739,
+      "lng": 18.9488,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 27,
+    "name": "Narodna biblioteka „Radosav Ljumović“",
+    "type": "public",
+    "city": "Podgorica",
+    "address": "Njegoševa 22",
+    "website": "https://www.nbpg.me",
+    "location": {
+      "lat": 42.4417,
+      "lng": 19.26226,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 28,
+    "name": "Narodna biblioteka „Stevan Samardžić“",
+    "type": "public",
+    "city": "Pljevlja",
+    "location": {
+      "lat": 43.3557,
+      "lng": 19.3561,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 29,
+    "name": "Narodna biblioteka Bijelo Polje",
+    "type": "public",
+    "city": "Bijelo Polje",
+    "location": {
+      "lat": 43.0342,
+      "lng": 19.7474,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 30,
+    "name": "Narodna biblioteka i čitaonica „Ivo Vučković“",
+    "type": "public",
+    "city": "Bar",
+    "location": {
+      "lat": 42.098,
+      "lng": 19.0955,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 31,
+    "name": "Narodna biblioteka i čitaonica „Njegoš“",
+    "type": "public",
+    "city": "Cetinje",
+    "location": {
+      "lat": 42.3912,
+      "lng": 18.9225,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 32,
+    "name": "Narodna biblioteka Rožaje",
+    "type": "public",
+    "city": "Rožaje",
+    "location": {
+      "lat": 42.8433,
+      "lng": 20.168,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 33,
+    "name": "Biblioteka Muzeja grada Perasta",
+    "type": "special",
+    "city": "Perast",
+    "location": {
+      "lat": 42.4863,
+      "lng": 18.6989,
+      "precision": "town"
+    }
+  },
+  {
+    "id": 34,
+    "name": "Crnogorska akademija nauka i umjetnosti",
+    "type": "special",
+    "city": "Podgorica"
+  },
+  {
+    "id": 35,
+    "name": "Istorijski institut Crne Gore",
+    "type": "special",
+    "city": "Podgorica",
+    "location": {
+      "lat": 42.43953,
+      "lng": 19.24988,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 36,
+    "name": "Matica crnogorska",
+    "type": "special",
+    "city": "Podgorica"
+  },
+  {
+    "id": 37,
+    "name": "Narodni muzej Crne Gore",
+    "type": "special",
+    "city": "Cetinje",
+    "description": {
+      "me": "Fotografija prikazuje Vladin dom u Cetinju, nekadašnju zgradu vlade u kojoj su danas Umjetnički i Istorijski muzej.",
+      "en": "The photo shows the Government House in Cetinje, the former seat of the government, which now houses the Art Museum and the History Museum."
+    },
+    "image": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Vladin%20Dom%20(Dom%20Rz%C4%85dowy)%20w%20Cetinje%2001.jpg?width=640",
+      "credit": "Marcin Konsek",
+      "license": "CC BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vladin%20Dom%20(Dom%20Rz%C4%85dowy)%20w%20Cetinje%2001.jpg"
+    },
+    "location": {
+      "lat": 42.38931,
+      "lng": 18.92316,
+      "precision": "exact"
+    }
+  },
+  {
+    "id": 38,
+    "name": "Pomorski muzej Crne Gore",
+    "type": "special",
+    "city": "Kotor"
+  },
+  {
+    "id": 39,
+    "name": "Skupština Crne Gore",
+    "type": "special",
+    "city": "Podgorica",
+    "location": {
+      "lat": 42.43989,
+      "lng": 19.26054,
+      "precision": "exact"
+    }
+  }
+]

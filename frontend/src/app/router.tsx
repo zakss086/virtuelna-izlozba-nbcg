@@ -2,7 +2,9 @@ import { createBrowserRouter } from 'react-router'
 
 import { About } from '@/app/routes/about'
 import { Admin } from '@/app/routes/admin'
+import { AdminCollectionEditor, AdminCollections } from '@/app/routes/admin-collections'
 import { AdminContent } from '@/app/routes/admin-content'
+import { AdminLibraries, AdminLibraryEditor } from '@/app/routes/admin-libraries'
 import { StudioMedia } from '@/app/routes/studio-media'
 import { Collections } from '@/app/routes/collections'
 import { AppLayout } from '@/app/app-layout'
@@ -77,6 +79,54 @@ export const router = createBrowserRouter([
         element: (
           <RequireRole roles={['admin']}>
             <Admin />
+          </RequireRole>
+        ),
+      },
+      {
+        path: '/admin/libraries',
+        element: (
+          <RequireRole roles={['admin']}>
+            <AdminLibraries />
+          </RequireRole>
+        ),
+      },
+      {
+        path: '/admin/libraries/new',
+        element: (
+          <RequireRole roles={['admin']}>
+            <AdminLibraryEditor />
+          </RequireRole>
+        ),
+      },
+      {
+        path: '/admin/libraries/:id',
+        element: (
+          <RequireRole roles={['admin']}>
+            <AdminLibraryEditor />
+          </RequireRole>
+        ),
+      },
+      {
+        path: '/admin/collections',
+        element: (
+          <RequireRole roles={['admin']}>
+            <AdminCollections />
+          </RequireRole>
+        ),
+      },
+      {
+        path: '/admin/collections/new',
+        element: (
+          <RequireRole roles={['admin']}>
+            <AdminCollectionEditor />
+          </RequireRole>
+        ),
+      },
+      {
+        path: '/admin/collections/:id',
+        element: (
+          <RequireRole roles={['admin']}>
+            <AdminCollectionEditor />
           </RequireRole>
         ),
       },
