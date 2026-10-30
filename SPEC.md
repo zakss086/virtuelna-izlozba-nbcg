@@ -70,6 +70,10 @@ A curator opens Studio -> Media library (`/studio/media`) and uploads a picture 
 
 An admin opens Administration -> Edit site content (`/admin/content`) and edits 62 site texts in both languages, in seven groups with a search: Home, Collections/Video/Map, About, the descriptions of the eight viewing modes, hints and notices (including the citation format), sign-in and the footer.
 
+A curator can add videos to an exhibition in the editor (Videos): a YouTube or Vimeo link, or the address of a video file, with titles and descriptions in both languages, author and licence. A YouTube or Vimeo video is not loaded until a visitor presses play, so no third-party cookies or tracking are set before that.
+
+A shared link to an exhibition shows its title, description and picture in Facebook, Viber and LinkedIn, and search engines read a sitemap and structured data (the backend answers `/exhibitions/:slug`, `/sitemap.xml` and `/robots.txt`).
+
 An admin opens Administration -> History of changes (`/admin/history`) to see who changed what and when, newest first: exhibitions and their status moves, site texts, libraries, collections, accounts and uploaded files. The list can be narrowed to one kind of record. Entries are written automatically, cannot be edited, and never contain passwords. With `pnpm dev` (mock data) the page shows a fixed sample; the real history needs `pnpm dev:api`.
 
 An admin opens Administration -> Users to create an account (name, email, role, first password), change a role, switch an account off or on and set a new password. A switched-off account cannot sign in and its token stops working at once; an admin cannot change their own role or switch themselves off. Labels of buttons and menus, and the texts of the exhibition editor and the assistant, are not offered. A text that contains marks like `{title}` can be edited only while the marks stay in both languages. A saved text replaces the default for every visitor (kept in the database with `pnpm dev:api`, in memory with `pnpm dev`); "Restore default" deletes it. Both languages are required.

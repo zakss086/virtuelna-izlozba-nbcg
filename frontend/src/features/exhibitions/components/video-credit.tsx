@@ -6,6 +6,15 @@ import type { ExhibitionVideo } from '../types'
 
 type VideoCreditProps = { video: ExhibitionVideo; className?: string }
 
+// The name of the site the original is on, e.g. "commons.wikimedia.org" or "youtube.com".
+function siteName(url: string) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '')
+  } catch {
+    return 'Link'
+  }
+}
+
 // Author, licence and the page of the original: shown wherever a video is shown.
 export function VideoCredit({ video, className }: VideoCreditProps) {
   const { t } = useI18n()
@@ -20,7 +29,7 @@ export function VideoCredit({ video, className }: VideoCreditProps) {
         className="inline-flex items-center gap-1 text-gold hover:underline"
       >
         <ExternalLink className="size-3" aria-hidden="true" />
-        Commons
+        {siteName(video.sourceUrl)}
       </a>
     </p>
   )

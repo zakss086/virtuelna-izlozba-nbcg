@@ -4,6 +4,8 @@ import type { ReactNode } from 'react'
 import { useI18n } from '@/lib/i18n'
 
 import type { ExhibitionVideo } from '../types'
+import { VideoEmbed } from './video-embed'
+import { parseEmbedSource } from './video-embed-source'
 
 type VideoCardProps = {
   video: ExhibitionVideo
@@ -13,18 +15,25 @@ type VideoCardProps = {
 
 export function VideoCard({ video, footer }: VideoCardProps) {
   const { t, l } = useI18n()
+  const embed = parseEmbedSource(video.src)
 
   return (
     <figure className="flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground">
-      <video
-        controls
-        preload="metadata"
-        playsInline
-        aria-label={l(video.title)}
-        className="aspect-video w-full bg-ink"
-      >
-        <source src={video.src} type="video/webm" />
-      </video>
+      {embed ? (
+        <div className="aspect-video w-full">
+          <VideoEmbed video={video} source={embed} />
+        </div>
+      ) : (
+        <video
+          controls
+          preload="metadata"
+          playsInline
+          aria-label={l(video.title)}
+          className="aspect-video w-full bg-ink"
+        >
+          <source src={video.src} type="video/webm" />
+        </video>
+      )}
       <figcaption className="flex flex-1 flex-col gap-2 p-4">
         <h3 className="text-lg font-semibold">{l(video.title)}</h3>
         <p className="text-sm text-muted-foreground">{l(video.description)}</p>

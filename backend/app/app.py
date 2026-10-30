@@ -18,6 +18,7 @@ from app.database.session_factory import ISessionFactory
 from app.database.session_handler import db_session_handler
 from app.deps import get_di_entity
 from app.routes import api_router
+from app.seo.routes import router as seo_router
 from app.utils.di import get_from_di_container
 from app.utils.exceptions import (
     AppBaseException,
@@ -141,6 +142,7 @@ def setup_app() -> FastAPI:
     app = FastAPI(title="AI-DEV API", version="0.1.0", redirect_slashes=False)
 
     app.include_router(api_router)
+    app.include_router(seo_router)
 
     load_all_models()
 
