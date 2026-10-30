@@ -19,8 +19,8 @@ export function ExhibitionCard({ exhibition, action, to }: ExhibitionCardProps) 
   const objects = exhibition.sections.reduce((sum, s) => sum + s.items.length, 0)
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground transition-shadow hover:shadow-lg">
-      <div className="passepartout relative aspect-[16/10] overflow-hidden bg-ink">
+    <article className="exh-card group relative flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground transition-shadow hover:shadow-lg">
+      <div className="card-cover passepartout relative aspect-[16/10] overflow-hidden bg-ink">
         <SmartImage
           src={exhibition.coverUrl}
           alt=""
@@ -32,7 +32,7 @@ export function ExhibitionCard({ exhibition, action, to }: ExhibitionCardProps) 
         </Badge>
         {action && <div className="absolute right-3 top-3 z-10">{action}</div>}
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-4">
+      <div className="card-body flex flex-1 flex-col gap-2 p-4">
         <p className="text-xs uppercase tracking-widest text-gold">{exhibition.period}</p>
         <h3 className="text-xl font-semibold leading-snug">
           <Link

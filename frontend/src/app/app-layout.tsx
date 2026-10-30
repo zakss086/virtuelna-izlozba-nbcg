@@ -7,6 +7,7 @@ import { ContentSync } from '@/app/content-sync'
 import { BraidDivider } from '@/components/braid-divider'
 import { BrandLogo } from '@/components/brand-logo'
 import { OfflineBanner } from '@/components/offline-banner'
+import { LookSwitcher } from '@/components/look-switcher'
 import { Toaster } from '@/components/toaster'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -226,6 +227,7 @@ export function AppLayout() {
       </main>
 
       <Toaster />
+      <LookSwitcher />
       <AssistantHost />
 
       <footer className="bg-ink text-on-ink print:hidden">
