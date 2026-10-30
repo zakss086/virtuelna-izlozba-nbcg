@@ -15,6 +15,7 @@ const About = page(() => import('@/app/routes/about'), 'About')
 const Admin = page(() => import('@/app/routes/admin'), 'Admin')
 const AdminCollections = page(() => import('@/app/routes/admin-collections'), 'AdminCollections')
 const AdminCollectionEditor = page(() => import('@/app/routes/admin-collections'), 'AdminCollectionEditor')
+const AdminHistory = page(() => import('@/app/routes/admin-history'), 'AdminHistory')
 const AdminContent = page(() => import('@/app/routes/admin-content'), 'AdminContent')
 const AdminLibraries = page(() => import('@/app/routes/admin-libraries'), 'AdminLibraries')
 const AdminLibraryEditor = page(() => import('@/app/routes/admin-libraries'), 'AdminLibraryEditor')
@@ -59,6 +60,7 @@ export const router = createBrowserRouter([
       { path: '/admin/collections/new', element: admin(<AdminCollectionEditor />) },
       { path: '/admin/collections/:id', element: admin(<AdminCollectionEditor />) },
       { path: '/admin/content', element: admin(<AdminContent />) },
+      { path: '/admin/history', element: admin(<AdminHistory />) },
       { path: '*', element: <NotFound /> },
     ],
   },

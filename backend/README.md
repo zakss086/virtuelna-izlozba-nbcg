@@ -47,7 +47,7 @@ before the API leaves your computer.
 ## Everyday commands
 
 ```bash
-poetry run test                                   # 144 tests: unit (services mocked) and integration (temporary SQLite)
+poetry run test                                   # 159 tests: unit (services mocked) and integration (temporary SQLite)
 poetry run lint                                   # ruff + black; `--fix` fixes and formats
 poetry run typecheck                              # mypy, strict
 poetry run makemigrations "what changed"          # after changing a model; read the generated file
@@ -84,6 +84,7 @@ app/media/          media library: model, file store, service (type check by con
 app/libraries/      libraries of the map: model (all-or-nothing position), service, endpoints
 app/collections/    collections of the digital library: model, service, endpoints
 app/users/          user model, admin account management
+app/audit/          history of changes: entries written by the other services, admin-only list
 app/auth/           sign-in, JWT, password hashing
 app/utils/          error shape, camelCase schemas, pagination, DI, slugs
 app/seed.py         demo accounts and exhibitions (idempotent); data in app/seed_data/exhibitions.json

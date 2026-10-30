@@ -151,6 +151,23 @@ under a random name and served publicly at `url`; the record keeps the author an
 The editor stores the chosen picture in the object (`imageUrl`, `rights` = "licence · credit", `sourceUrl`), not a reference to the asset, so an
 exhibition keeps working if the library is rearranged; deleting a file leaves a missing picture in exhibitions that use it.
 
+## AuditEntry
+One change made by a signed-in user, kept so an admin can see who changed what and when. Code: `frontend/src/features/audit/`, `backend/app/audit/`. Entries are written by the backend in the same transaction as the change (a refused or failed change leaves none); there is no way to edit or delete one. Only admins read them.
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| id | number | yes | |
+| createdAt | date | yes | assigned by the backend |
+| actorId | number | no | the user who made the change; missing if the account was later removed |
+| actorName | string | yes | copied at the time, so the entry stays readable |
+| action | `create` \| `update` \| `delete` | yes | |
+| entityType | `exhibition` \| `content` \| `library` \| `collection` \| `user` \| `media` | yes | |
+| entityRef | string | yes | the record's id, or the message key for site texts |
+| label | string | yes | what it was called then (exhibition title, library name, account name and email, text key, file name), at most 200 characters |
+| detail | string | no | codes separated by ", " that the frontend translates: `status=draft>pending`, `status=draft`, `role=curator>admin`, `role=curator`, `switched_on`, `switched_off`, `new_password`, `default_restored`, `type=image/png`, `size=1200`, or the names of the changed fields |
+
+Never stored: passwords, file contents, or the full text of an edit.
+
 ## Favorite
 Saved exhibitions of a visitor. Visitors have no account, so favorites live only in the visitor's browser (`localStorage`, `frontend/src/features/favorites/`). The backend does not store them.
 
@@ -197,6 +214,13 @@ There is no sign-out call (the client drops the token) and no public registratio
 chooses the role and a first password and hands both to the person. `poetry run seed` creates the three demo accounts, password `demo1234`.
 User: `{ id, name, email, role, isActive, createdAt }`. An admin cannot change their own role or switch themselves off. A switched-off account
 gets `403 account_disabled` on sign-in (after the right password) and `401 invalid_token` on any call with an older token.
+
+### History of changes
+| Route | Auth | Query | Response |
+|---|---|---|---|
+| `GET /api/audit?entityType=&page=&size=` | admin | `entityType` is one of the six kinds | `200` page of entries, newest first; `401`, `403` `admin_only`, `422` for an unknown kind |
+
+Recorded: creating, changing and deleting exhibitions (including every status move), site texts (and restoring the default), libraries, collections, accounts (role, on/off, new password; never the password itself) and uploaded files.
 
 ### Exhibitions
 Create and PATCH bodies have the fields of **Exhibition** above except `id`, `slug`, `authorId`, `authorName`, `createdAt`; sections have no `id`.

@@ -5,6 +5,7 @@ from unittest.mock import Mock, create_autospec
 
 import pytest
 
+from app.audit.services.audit import IAuditService
 from app.auth.services.auth import IAuthService
 from app.collections.services.collection import ICollectionService
 from app.content.services.content import IContentService
@@ -35,6 +36,14 @@ def auth_service() -> Generator[Mock]:
     yield mock_service
     # removing the override restores the original service because it is a "factory"
     remove_from_di_container(IAuthService)
+
+
+@pytest.fixture
+def audit_service() -> Generator[Mock]:
+    mock_service = create_autospec(IAuditService, instance=True)
+    add_to_di_container(IAuditService, mock_service)
+    yield mock_service
+    remove_from_di_container(IAuditService)
 
 
 @pytest.fixture

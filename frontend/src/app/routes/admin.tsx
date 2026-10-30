@@ -1,4 +1,4 @@
-import { FileText, Landmark, LibraryBig } from 'lucide-react'
+import { FileText, History, Landmark, LibraryBig } from 'lucide-react'
 import { Link } from 'react-router'
 
 import { Button } from '@/components/ui/button'
@@ -39,6 +39,12 @@ export function Admin() {
             <Link to="/admin/collections">
               <LibraryBig />
               {t('adm.collections.title')}
+            </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link to="/admin/history">
+              <History />
+              {t('audit.link')}
             </Link>
           </Button>
         </div>

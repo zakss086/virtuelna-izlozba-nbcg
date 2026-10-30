@@ -13,6 +13,7 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import delete
 
+from app.audit.models.audit import AuditEntry
 from app.auth.password import hash_password
 from app.collections.models.collection import Collection
 from app.config.settings import DBSettings, Settings
@@ -78,6 +79,7 @@ def clean_tables() -> Generator[None]:
     yield
     session_factory = get_from_di_container(ISessionFactory)
     with session_factory() as session:
+        session.execute(delete(AuditEntry))
         session.execute(delete(Collection))
         session.execute(delete(Library))
         session.execute(delete(MediaAsset))

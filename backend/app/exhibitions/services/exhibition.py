@@ -4,6 +4,8 @@ from typing import Protocol
 
 from sqlalchemy.exc import IntegrityError
 
+from app.audit.models.audit import AuditAction, AuditEntityType
+from app.audit.services.audit import IAuditService
 from app.auth.schemas.auth import CurrentUser
 from app.exhibitions.exceptions.exhibition import (
     ExhibitionNotFoundException,
@@ -126,8 +128,11 @@ def build_exhibition(data: ExhibitionCreateRequestSchema, author_id: int, slug: 
 
 @inject(alias=IExhibitionService)
 class ExhibitionService(IExhibitionService):
-    def __init__(self, exhibition_repository: IExhibitionRepository) -> None:
+    def __init__(
+        self, exhibition_repository: IExhibitionRepository, audit_service: IAuditService
+    ) -> None:
         self._exhibition_repository = exhibition_repository
+        self._audit_service = audit_service
 
     def list(
         self,
@@ -180,6 +185,7 @@ class ExhibitionService(IExhibitionService):
             saved = self._exhibition_repository.add(exhibition)
         except IntegrityError as e:
             raise SlugTakenException from e
+        self._record(current_user, AuditAction.CREATE, saved, f"status={saved.status}")
         return ExhibitionResponseSchema.model_validate(saved)
 
     def update(
@@ -187,6 +193,7 @@ class ExhibitionService(IExhibitionService):
     ) -> ExhibitionResponseSchema:
         exhibition = self._get_editable(exhibition_id, current_user)
         changes = data.model_dump(exclude_unset=True)
+        old_status = exhibition.status
 
         if data.status is not None:
             self._check_status(
@@ -209,7 +216,12 @@ class ExhibitionService(IExhibitionService):
         if data.videos is not None:
             exhibition.videos = _build_videos(data.videos)
 
-        return ExhibitionResponseSchema.model_validate(self._exhibition_repository.save(exhibition))
+        saved = self._exhibition_repository.save(exhibition)
+        notes = sorted(data.model_fields_set - {"status"})
+        if saved.status != old_status:
+            notes.append(f"status={old_status}>{saved.status}")
+        self._record(current_user, AuditAction.UPDATE, saved, ", ".join(notes))
+        return ExhibitionResponseSchema.model_validate(saved)
 
     def set_status(
         self, exhibition_id: int, status: ExhibitionStatus, current_user: CurrentUser
@@ -218,11 +230,35 @@ class ExhibitionService(IExhibitionService):
         self._check_status(
             current_user=current_user, current=ExhibitionStatus(exhibition.status), wanted=status
         )
+        old_status = exhibition.status
         exhibition.status = status
-        return ExhibitionResponseSchema.model_validate(self._exhibition_repository.save(exhibition))
+        saved = self._exhibition_repository.save(exhibition)
+        if saved.status != old_status:
+            self._record(
+                current_user, AuditAction.UPDATE, saved, f"status={old_status}>{saved.status}"
+            )
+        return ExhibitionResponseSchema.model_validate(saved)
 
     def delete(self, exhibition_id: int, current_user: CurrentUser) -> None:
-        self._exhibition_repository.delete(self._get_editable(exhibition_id, current_user))
+        exhibition = self._get_editable(exhibition_id, current_user)
+        self._record(current_user, AuditAction.DELETE, exhibition)
+        self._exhibition_repository.delete(exhibition)
+
+    def _record(
+        self,
+        current_user: CurrentUser,
+        action: AuditAction,
+        exhibition: Exhibition,
+        detail: str | None = None,
+    ) -> None:
+        self._audit_service.record(
+            current_user=current_user,
+            action=action,
+            entity_type=AuditEntityType.EXHIBITION,
+            entity_ref=exhibition.id,
+            label=exhibition.title["me"],
+            detail=detail,
+        )
 
     def _get_editable(self, exhibition_id: int, current_user: CurrentUser) -> Exhibition:
         exhibition = self._exhibition_repository.get_by_id(exhibition_id)
