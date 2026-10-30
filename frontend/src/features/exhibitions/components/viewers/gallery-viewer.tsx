@@ -109,7 +109,7 @@ export function GalleryViewer({ exhibition }: GalleryViewerProps) {
             value={sort}
             onValueChange={(value) => setSort(SORTS.find((s) => s === value) ?? 'default')}
           >
-            <SelectTrigger id="gallery-sort" className="w-44">
+            <SelectTrigger id="gallery-sort" className="w-52">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

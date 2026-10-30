@@ -1,5 +1,5 @@
 import { Heart, LogOut, Menu, Moon, Sun, UserRound, X } from 'lucide-react'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router'
 
 import { AssistantHost } from '@/app/assistant-host'
@@ -9,6 +9,7 @@ import { BrandLogo } from '@/components/brand-logo'
 import { OfflineBanner } from '@/components/offline-banner'
 import { Toaster } from '@/components/toaster'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { WelcomeBanner } from '@/components/welcome-banner'
 import { useCurrentUser, useSignOut } from '@/features/auth/api/use-auth'
 import { useFavorites } from '@/features/favorites/api/use-favorites'
@@ -219,7 +220,9 @@ export function AppLayout() {
       <WelcomeBanner />
 
       <main id="main" className="mx-auto w-full max-w-7xl flex-1 px-4 py-8">
-        <Outlet />
+        <Suspense fallback={<Skeleton className="h-64 w-full" aria-busy="true" aria-label={t('common.loading')} />}>
+          <Outlet />
+        </Suspense>
       </main>
 
       <Toaster />
