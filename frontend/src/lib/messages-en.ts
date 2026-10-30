@@ -489,6 +489,9 @@ export const en = {
   'videos.empty': 'No videos yet.',
   'videos.section': 'Video',
   'videos.credit': 'Source',
+  'videos.play': 'Play: {title}',
+  'videos.prev': 'Previous video',
+  'videos.next': 'Next video',
   'videos.all': 'All videos',
   'collections.title': 'Collections',
   'collections.lead':

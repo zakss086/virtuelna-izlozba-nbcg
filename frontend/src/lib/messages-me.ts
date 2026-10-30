@@ -488,6 +488,9 @@ export const me = {
   'videos.empty': 'Još nema video zapisa.',
   'videos.section': 'Video',
   'videos.credit': 'Izvor',
+  'videos.play': 'Pusti: {title}',
+  'videos.prev': 'Prethodni video',
+  'videos.next': 'Sljedeći video',
   'videos.all': 'Svi video zapisi',
   'collections.title': 'Zbirke',
   'collections.lead':
