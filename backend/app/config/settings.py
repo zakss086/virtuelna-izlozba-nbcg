@@ -23,5 +23,9 @@ class Settings(DBSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     ALGORITHM: str = "HS256"
 
+    # Uploaded pictures and videos (the media library): a folder on the server and a size limit per file.
+    MEDIA_DIR: str = "./data/media"
+    MAX_UPLOAD_MB: int = 50
+
     # NOTE: ALLOWED_ORIGINS='["http://localhost:5173","https://app.example.com"]'
     ALLOWED_ORIGINS: list[str] = ["http://localhost:5173"]

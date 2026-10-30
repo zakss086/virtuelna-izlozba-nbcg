@@ -13,6 +13,7 @@ The contract with the frontend is [`../docs/entities.md`](../docs/entities.md): 
 - **Exhibitions** with sections, objects and videos: public list and detail of published ones, create, edit, status flow
   (`draft` -> `pending` -> `published`), delete, with the ownership rules enforced on the server.
 - **Users** list for admins (`GET /api/users`).
+- **Media library**: upload of pictures and videos with author and licence, stored on the server and served publicly; the type is decided from the file's content, the size is limited, and a curator sees only their own files (`/api/media`, `/media/...`).
 - **Site content (CMS)**: an admin edits 62 site texts (pages, descriptions of the viewing modes, hints, footer) in both languages (`GET/PUT/DELETE /api/content`); a visitor sees the change at once.
 
 Authorization lives here, not only in the frontend guards: an anonymous caller sees published exhibitions only, a curator also their own,
@@ -45,7 +46,7 @@ before the API leaves your computer.
 ## Everyday commands
 
 ```bash
-poetry run test                                   # 73 tests: unit (services mocked) and integration (temporary SQLite)
+poetry run test                                   # 97 tests: unit (services mocked) and integration (temporary SQLite)
 poetry run lint                                   # ruff + black; `--fix` fixes and formats
 poetry run typecheck                              # mypy, strict
 poetry run makemigrations "what changed"          # after changing a model; read the generated file
@@ -78,6 +79,7 @@ The tests refuse to run on a non-SQLite database whose name does not contain `te
 ```
 app/exhibitions/    models (exhibitions, sections, exhibition_items, exhibition_videos), schemas, repository, service, api
 app/content/        edited site texts (CMS): model, repository, service, endpoints
+app/media/          media library: model, file store, service (type check by content), endpoints
 app/users/          user model, admin list
 app/auth/           sign-in, JWT, password hashing
 app/utils/          error shape, camelCase schemas, pagination, DI, slugs
@@ -95,7 +97,7 @@ The exhibition editor (Studio) is a CMS for exhibitions, and the first step of t
 What is still data inside the frontend and should move here next:
 
 1. ~~**Site content**~~ (done): the texts of Home, About, Collections, Video and the footer as bilingual blocks edited by an admin (`content_blocks`: key plus `{me, en}`).
-2. **Media library**: upload of pictures and video with author, licence and source, instead of pasted URLs (size and type limits, storage, URLs saved on the objects).
+2. ~~**Media library**~~ (done): `app/media/`, the page `/studio/media` and the picture picker in the editor; the files are on the server disk, a bucket would be another file store.
 3. **Libraries on the map**: the library list as a table an admin can edit, replacing `libraries-data.ts`.
 4. **Accounts and history**: an admin creates and disables staff accounts; a log of who published or changed what.
 

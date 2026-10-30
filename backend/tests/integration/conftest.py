@@ -19,6 +19,7 @@ from app.content.models.content import ContentBlock
 from app.database.base import Base
 from app.database.session_factory import ISessionFactory, SessionFactory
 from app.exhibitions.models.exhibition import Exhibition
+from app.media.models.media import MediaAsset
 from app.users.models.user import User, UserRole
 from app.utils.di import add_to_di_container, get_from_di_container
 from tests.utils import exhibition_body
@@ -75,6 +76,7 @@ def clean_tables() -> Generator[None]:
     yield
     session_factory = get_from_di_container(ISessionFactory)
     with session_factory() as session:
+        session.execute(delete(MediaAsset))
         session.execute(delete(ContentBlock))
         session.execute(delete(Exhibition))
         session.execute(delete(User))

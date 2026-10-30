@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import logging
+from pathlib import Path
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
@@ -145,6 +147,12 @@ def setup_app() -> FastAPI:
     add_liveness_and_readiness_checks(app)
 
     settings = get_from_di_container(Settings)
+
+    # Uploaded pictures and videos are public: visitors see them inside exhibitions. Only the types the upload
+    # accepts are ever stored there (no SVG or HTML), under random names.
+    media_dir = Path(settings.MEDIA_DIR)
+    media_dir.mkdir(parents=True, exist_ok=True)
+    app.mount("/media", StaticFiles(directory=media_dir), name="media")
 
     add_exception_handlers(app, settings)
 

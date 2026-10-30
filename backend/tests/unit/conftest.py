@@ -9,6 +9,7 @@ from app.auth.services.auth import IAuthService
 from app.content.services.content import IContentService
 from app.database.session_factory import ISessionFactory
 from app.exhibitions.services.exhibition import IExhibitionService
+from app.media.services.media import IMediaService
 from app.users.services.user import IUserService
 from app.utils.di import add_to_di_container, get_from_di_container, remove_from_di_container
 from tests.unit.utils import MockSessionFactory
@@ -48,6 +49,14 @@ def content_service() -> Generator[Mock]:
     add_to_di_container(IContentService, mock_service)
     yield mock_service
     remove_from_di_container(IContentService)
+
+
+@pytest.fixture
+def media_service() -> Generator[Mock]:
+    mock_service = create_autospec(IMediaService, instance=True)
+    add_to_di_container(IMediaService, mock_service)
+    yield mock_service
+    remove_from_di_container(IMediaService)
 
 
 @pytest.fixture

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import tempfile
 from collections.abc import Generator
 
 import pytest
@@ -11,8 +12,12 @@ from app.config.settings import DBSettings, Settings
 from app.utils.di import add_to_di_container
 from tests.utils import TestSettings
 
+# Uploaded files of the tests go to a temporary folder, with a 1 MB limit so the "too large" case is cheap.
 settings = TestSettings(
-    JWT_SECRET_KEY="test_secret_key_with_at_least_32_bytes!", DATABASE_URL="sqlite://"
+    JWT_SECRET_KEY="test_secret_key_with_at_least_32_bytes!",
+    DATABASE_URL="sqlite://",
+    MEDIA_DIR=tempfile.mkdtemp(prefix="nbcg-media-test-"),
+    MAX_UPLOAD_MB=1,
 )
 add_to_di_container(Settings, settings)
 add_to_di_container(DBSettings, settings)

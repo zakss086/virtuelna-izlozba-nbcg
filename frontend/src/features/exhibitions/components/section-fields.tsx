@@ -1,4 +1,5 @@
 import { Trash2 } from 'lucide-react'
+import type { ReactNode } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
@@ -7,6 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/lib/i18n'
+import type { ImageValue } from '@/lib/image-value'
 
 import { ITEM_TYPES } from '../types'
 import type { FormValues } from './exhibition-form-model'
@@ -15,18 +17,27 @@ import { FieldError } from './field-error'
 type SectionFieldsProps = {
   index: number
   onRemove?: () => void
+  /** Draws the picker of the object's picture; the media library fills this slot from the route. */
+  renderImagePicker?: (props: { value: ImageValue; onChange: (next: ImageValue) => void }) => ReactNode
 }
 
 const parseCoordinate = (value: string | null) => (value === '' || value === null ? null : Number(value))
 
 // One section of the exhibition form: texts, year, optional place and one object.
-export function SectionFields({ index, onRemove }: SectionFieldsProps) {
+export function SectionFields({ index, onRemove, renderImagePicker }: SectionFieldsProps) {
   const { t } = useI18n()
   const {
     register,
     control,
+    setValue,
+    watch,
     formState: { errors },
   } = useFormContext<FormValues>()
+  const image: ImageValue = {
+    url: watch(`sections.${index}.objectImageUrl`),
+    rights: watch(`sections.${index}.objectRights`),
+    sourceUrl: watch(`sections.${index}.objectSourceUrl`),
+  }
   const sectionErrors = errors.sections?.[index]
 
   return (
@@ -112,6 +123,15 @@ export function SectionFields({ index, onRemove }: SectionFieldsProps) {
         />
         <FieldError message={sectionErrors?.objectCreator?.message} />
       </div>
+      {renderImagePicker?.({
+        value: image,
+        onChange: (next) => {
+          const options = { shouldDirty: true }
+          setValue(`sections.${index}.objectImageUrl`, next.url, options)
+          setValue(`sections.${index}.objectRights`, next.rights, options)
+          setValue(`sections.${index}.objectSourceUrl`, next.sourceUrl, options)
+        },
+      })}
       <details className="rounded-lg border p-3 md:col-span-2">
         <summary className="cursor-pointer text-sm font-medium">{t('editor.objectDetails')}</summary>
         <div className="mt-3 grid gap-4 md:grid-cols-2">

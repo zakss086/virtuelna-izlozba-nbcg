@@ -118,6 +118,26 @@ A site text an admin has edited (CMS). Code: `frontend/src/features/content/`, `
 | value | Localized | yes | both languages, 1-20000 characters each |
 | updatedAt | date | yes | assigned by the backend |
 
+## MediaAsset
+A picture or video in the media library. Code: `frontend/src/features/media/`, `backend/app/media/`. The file itself is stored on the server (`MEDIA_DIR`)
+under a random name and served publicly at `url`; the record keeps the author and licence the site must show.
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| id | number | yes | |
+| url | string | yes | `/media/<random>.<ext>`, public, no token needed |
+| filename | string | yes | the name of the uploaded file, only shown |
+| contentType | `image/jpeg` \| `image/png` \| `image/webp` \| `image/gif` \| `video/mp4` \| `video/webm` | yes | decided by the server from the file's content |
+| size | number | yes | bytes, at most `MAX_UPLOAD_MB` (50 by default) |
+| credit | string | yes | author or source, 1-200 characters |
+| license | string | yes | e.g. "CC BY-SA 4.0", 1-100 characters |
+| sourceUrl | string (URL) | no | the page of the original |
+| uploadedById | number | no | the user who uploaded it; assigned by the backend |
+| createdAt | date | yes | assigned by the backend |
+
+The editor stores the chosen picture in the object (`imageUrl`, `rights` = "licence · credit", `sourceUrl`), not a reference to the asset, so an
+exhibition keeps working if the library is rearranged; deleting a file leaves a missing picture in exhibitions that use it.
+
 ## Favorite
 Saved exhibitions of a visitor. Visitors have no account, so favorites live only in the visitor's browser (`localStorage`, `frontend/src/features/favorites/`). The backend does not store them.
 
@@ -185,5 +205,15 @@ Sending the current status again is always allowed (the editor does it when an a
 | `PUT /api/content/:key` | admin | `{ value: { me, en } }` | `200` block (created or replaced), `403` `admin_only`, `422` bad key or an empty language |
 | `DELETE /api/content/:key` | admin | | `204`, `404` `content_block_not_found` when the text was never edited |
 
+### Media library
+| Route | Auth | Body | Response |
+|---|---|---|---|
+| `GET /api/media?page=&size=` | yes | | `200` page of assets: a curator sees their own, an admin all |
+| `POST /api/media` | yes | multipart form: `file`, `credit`, `license`, `sourceUrl?` | `201` asset, `400` `unsupported_media_type` or `file_too_large` (with `fieldErrors.file`), `422` |
+| `DELETE /api/media/:id` | uploader, admin | | `204`, `403` `not_media_owner`, `404` `media_not_found` |
+| `GET /media/:storedName` | no | | the file (not under `/api`) |
+
+Only JPEG, PNG, WebP and GIF pictures and MP4 and WebM videos are accepted; SVG and anything else is refused.
+
 ### Not in the API yet
-Libraries (`GET /libraries`) and collections are still data in the frontend; they move to the backend with the next CMS steps (media library, libraries as editable data), see `backend/README.md`.
+Libraries (`GET /libraries`) and collections are still data in the frontend; they move to the backend with the next CMS step (libraries and collections as editable data), see `backend/README.md`.

@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react'
+import { ImagePlus, Plus } from 'lucide-react'
 import { Link } from 'react-router'
 
 import { Button } from '@/components/ui/button'
@@ -16,12 +16,20 @@ export function Studio() {
     <section className="flex flex-col gap-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-4xl font-semibold">{t('studio.title')}</h1>
-        <Button asChild>
-          <Link to="/studio/new">
-            <Plus />
-            {t('studio.new')}
-          </Link>
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button asChild variant="outline">
+            <Link to="/studio/media">
+              <ImagePlus />
+              {t('media.title')}
+            </Link>
+          </Button>
+          <Button asChild>
+            <Link to="/studio/new">
+              <Plus />
+              {t('studio.new')}
+            </Link>
+          </Button>
+        </div>
       </div>
       <StudioList authorId={user.id} />
     </section>

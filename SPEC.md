@@ -58,6 +58,10 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 
 The API in `backend/` (FastAPI, SQLite or Postgres) implements the contract in `docs/entities.md`: staff sign-in with a token, exhibitions with sections, objects and videos, the draft -> pending -> published flow and the access rules, enforced on the server. `pnpm dev` runs the frontend on mock data, `pnpm dev:api` on the API.
 
+## Media library
+
+A curator opens Studio -> Media library (`/studio/media`) and uploads a picture or video with the author and the licence (and optionally the source page); an admin sees all files, a curator their own, and each can delete their file. In the exhibition editor every section has a picker for the picture of its object: choose a file from the library or upload one on the spot, and the picture, its author and licence travel with the object (and the first one becomes the cover). The server accepts only JPEG, PNG, WebP, GIF, MP4 and WebM, decided from the content of the file, up to 50 MB. With `pnpm dev` files live in memory until the page is reloaded; with `pnpm dev:api` they are stored on the server and served at `/media/...`.
+
 ## Site content (CMS)
 
 An admin opens Administration -> Edit site content (`/admin/content`) and edits 62 site texts in both languages, in seven groups with a search: Home, Collections/Video/Map, About, the descriptions of the eight viewing modes, hints and notices (including the citation format), staff sign-in and the footer. Labels of buttons and menus, and the texts of the exhibition editor and the assistant, are not offered. A text that contains marks like `{title}` can be edited only while the marks stay in both languages. A saved text replaces the default for every visitor (kept in the database with `pnpm dev:api`, in memory with `pnpm dev`); "Restore default" deletes it. Both languages are required.
@@ -85,7 +89,6 @@ Both are simulations that call no AI service and send no data anywhere.
 ## Later (not in the MVP)
 
 - Real backend, database and authentication (Workshop 4).
-- Upload of images and videos by curators; a media library.
 - Reordering sections by drag and drop; several objects per section in the editor; live preview.
 - User management by admins (create accounts, change roles); editing the About and Collections pages from the app.
 - Search inside exhibition texts; sharing and QR codes.

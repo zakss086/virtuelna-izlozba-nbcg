@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react'
 import { useNavigate } from 'react-router'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { useI18n } from '@/lib/i18n'
+import type { ImageValue } from '@/lib/image-value'
 import { showToast } from '@/lib/toast'
 
 import { useCreateExhibition, useExhibition, useUpdateExhibition } from '../api/use-exhibitions'
@@ -14,9 +16,10 @@ type EditorLoaderProps = {
   authorId: number
   authorName: string
   isAdmin: boolean
+  renderImagePicker?: (props: { value: ImageValue; onChange: (next: ImageValue) => void }) => ReactNode
 }
 
-export function EditorLoader({ id, authorId, authorName, isAdmin }: EditorLoaderProps) {
+export function EditorLoader({ id, authorId, authorName, isAdmin, renderImagePicker }: EditorLoaderProps) {
   const { t } = useI18n()
   const navigate = useNavigate()
   const existing = useExhibition(id)
@@ -49,6 +52,7 @@ export function EditorLoader({ id, authorId, authorName, isAdmin }: EditorLoader
       isSaving={create.isPending || update.isPending}
       onSubmit={handleSubmit}
       onCancel={() => navigate('/studio')}
+      renderImagePicker={renderImagePicker}
     />
   )
 }

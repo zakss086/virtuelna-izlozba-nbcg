@@ -9,6 +9,7 @@ __pycache__/
 
 # Local data and secrets
 data/*.db
+data/media/
 data/*.db-journal
 .env
 .env.*

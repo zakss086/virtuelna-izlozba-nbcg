@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Plus } from 'lucide-react'
+import type { ReactNode } from 'react'
 import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
@@ -8,6 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/lib/i18n'
+import type { ImageValue } from '@/lib/image-value'
 
 import { TEMPLATES, type Exhibition, type ExhibitionStatus, type NewExhibition } from '../types'
 import {
@@ -28,6 +30,7 @@ type ExhibitionFormProps = {
   isSaving: boolean
   onSubmit: (value: NewExhibition) => void
   onCancel: () => void
+  renderImagePicker?: (props: { value: ImageValue; onChange: (next: ImageValue) => void }) => ReactNode
 }
 
 export function ExhibitionForm({
@@ -37,6 +40,7 @@ export function ExhibitionForm({
   isSaving,
   onSubmit,
   onCancel,
+  renderImagePicker,
 }: ExhibitionFormProps) {
   const { t } = useI18n()
   const form = useForm<FormValues>({
@@ -147,6 +151,7 @@ export function ExhibitionForm({
               key={field.id}
               index={index}
               onRemove={fields.length > 1 ? () => remove(index) : undefined}
+              renderImagePicker={renderImagePicker}
             />
           ))}
           <Button type="button" variant="outline" className="w-fit" onClick={() => append(emptySection)}>
