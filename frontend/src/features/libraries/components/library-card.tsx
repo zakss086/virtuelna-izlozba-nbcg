@@ -24,8 +24,8 @@ export function LibraryCard({ library, distanceKm, selected, onSelect }: Library
   return (
     <li
       className={cn(
-        'flex gap-3 rounded-lg border p-3 transition-colors',
-        selected ? 'border-accent bg-secondary' : 'bg-card',
+        'relative flex gap-3 rounded-lg border p-3 transition-colors',
+        selected ? 'border-accent bg-secondary' : 'bg-card hover:border-accent/60 hover:bg-secondary/40',
       )}
     >
       {library.image ? (
@@ -37,7 +37,17 @@ export function LibraryCard({ library, distanceKm, selected, onSelect }: Library
       )}
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="font-heading text-base leading-snug font-semibold">{library.name}</h3>
+          <h3 className="font-heading text-base leading-snug font-semibold">
+            {/* the whole card is clickable: this button stretches over it (the other button stays above) */}
+            <button
+              type="button"
+              aria-current={selected}
+              onClick={() => onSelect(library.id)}
+              className="text-left after:absolute after:inset-0 after:content-[''] focus-visible:outline-2 focus-visible:outline-ring"
+            >
+              {library.name}
+            </button>
+          </h3>
           <Badge variant={library.type === 'national' ? 'accent' : 'secondary'} className="shrink-0">
             {t(`libraries.type.${library.type}`)}
           </Badge>
@@ -56,6 +66,7 @@ export function LibraryCard({ library, distanceKm, selected, onSelect }: Library
               type="button"
               variant="outline"
               size="sm"
+              className="relative z-10"
               aria-pressed={selected}
               onClick={() => onSelect(library.id)}
             >

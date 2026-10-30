@@ -135,8 +135,10 @@ export function MapExplorer({ places, renderLibraryActions }: MapExplorerProps) 
     else copy.delete('library')
     setPlaceId(next?.kind === 'place' ? next.id : undefined)
     setParams(copy, { replace: true })
-    // Choosing something from the list on a phone shows it on the map.
-    if (next) setPanel('map')
+    // Choosing something from the list on a phone shows it on the map, when it has a pin there.
+    const hasPin =
+      next?.kind === 'library' ? Boolean(data?.find((item) => item.id === next.id)?.location) : Boolean(next)
+    if (hasPin) setPanel('map')
   }
 
   function findNearest() {

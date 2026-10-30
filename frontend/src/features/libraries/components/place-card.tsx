@@ -18,16 +18,32 @@ export function PlaceCard({ place, selected, onSelect }: PlaceCardProps) {
   return (
     <li
       className={cn(
-        'flex items-center gap-3 rounded-lg border p-3',
-        selected ? 'border-accent bg-secondary' : 'bg-card',
+        'relative flex items-center gap-3 rounded-lg border p-3 transition-colors',
+        selected ? 'border-accent bg-secondary' : 'bg-card hover:border-accent/60 hover:bg-secondary/40',
       )}
     >
       <Diamond className="size-5 shrink-0 text-gold" aria-hidden="true" />
       <div className="min-w-0 flex-1">
-        <h3 className="font-heading text-base leading-snug font-semibold">{place.title}</h3>
+        <h3 className="font-heading text-base leading-snug font-semibold">
+          <button
+            type="button"
+            aria-current={selected}
+            onClick={() => onSelect(place.id)}
+            className="text-left after:absolute after:inset-0 after:content-[''] focus-visible:outline-2 focus-visible:outline-ring"
+          >
+            {place.title}
+          </button>
+        </h3>
         <p className="text-sm text-muted-foreground">{place.subtitle}</p>
       </div>
-      <Button type="button" variant="outline" size="sm" aria-pressed={selected} onClick={() => onSelect(place.id)}>
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        className="relative z-10"
+        aria-pressed={selected}
+        onClick={() => onSelect(place.id)}
+      >
         {t('libraries.showOnMap')}
       </Button>
     </li>
