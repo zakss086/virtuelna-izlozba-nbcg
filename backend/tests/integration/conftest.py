@@ -15,6 +15,7 @@ from sqlalchemy import delete
 
 from app.auth.password import hash_password
 from app.config.settings import DBSettings, Settings
+from app.content.models.content import ContentBlock
 from app.database.base import Base
 from app.database.session_factory import ISessionFactory, SessionFactory
 from app.exhibitions.models.exhibition import Exhibition
@@ -74,6 +75,7 @@ def clean_tables() -> Generator[None]:
     yield
     session_factory = get_from_di_container(ISessionFactory)
     with session_factory() as session:
+        session.execute(delete(ContentBlock))
         session.execute(delete(Exhibition))
         session.execute(delete(User))
         session.commit()

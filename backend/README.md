@@ -13,6 +13,7 @@ The contract with the frontend is [`../docs/entities.md`](../docs/entities.md): 
 - **Exhibitions** with sections, objects and videos: public list and detail of published ones, create, edit, status flow
   (`draft` -> `pending` -> `published`), delete, with the ownership rules enforced on the server.
 - **Users** list for admins (`GET /api/users`).
+- **Site content (CMS)**: an admin edits 62 site texts (pages, descriptions of the viewing modes, hints, footer) in both languages (`GET/PUT/DELETE /api/content`); a visitor sees the change at once.
 
 Authorization lives here, not only in the frontend guards: an anonymous caller sees published exhibitions only, a curator also their own,
 an admin everything; only the author or an admin changes an exhibition; only an admin publishes.
@@ -44,7 +45,7 @@ before the API leaves your computer.
 ## Everyday commands
 
 ```bash
-poetry run test                                   # 52 tests: unit (services mocked) and integration (temporary SQLite)
+poetry run test                                   # 73 tests: unit (services mocked) and integration (temporary SQLite)
 poetry run lint                                   # ruff + black; `--fix` fixes and formats
 poetry run typecheck                              # mypy, strict
 poetry run makemigrations "what changed"          # after changing a model; read the generated file
@@ -76,6 +77,7 @@ The tests refuse to run on a non-SQLite database whose name does not contain `te
 
 ```
 app/exhibitions/    models (exhibitions, sections, exhibition_items, exhibition_videos), schemas, repository, service, api
+app/content/        edited site texts (CMS): model, repository, service, endpoints
 app/users/          user model, admin list
 app/auth/           sign-in, JWT, password hashing
 app/utils/          error shape, camelCase schemas, pagination, DI, slugs
@@ -89,10 +91,10 @@ Texts in two languages are stored as JSON (`{"me": ..., "en": ...}`); a PATCH wi
 
 ## Next: the CMS
 
-The exhibition editor (Studio) already is a CMS for exhibitions. What is still data inside the frontend and should move here
-once the basics are settled:
+The exhibition editor (Studio) is a CMS for exhibitions, and the first step of the rest is done: **site content** (`app/content/`, the page `/admin/content`).
+What is still data inside the frontend and should move here next:
 
-1. **Site content**: the About page, the collections page and the home captions as bilingual blocks edited by an admin (`content_blocks`: key plus `{me, en}`).
+1. ~~**Site content**~~ (done): the texts of Home, About, Collections, Video and the footer as bilingual blocks edited by an admin (`content_blocks`: key plus `{me, en}`).
 2. **Media library**: upload of pictures and video with author, licence and source, instead of pasted URLs (size and type limits, storage, URLs saved on the objects).
 3. **Libraries on the map**: the library list as a table an admin can edit, replacing `libraries-data.ts`.
 4. **Accounts and history**: an admin creates and disables staff accounts; a log of who published or changed what.

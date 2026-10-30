@@ -1,5 +1,15 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from 'react'
 
+import { contentOverrides } from '@/lib/content-overrides'
 import { messages, type MessageKey } from '@/lib/messages'
 
 export type Lang = 'me' | 'en'
@@ -29,6 +39,8 @@ function readInitialLang(): Lang {
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(readInitialLang)
+  // Texts an admin edited in the CMS replace the default message of the same key.
+  const edited = useSyncExternalStore(contentOverrides.subscribe, contentOverrides.get)
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next)
@@ -48,13 +60,13 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       lang,
       setLang,
       t: (key, vars) => {
-        let text: string = messages[lang][key]
+        let text: string = edited[key]?.[lang] ?? messages[lang][key]
         if (vars) for (const [name, v] of Object.entries(vars)) text = text.replace(`{${name}}`, String(v))
         return text
       },
       l: (localized) => localized[lang],
     }),
-    [lang, setLang],
+    [lang, setLang, edited],
   )
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
