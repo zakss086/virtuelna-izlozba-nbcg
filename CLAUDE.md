@@ -26,5 +26,11 @@ UI copy is bilingual: Montenegrin (Latin script, never Cyrillic) and English. Ev
 - When an entity changes, update `docs/entities.md` in the same change
 - Run commands from the root; scripts are forwarded with `pnpm --filter <package>`
 
+## Course tools (in `.claude/`)
+- Commands: `/brief` (plan a feature before coding), `/new-entity` (a backend domain with tests and docs), `/review-changes` (before a commit), `/api-check` (run every route against `docs/entities.md`); frontend: `/new-feature`, `/new-page`, `/check`
+- Agents: `api-reviewer`, `contract-keeper`, `migration-reviewer`, `security-reviewer` (backend), `ui-reviewer` (frontend)
+- Hooks (settings.json): `guard-bash` and `guard-edits` block destructive commands and edits of secrets, lockfiles and committed migrations; `format` formats every edited file; `verify-changes` runs the Python checks when the agent finishes; `session-start` prints the repo state
+- CI: `.github/workflows/ci.yml` runs lint, typecheck and tests for the backend and typecheck, lint and build for the frontend on every push
+
 ## Done when
 `pnpm typecheck`, `pnpm lint` and `pnpm build` pass (and, for backend changes, `poetry run lint`, `typecheck` and `test` in `backend/`); changed screens checked at 375 px and 1440 px in both languages with no console errors.
