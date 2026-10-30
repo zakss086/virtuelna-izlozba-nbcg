@@ -60,7 +60,7 @@ The API in `backend/` (FastAPI, SQLite or Postgres) implements the contract in `
 
 ## Site content (CMS)
 
-An admin opens Administration -> Edit site content (`/admin/content`) and edits 15 site texts in both languages: the home lead, the "more than a catalogue" block and the hero captions, the Collections and Video leads, the About lead, mission, contact and credits, and the footer note. A saved text replaces the default for every visitor (kept in the database with `pnpm dev:api`, in memory with `pnpm dev`); "Restore default" deletes it. Both languages are required.
+An admin opens Administration -> Edit site content (`/admin/content`) and edits 62 site texts in both languages, in seven groups with a search: Home, Collections/Video/Map, About, the descriptions of the eight viewing modes, hints and notices (including the citation format), staff sign-in and the footer. Labels of buttons and menus, and the texts of the exhibition editor and the assistant, are not offered. A text that contains marks like `{title}` can be edited only while the marks stay in both languages. A saved text replaces the default for every visitor (kept in the database with `pnpm dev:api`, in memory with `pnpm dev`); "Restore default" deletes it. Both languages are required.
 
 ## Exhibition page
 

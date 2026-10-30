@@ -20,7 +20,7 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 - **No accounts for visitors, two staff roles**: visitors browse and save favorites in their browser; curators build and submit exhibitions; admins publish them and manage users.
 - **Serious exhibition pages**: a curator's introduction, facts about the exhibition, a ready-made citation, a "view as" switch between all eight viewers, full screen, a printable PDF catalogue, related exhibitions, and object dialogs with zoom, extra catalogue details (shelf mark, language, material, dimensions) and a download button where the licence allows.
 - **Bilingual UI and content** (Montenegrin Latin + English), light and dark theme, favorites, responsive from 375 px to 1440 px.
-- **Editable site content (CMS)**: an admin edits the texts of the home, About, Collections and Video pages and the footer in both languages (Administration -> Edit site content); visitors see the change at once, and "Restore default" brings the original back.
+- **Editable site content (CMS)**: an admin edits 62 texts (the pages, the descriptions of the viewing modes, hints and the footer) in both languages (Administration -> Edit site content); visitors see the change at once, and "Restore default" brings the original back.
 - **Accessible**: semantic HTML, labelled forms, visible focus, contrast above 4.5:1, reduced-motion friendly.
 - **Clear feedback**: loading skeletons, a retry button when data fails to load, a confirmation or error message for every action, a confirmation dialog before deleting, and a notice when the connection drops.
 

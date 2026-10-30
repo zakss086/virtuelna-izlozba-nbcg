@@ -9,6 +9,7 @@ import { messages, type MessageKey } from '@/lib/messages'
 import { showToast } from '@/lib/toast'
 
 import { useResetContentBlock, useSaveContentBlock } from '../api/use-content'
+import { marksOf, missingMarks } from '../placeholders'
 import type { ContentBlock } from '../types'
 
 type ContentFieldProps = { messageKey: MessageKey; block: ContentBlock | undefined }
@@ -25,6 +26,10 @@ export function ContentField({ messageKey, block }: ContentFieldProps) {
   const shownEn = block?.value.en ?? messages.en[messageKey]
   const changed = me !== shownMe || en !== shownEn
   const complete = me.trim() !== '' && en.trim() !== ''
+  const marks = marksOf(messages.me[messageKey])
+  const lost = [
+    ...new Set([...missingMarks(messages.me[messageKey], me), ...missingMarks(messages.en[messageKey], en)]),
+  ]
   const busy = save.isPending || reset.isPending
 
   function onSave() {
@@ -74,9 +79,15 @@ export function ContentField({ messageKey, block }: ContentFieldProps) {
           />
         </div>
       </div>
+      {marks.length > 0 && (
+        <p className="text-sm text-muted-foreground">{t('cms.keep', { list: marks.join(' ') })}</p>
+      )}
       {!complete && <p className="text-sm text-destructive">{t('cms.bothLanguages')}</p>}
+      {lost.length > 0 && (
+        <p className="text-sm text-destructive">{t('cms.missingMarks', { list: lost.join(' ') })}</p>
+      )}
       <div className="flex flex-wrap gap-2">
-        <Button onClick={onSave} disabled={!changed || !complete || busy}>
+        <Button onClick={onSave} disabled={!changed || !complete || lost.length > 0 || busy}>
           {t('cms.save')}
         </Button>
         {block && (

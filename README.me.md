@@ -20,7 +20,7 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 - **Ozbiljnija stranica izložbe**: kustoski uvod, podaci o izložbi, gotov citat, prebacivanje između svih osam načina prikaza, cio ekran, katalog za štampu (PDF), slične izložbe i prozor objekta sa zumiranjem, dodatnim podacima (signatura, jezik, materijal, dimenzije) i dugmetom za preuzimanje tamo gdje licenca dozvoljava.
 - **Bez naloga za posjetioce, dvije uloge osoblja**: posjetioci razgledaju izložbe i čuvaju omiljene u pregledaču; kustosi prave i šalju izložbe na objavu; administratori ih objavljuju i upravljaju korisnicima.
 - Dvojezičan sadržaj, svijetla i tamna tema, sačuvane izložbe, prilagođen prikaz od 375 do 1440 px.
-- **Uređivanje sadržaja sajta (CMS)**: administrator uređuje tekstove početne, stranica O nama, Zbirke i Video i podnožja na oba jezika (Administracija -> Uredi sadržaj sajta); posjetioci izmjenu vide odmah, a „Vrati zadano“ vraća početni tekst.
+- **Uređivanje sadržaja sajta (CMS)**: administrator uređuje 62 teksta (stranice, opisi načina prikaza, uputstva i podnožje) na oba jezika (Administracija -> Uredi sadržaj sajta); posjetioci izmjenu vide odmah, a „Vrati zadano“ vraća početni tekst.
 - Pristupačnost: semantički HTML, oznake na poljima, vidljiv fokus, kontrast iznad 4.5:1.
 - Jasne poruke korisniku: prikaz učitavanja, dugme „Pokušaj ponovo“ pri grešci, potvrda ili upozorenje za svaku radnju, potvrda prije brisanja i obavještenje kad se prekine veza.
 

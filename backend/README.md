@@ -13,7 +13,7 @@ The contract with the frontend is [`../docs/entities.md`](../docs/entities.md): 
 - **Exhibitions** with sections, objects and videos: public list and detail of published ones, create, edit, status flow
   (`draft` -> `pending` -> `published`), delete, with the ownership rules enforced on the server.
 - **Users** list for admins (`GET /api/users`).
-- **Site content (CMS)**: an admin edits the texts of the home, About, Collections, Video pages and the footer in both languages (`GET/PUT/DELETE /api/content`); a visitor sees the change at once.
+- **Site content (CMS)**: an admin edits 62 site texts (pages, descriptions of the viewing modes, hints, footer) in both languages (`GET/PUT/DELETE /api/content`); a visitor sees the change at once.
 
 Authorization lives here, not only in the frontend guards: an anonymous caller sees published exhibitions only, a curator also their own,
 an admin everything; only the author or an admin changes an exhibition; only an admin publishes.

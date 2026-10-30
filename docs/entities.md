@@ -109,8 +109,8 @@ Source of the sample data: names from the COBISS.CG statistics for 2025 (full me
 
 ## ContentBlock
 A site text an admin has edited (CMS). Code: `frontend/src/features/content/`, `backend/app/content/`. The default texts live in the frontend
-(`messages-me.ts`, `messages-en.ts`); a block with the same `key` replaces the default, and deleting the block brings it back. Only the keys listed in
-`frontend/src/features/content/editable-keys.ts` are offered for editing.
+(`messages-me.ts`, `messages-en.ts`); a block with the same `key` replaces the default, and deleting the block brings it back. The keys offered for editing (62) are listed in
+`frontend/src/features/content/editable-keys.ts`; the API itself accepts any valid key.
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
