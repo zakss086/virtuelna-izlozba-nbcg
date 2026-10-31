@@ -1,6 +1,6 @@
 # Prompts and AI workflow
 
-How the app was built with Claude Code (AI-DEV 2026, Workshop 3). The original requests were written in Montenegrin; they are paraphrased here in English. The log follows the order in which things happened and ends with what went wrong and what was learned.
+How the app was built with Claude Code (AI-DEV 2026, Workshops 3 and 4). The original requests were written in Montenegrin; they are paraphrased here in English. The log follows the order in which things happened and ends with what went wrong and what was learned.
 
 Related documents: [`CLAUDE.md`](CLAUDE.md) (rules for the agent), [`SPEC.md`](SPEC.md) (product), [`PLAN.md`](PLAN.md) (milestones), [`docs/entities.md`](docs/entities.md) (data and API contract), [`frontend/DESIGN.md`](frontend/DESIGN.md) (design).
 
@@ -8,10 +8,11 @@ Related documents: [`CLAUDE.md`](CLAUDE.md) (rules for the agent), [`SPEC.md`](S
 
 | | |
 |---|---|
-| Commits | 21, in two days (23 to 24 October 2026) |
-| Source files | 96 TypeScript files in `frontend/src`, in 5 features (`exhibitions`, `auth`, `favorites`, `collections`, `about`) |
-| Screens checked | 16, at 375 px and 1440 px |
-| Screenshots in the README | 11 |
+| Commits | 66, in nine days (23 to 31 October 2026) |
+| Source files | 204 TypeScript files in `frontend/src`, in 10 features (`exhibitions`, `auth`, `favorites`, `collections`, `about`, `assistant`, `libraries`, `content`, `media`, `audit`), and 79 Python files in `backend/app`, in 9 domains |
+| Screens checked | all public and staff pages, at 375 px and 1440 px, in both languages |
+| Screenshots in the README | 18 |
+| Automated tests | 172 in the backend (unit with mocked services, integration on SQLite and on Postgres); CI runs them on every push |
 | Checks run after each change | `typecheck`, `lint` (including the feature boundary check), `build` |
 
 ## 1. Way of working
@@ -84,6 +85,17 @@ This is the shape of a request that worked well: it names the screen, the behavi
 | Continue: libraries on the map and collections as data an admin edits. | Two domains in the backend (`libraries` with an all-or-nothing position enforced by a database check, `collections`; public reads, admin-only writes; a shared `require_admin`; seed from `export-seed`; 25 new tests, 122 in total) and the frontend: both read from the API with `pnpm dev:api`, and Administration has lists and forms for them (an emptied optional field is sent as `null`, which clears it). Checked in the browser: 39 libraries listed, a pin added, an incomplete pin refused, a phone and a pin cleared, a collection created, moved and deleted. |
 | Is there a way to add a library in "Libraries on the map"? Add a way to place it by clicking on the map, and a shortcut on the map. | The library form got a small map: a click fills latitude and longitude (and sets the accuracy to exact), typing the coordinates moves the pin, and the three values are checked together. The Map page shows an admin "Add a library" and, for the selected library, "Edit" (put in place by the route, so the libraries feature does not depend on auth). Checked in the browser: a click on the map filled the fields and the library was saved with its pin. |
 | Fix what is needed. Also: does the user get notices when something fails or loads slowly, and is the site built on modern design principles? | Audit of user feedback, then toasts for every action, an error notice with a retry button, an offline banner, a delete dialog instead of `window.confirm`, and polite bilingual messages. |
+| Build account management (an admin creates accounts, sets roles, switches accounts off), and rename "Staff sign-in" to just "Sign in". | Backend: create and change accounts (role, on/off, new password), an `is_active` column with its migration, a switched-off account refused at sign-in and its token refused at once, an admin cannot demote or switch off themselves; frontend: a table with a role select, switch and new password per row, and a form for a new account; 24 new tests. Checked in the browser against the real API: an account was created, switched off, and its old token answered `invalid_token`. |
+| Fix everything that needs fixing, optimize, and check all pages so that nothing is clipped wrongly or too much. | A scripted audit of every public and staff page at 375 px and 1440 px in both languages (page overflow, elements out of view, clipped text, broken images, missing labels, raw translation keys): one real finding (a select that clipped 3 px of text). Every page now loads on demand: the main bundle fell from 895 kB to 320 kB (268 to 99 kB gzipped). |
+| Add a history of changes. | An `audit` domain: a table written by the other services in the same transaction as the change (exhibitions with each status move, site texts, libraries, collections, accounts, uploaded files), an admin-only `GET /api/audit` with a filter, and a page `/admin/history`. The detail is stored as codes and translated in the browser, so one entry reads right in both languages; passwords are never written. 15 new tests. |
+| The video gallery should be more modern and prettier, with some effects. | Three variants on temporary routes (`/v1` theatre, `/v2` mosaic with hover previews, `/v3` film strip) with screenshots; the film strip was chosen, the other two deleted. Used on the video page and on the home page. |
+| Give me three proposals for a more modern look of the whole site. | Three looks (A gallery, B dark cabinet, C manuscript) as a temporary switcher on the real site, each checked at both widths. The owner kept the original look, so all three were removed again with a revert commit. |
+| Can videos from YouTube and social networks be added, and what makes the site compatible with international services and aggregators? | Answered first (what is possible and what is not worth it), then built the cheap part: a YouTube or Vimeo link in the editor, loaded only on play through the privacy-friendly player; the backend answers `/exhibitions/:slug` with title, picture and structured data in the head, plus `sitemap.xml` and `robots.txt`; 10 new tests, including text that tries to break out of the tags. The editor had no field for videos at all, so one was added. |
+| Add a checkbox "let visitors change the way it is shown". | A new exhibition field `allowViewSwitch` (default on) with a migration, in the API, the editor and the contract; when off, the "View as" choice is hidden and a hand-typed `?view=` is ignored. |
+| Is the interactive map right, and what could make it more attractive and useful? Do 1 to 6. | The map frames Montenegro and has a toned-down base map; pins with an icon per kind of library and a legend; distance to every library, the list sorted by it, "Directions" and "Copy link"; a list/map switch on phones; a time slider with a play button; a numbered route for the selected exhibition's stops. |
+| The map behaves oddly when scrolling and clips the main bar; clicking a library card on the left does not select it on the map. | The map had its own z-index range (400 to 1000) above the sticky header (40), so it now has its own stacking context; the title of a card is a button stretched over the whole card, and a library without a pin can be selected too. |
+| Extract the course starters to the desktop as they were on GitHub, then put back into the project everything the course prescribes. | Clean copies of the frontend and backend starters in `Polazne osnove`. Comparing them with the project showed that the merge of the backend had dropped the reviewer agents, the commands, the hooks, the course's settings and the CI; they were restored and adapted to a repository whose backend is in `backend/`. Two skill descriptions and two agent descriptions were invalid YAML (an unquoted colon) and were quoted. |
+| Update GitHub in the style so far with what has been done. | README (English and Montenegrin), PLAN, SPEC and this file brought up to date, with new screenshots of the film strip and the new map. |
 
 ## 5. What the agent got wrong, and how it was fixed
 
@@ -100,10 +112,16 @@ Reviewing the result critically was part of the work. These are the real problem
 | Users got no feedback when an action succeeded or failed. | Mutations had no callbacks, errors were a generic line without a retry button, and delete used the browser's `confirm`. | Toast store and `Toaster`, `ErrorNotice` with retry, `OfflineBanner`, and a styled confirmation dialog. |
 | Faint borders on form fields (about 1.3:1). | The input border token was almost the page color. | `--input` raised to at least 3:1 against the page in both themes. |
 | Component library generated a wrong import. | The shadcn CLI wrote `import { cn } from "cn"`, an unrelated npm package. | Import changed to `@/lib/utils`; the package was removed; `package.json` unchanged. |
+| Staff could not add videos to an exhibition. | The editor kept the videos of an existing exhibition but had no fields to add or change them, and nothing in the checks noticed. | A "Videos" section in the editor (titles and descriptions in both languages, link, author, licence, page of the original). |
+| The map page crashed in a narrow window (`Invalid LatLng (NaN, NaN)`). | The map was built inside a hidden box, and Leaflet cannot frame a map of size zero. | The map is built only while it is visible, and it measures itself again when its box changes. |
+| The map slid over the sticky header while scrolling. | Leaflet's panes use z-index 400 to 1000; the header is 40. | `isolation: isolate` on the map, so the whole map stays under the header and the dialogs. |
+| Only a small button on a library card selected it on the map. | The click handler was on the button only. | The title is a button stretched over the card; the other button stays above it. |
+| The backend's agents, hooks and CI were missing from the project. | They were left out when the starter was merged into the monorepo, and nothing compared the result with the original. | Restored from a clean copy of the starter; the hooks were adapted to `backend/` and tested one by one. |
+| A script that stops the servers it started also stopped the owner's own dev server. | It stopped processes by port, not by the process it had started. | Only processes started by the agent are stopped; for the rest the owner is asked. |
 
 ## 6. Delivery
 
-README (English and Montenegrin) with screenshots, backend plan, repository description and topics, a release, `SPEC.md`, `PLAN.md`, `docs/entities.md` and this file. The project is marked as an unofficial educational demo.
+README (English and Montenegrin) with screenshots, repository description and topics, a release, `SPEC.md`, `PLAN.md`, `docs/entities.md`, the backend's own README and this file, all kept in step with the code (the contract changes in the same commit as the API). A CI workflow runs the checks on every push. The project is marked as an unofficial educational demo.
 
 ## 7. Lessons
 
@@ -112,4 +130,7 @@ README (English and Montenegrin) with screenshots, backend plan, repository desc
 - Ask for an **audit against the rules** before the final push; it finds things you did not ask about.
 - **Look at the result in the browser** at 375 px and 1440 px. Screenshots found layout bugs that automated checks missed.
 - Keep prompts specific: name the files or screens and say what "done" looks like.
+- **Compare a merge with the original.** Merging a starter into a larger repository silently dropped parts of it (agents, hooks, CI); a file-by-file comparison with a clean copy found them.
+- Stop only the processes you started, and check what a command will touch before you run it.
+- Offer two or three variants of something visual and let the owner choose; the owner may well keep the original, and a branch or a revert makes that cheap.
 - Treat the agent's output as a draft: check images, links and layout yourself, because they look right until they are opened.

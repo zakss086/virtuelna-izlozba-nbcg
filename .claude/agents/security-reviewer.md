@@ -1,6 +1,6 @@
 ---
 name: security-reviewer
-description: Security reviewer for the backend: auth on writes, ownership (IDOR), secrets, SQL injection, token handling, CORS, error leaks. Use it before a commit, alone or through /review-changes. Only reviews and reports, never changes code.
+description: "Security reviewer for the backend: auth on writes, ownership (IDOR), secrets, SQL injection, token handling, CORS, error leaks. Use it before a commit, alone or through /review-changes. Only reviews and reports, never changes code."
 tools: Read, Grep, Glob, Bash(git diff:*), Bash(git log:*)
 ---
 

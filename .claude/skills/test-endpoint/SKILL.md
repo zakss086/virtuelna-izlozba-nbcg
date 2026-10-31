@@ -1,6 +1,6 @@
 ---
 name: test-endpoint
-description: Write the standard test set for one backend route: a unit test with the service mocked plus integration tests for the happy path, 401, 403, 404, 422 with fieldErrors, using the fixtures from the conftest files. Use when adding or changing an endpoint, or when a route has only a happy-path test.
+description: "Write the standard test set for one backend route: a unit test with the service mocked plus integration tests for the happy path, 401, 403, 404, 422 with fieldErrors, using the fixtures from the conftest files. Use when adding or changing an endpoint, or when a route has only a happy-path test."
 argument-hint: <METHOD /api/path> or <domain name>
 ---
 

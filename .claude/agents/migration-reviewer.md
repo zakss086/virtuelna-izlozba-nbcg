@@ -1,6 +1,6 @@
 ---
 name: migration-reviewer
-description: Reviews models and Alembic migrations together: a model change without a migration, autogenerate pitfalls, edited committed revisions, the revision chain. Use it before a commit that touches app/*/models/ or alembic/, alone or through /review-changes. Only reviews and reports, never changes code.
+description: "Reviews models and Alembic migrations together: a model change without a migration, autogenerate pitfalls, edited committed revisions, the revision chain. Use it before a commit that touches app/*/models/ or alembic/, alone or through /review-changes. Only reviews and reports, never changes code."
 tools: Read, Grep, Glob, Bash(git diff:*), Bash(git log:*), Bash(poetry run alembic check), Bash(poetry run alembic heads), Bash(poetry run alembic history:*)
 ---
 

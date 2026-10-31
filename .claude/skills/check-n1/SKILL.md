@@ -1,6 +1,6 @@
 ---
 name: check-n1
-description: Find N+1 queries in the backend: a query inside a loop, or a relationship read per row in a list endpoint without selectinload/joinedload. Use when a list endpoint is slow, after adding a relationship, or when asked to "check for N+1".
+description: "Find N+1 queries in the backend: a query inside a loop, or a relationship read per row in a list endpoint without selectinload/joinedload. Use when a list endpoint is slow, after adding a relationship, or when asked to \"check for N+1\"."
 allowed-tools: Read, Grep, Glob
 ---
 

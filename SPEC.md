@@ -18,7 +18,7 @@ Must hold everywhere: loading, empty and error states for every list; usable at 
 |---|---|
 | Visitor (no account, not signed in) | read published exhibitions, search and filter, watch videos, save favorites |
 | Curator | everything a visitor can, plus create exhibitions, edit and delete **own** exhibitions, submit a draft for publishing |
-| Admin | everything a curator can, plus edit any exhibition, publish or return pending exhibitions to draft, list users |
+| Admin | everything a curator can, plus edit any exhibition, publish or return pending exhibitions to draft, manage accounts |
 
 Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (admin).
 
@@ -31,14 +31,17 @@ Exhibition status flow: `draft` -> `pending` (curator submits) -> `published` (a
 | `/exhibitions/:slug` | Exhibition viewer | the template renders the sections; items open a detail dialog with author, year, collection, rights and a source link; videos play; unknown slug shows a not-found message |
 | `/collections` | Collections | the eight collections of the digital library link out; exhibitions from them are listed |
 | `/map` | Interactive map | libraries of Montenegro (photo pins where a free photo exists) and places from exhibitions as two layers; search ignoring diacritics and a type filter work; a detail card shows the photo with credit, facts, contact and links; "nearest library" asks for the location only on click and stores nothing; every place links to its exhibition; approximate locations are marked and the sources are named |
-| `/videos` | Video gallery | all videos of published exhibitions play and link back to their exhibition |
+| `/videos` | Video gallery | all videos of published exhibitions in a film strip; files play in place, YouTube and Vimeo load only on play; each links back to its exhibition |
 | `/about` | About | mission, how an exhibition is made, platform numbers, contact and sources |
 | `/favorites` | Saved | lists saved exhibitions; empty state explains how to save |
 | `/sign-in` | Sign in | email and password validated; wrong credentials show an error; demo accounts can be filled in with one click; after success the user lands on the page for their role (curator: Studio, admin: Administration) with a greeting |
 | `/profile` | Profile | signed-in users see name, email, role with a short description, and their saved exhibitions |
 | `/studio` | Curator dashboard | lists own exhibitions with status; submit, edit, delete; empty state |
 | `/studio/new`, `/studio/:id/edit` | Editor | bilingual fields validated with Zod; sections can be added and removed; saved as draft or submitted; only the author or an admin can edit |
-| `/admin` | Admin | review queue (publish or return to draft) and users list |
+| `/admin` | Admin | review queue (publish or return to draft) and accounts: create, change role, switch on or off, new password; an admin cannot demote or switch off themselves |
+| `/admin/content`, `/admin/libraries`, `/admin/collections` | Edit the site | the texts, the libraries on the map and the collections are edited in both languages and saved to the backend |
+| `/admin/history` | History of changes | who changed what and when, newest first, filtered by kind of record |
+| `/studio/media` | Media library | upload pictures and videos with author and licence; the type is checked from the file |
 | `*` | Not found | explains and links home |
 
 ## Exhibition templates
