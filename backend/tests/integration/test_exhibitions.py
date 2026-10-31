@@ -305,7 +305,7 @@ def test_other_changes_keep_the_view_switch_as_it_was(
     ).json()
 
     changed = client.patch(
-        f"/api/exhibitions/{created['id']}", json={"period": "1900 – 1950"}, headers=auth_headers
+        f"/api/exhibitions/{created['id']}", json={"period": "1900-1950"}, headers=auth_headers
     )
 
     assert changed.json()["allowViewSwitch"] is False
