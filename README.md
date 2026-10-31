@@ -4,7 +4,7 @@
 
 A bilingual (Montenegrin Latin script / English) platform where curators build interactive exhibitions from library collections and visitors explore them. Inspired by the virtual exhibition portals of national libraries, with a modern look and richer templates. Branded after [nb-cg.me](https://nb-cg.me) and linked to the digital library [dlib.me](https://dlib.me).
 
-> Status: the **frontend** (AI-DEV 2026, Workshop 3) and the **backend** (Workshop 4: FastAPI, database, staff sign-in, server-side roles) are both in this repository. The frontend runs on mock data (`pnpm dev`) or on the backend (`pnpm dev:api`). The contract between them is in [`docs/entities.md`](docs/entities.md).
+> Status: **complete after Workshop 4.** The frontend (Workshop 3) and the backend (Workshop 4: FastAPI, database, sign-in, server-side roles) are both in this repository and work together; on top of them the CMS part, the media library, account management, the history of changes and the production-minded extras were built. The frontend runs on mock data (`pnpm dev`) or on the backend (`pnpm dev:api`). The contract between them is in [`docs/entities.md`](docs/entities.md).
 
 > **Notice:** this is an independent, educational demo project made for a workshop. It is **not** the official website of the National Library of Montenegro and is not affiliated with or endorsed by it. The library name and logo are used only for illustration, texts are illustrative, and the sample images and videos come from Wikimedia Commons.
 
@@ -56,15 +56,21 @@ A bilingual (Montenegrin Latin script / English) platform where curators build i
 
 | Video gallery (film strip) |
 |---|
-| ![Video gallery](docs/screenshots/videos-desktop.jpg) |
+| ![Video gallery](docs/screenshots/videos-desktop.png) |
+
+| Account management | History of changes |
+|---|---|
+| ![Accounts](docs/screenshots/accounts-desktop.png) | ![History](docs/screenshots/history-desktop.png) |
 
 ## Workshop context
 
-Built for **AI-DEV 2026, Workshop 3: Frontend in the AI era (from HTML to a React app)**, held on 17 October 2026 at Coinis Hub (Jovan Popović, Anja Pješivac, Stevan Čakić). The programme is co-financed by the Innovation Fund of Montenegro.
+Built for **AI-DEV 2026**, a series of workshops at Coinis Hub co-financed by the Innovation Fund of Montenegro: **Workshop 3, Frontend in the AI era (from HTML to a React app)**, held on 17 October 2026 (Jovan Popović, Anja Pješivac, Stevan Čakić), and **Workshop 4, the backend** (API, database and auth), the following Saturday. Both start from the course's starter repositories.
 
-**Task:** build the frontend of an own app on mock data with Claude Code: 2 to 3 related entities, home, a list with a filter, a detail page, a create/update form and sign-in, responsive at 375 px and 1440 px, plus `docs/entities.md` for the backend.
+**Task, Workshop 3:** build the frontend of an own app on mock data with Claude Code: 2 to 3 related entities, home, a list with a filter, a detail page, a create/update form and sign-in, responsive at 375 px and 1440 px, plus `docs/entities.md` for the backend.
 
-**Delivered:** all of the above, extended with eight exhibition templates, a 3D hall, a video gallery, a bilingual UI and two staff roles. The backend of Workshop 4 is in `backend/` (see [`backend/README.md`](backend/README.md)).
+**Task, Workshop 4:** give that frontend a real backend with Claude Code: FastAPI, a database with migrations, sign-in and roles enforced on the server, the contract in `docs/entities.md` kept in step with the code, and tests.
+
+**Delivered:** the frontend (eight exhibition templates, a 3D hall, a video gallery, a bilingual UI, two staff roles) and the backend (nine domains: auth, users, exhibitions, content, media, libraries, collections, audit, seo; Alembic migrations; SQLite and Postgres; 172 tests; CI on every push), joined in one monorepo. See [`backend/README.md`](backend/README.md) and [`PROMPTS.md`](PROMPTS.md).
 
 ## Run it
 

@@ -1,6 +1,6 @@
 # Prompts and AI workflow
 
-How the app was built with Claude Code (AI-DEV 2026, Workshops 3 and 4). The original requests were written in Montenegrin; they are paraphrased here in English. The log follows the order in which things happened and ends with what went wrong and what was learned.
+How the app was built with Claude Code (AI-DEV 2026, Workshops 3 and 4, both finished). The original requests were written in Montenegrin; they are paraphrased here in English. The log follows the order in which things happened and ends with what went wrong and what was learned.
 
 Related documents: [`CLAUDE.md`](CLAUDE.md) (rules for the agent), [`SPEC.md`](SPEC.md) (product), [`PLAN.md`](PLAN.md) (milestones), [`docs/entities.md`](docs/entities.md) (data and API contract), [`frontend/DESIGN.md`](frontend/DESIGN.md) (design).
 
@@ -95,7 +95,7 @@ This is the shape of a request that worked well: it names the screen, the behavi
 | Is the interactive map right, and what could make it more attractive and useful? Do 1 to 6. | The map frames Montenegro and has a toned-down base map; pins with an icon per kind of library and a legend; distance to every library, the list sorted by it, "Directions" and "Copy link"; a list/map switch on phones; a time slider with a play button; a numbered route for the selected exhibition's stops. |
 | The map behaves oddly when scrolling and clips the main bar; clicking a library card on the left does not select it on the map. | The map had its own z-index range (400 to 1000) above the sticky header (40), so it now has its own stacking context; the title of a card is a button stretched over the whole card, and a library without a pin can be selected too. |
 | Extract the course starters to the desktop as they were on GitHub, then put back into the project everything the course prescribes. | Clean copies of the frontend and backend starters in `Polazne osnove`. Comparing them with the project showed that the merge of the backend had dropped the reviewer agents, the commands, the hooks, the course's settings and the CI; they were restored and adapted to a repository whose backend is in `backend/`. Two skill descriptions and two agent descriptions were invalid YAML (an unquoted colon) and were quoted. |
-| Update GitHub in the style so far with what has been done. | README (English and Montenegrin), PLAN, SPEC and this file brought up to date, with new screenshots of the film strip and the new map. |
+| Update GitHub in the style so far with what has been done, now that both workshops are finished; check that the screenshots match the current state. | README (English and Montenegrin), PLAN, SPEC and this file brought up to date, with the state "complete after Workshop 4". All 21 screenshots were retaken by a script (headless Chrome over the DevTools protocol, at the sizes of the old ones, with the mock accounts signed in where a page needs it), so every picture matches the current look; new ones show the film strip, the new map, account management and the history of changes. The phone pictures are now a true 375 px. |
 
 ## 5. What the agent got wrong, and how it was fixed
 
