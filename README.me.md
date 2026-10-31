@@ -4,7 +4,7 @@
 
 Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digitalizovane građe prave interaktivne izložbe, a posjetioci ih razgledaju. Inspirisana portalima virtuelnih izložbi nacionalnih biblioteka, sa savremenim izgledom i bogatijim načinima prikaza. Vizuelni identitet je preuzet sa [nb-cg.me](https://nb-cg.me), a veza je i sa digitalnom bibliotekom [dlib.me](https://dlib.me).
 
-> Stanje: u ovom repozitorijumu su **frontend** (AI-DEV 2026, Radionica 3) i **backend** (Radionica 4: FastAPI, baza, prijava, uloge provjerene na serveru). Frontend radi na probnim podacima (`pnpm dev`) ili na backendu (`pnpm dev:api`). Ugovor između njih opisan je u [`docs/entities.md`](docs/entities.md).
+> Stanje: **završeno nakon Radionice 4.** Frontend (Radionica 3) i backend (Radionica 4: FastAPI, baza, prijava, uloge provjerene na serveru) su u ovom repozitorijumu i rade zajedno; povrh njih napravljeni su CMS dio, biblioteka medija, upravljanje nalozima, istorija izmjena i dodaci spremni za produkciju. Frontend radi na probnim podacima (`pnpm dev`) ili na backendu (`pnpm dev:api`). Ugovor između njih opisan je u [`docs/entities.md`](docs/entities.md).
 
 > **Napomena:** ovo je samostalan, edukativni demo projekat nastao na radionici. **Nije** zvanični sajt Nacionalne biblioteke Crne Gore, niti je povezan sa njom ili odobren od nje. Naziv i logo biblioteke koriste se samo radi ilustracije, tekstovi su ilustrativni, a probne slike i video zapisi su sa Wikimedia Commons.
 
@@ -56,15 +56,21 @@ Dvojezična (crnogorski latinica / engleski) platforma na kojoj kustosi od digit
 
 | Video galerija (filmska traka) |
 |---|
-| ![Video galerija](docs/screenshots/videos-desktop.jpg) |
+| ![Video galerija](docs/screenshots/videos-desktop.png) |
+
+| Upravljanje nalozima | Istorija izmjena |
+|---|---|
+| ![Nalozi](docs/screenshots/accounts-desktop.png) | ![Istorija](docs/screenshots/history-desktop.png) |
 
 ## Kontekst radionice
 
-Napravljeno za **AI-DEV 2026, Radionica 3: Frontend u AI eri (od HTML-a do React aplikacije)**, održanu 17. oktobra 2026. u Coinis Hubu (Jovan Popović, Anja Pješivac, Stevan Čakić). Program je sufinansiran iz Fonda za inovacije Crne Gore.
+Napravljeno za **AI-DEV 2026**, niz radionica u Coinis Hubu sufinansiran iz Fonda za inovacije Crne Gore: **Radionica 3, Frontend u AI eri (od HTML-a do React aplikacije)**, održana 17. oktobra 2026. (Jovan Popović, Anja Pješivac, Stevan Čakić), i **Radionica 4, backend** (API, baza i prijava), sljedeće subote. Obje polaze od starter repozitorijuma kursa.
 
-**Zadatak:** napraviti frontend sopstvene aplikacije na probnim podacima uz Claude Code: 2 do 3 povezana entiteta, početna, lista sa filterom, stranica sa detaljima, forma za pravljenje i izmjenu i prijava, prilagođeno za 375 i 1440 px, uz `docs/entities.md` za backend.
+**Zadatak, Radionica 3:** napraviti frontend sopstvene aplikacije na probnim podacima uz Claude Code: 2 do 3 povezana entiteta, početna, lista sa filterom, stranica sa detaljima, forma za pravljenje i izmjenu i prijava, prilagođeno za 375 i 1440 px, uz `docs/entities.md` za backend.
 
-**Urađeno:** sve navedeno, uz osam načina prikaza izložbi, 3D salu, video galeriju, dvojezični interfejs i dvije uloge osoblja. Backend iz Radionice 4 je u folderu `backend/` (vidi [`backend/README.md`](backend/README.md)).
+**Zadatak, Radionica 4:** tom frontendu dati pravi backend uz Claude Code: FastAPI, bazu sa migracijama, prijavu i uloge provjerene na serveru, ugovor u `docs/entities.md` usklađen sa kodom i testove.
+
+**Urađeno:** frontend (osam načina prikaza izložbi, 3D sala, video galerija, dvojezični interfejs, dvije uloge osoblja) i backend (devet domena: auth, users, exhibitions, content, media, libraries, collections, audit, seo; Alembic migracije; SQLite i Postgres; 172 testa; CI na svaki push), spojeni u jedan monorepo. Vidi [`backend/README.md`](backend/README.md) i [`PROMPTS.md`](PROMPTS.md).
 
 ## Pokretanje
 

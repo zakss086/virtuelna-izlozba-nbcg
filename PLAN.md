@@ -3,7 +3,7 @@
 **Status:** milestones 1 to 6 are done: the frontend on mock data (all eight templates, two staff roles, curator studio, favorites, video gallery, collections, about) and the backend of Workshop 4 in `backend/` (API, database, sign-in, roles), with `pnpm dev:api` running the frontend on it. After that, the CMS part was built (site texts, media library, libraries and collections as data, account management, history of changes), together with a film-strip video gallery with YouTube and Vimeo, share previews and a sitemap, a better interactive map, performance work (pages load on demand), and the course tooling (reviewer agents, commands, hooks, CI). Next: going public (production setup, security hardening, the library's own storage for pictures and fonts) and the metadata for aggregators. See README.md for what exists now; the sections below are the original plan.
 
 Reference: virtual exhibition portals of national libraries, modernized.
-Course: AI-DEV 2026 Workshop 3 (frontend with mock data), Workshop 4 (backend).
+Course: AI-DEV 2026 Workshop 3 (frontend with mock data) and Workshop 4 (backend); both are finished.
 
 ## Decisions so far
 - Bilingual UI and content: Montenegrin (Latin script) + English. Code, comments, commits, docs in English.
